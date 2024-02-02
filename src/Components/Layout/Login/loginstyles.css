@@ -1,0 +1,143 @@
+* {
+  padding: 0px !important;
+  margin: 0px !important;
+}
+
+.main-container {
+  background-image: linear-gradient(to right, #5f1ebe, #3c91ff);
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+.botImage {
+  width: 100%;
+  height: 29rem;
+  box-sizing: border-box !important;
+  padding: 20px !important;
+  background-color: #f8f8f8;
+  /* aspect-ratio: 663/681; */
+}
+.imageContainer {
+  width: 36rem !important;
+  background-color: #f8f8f8;
+  padding: 20px !important;
+}
+
+.innerCard {
+  width: 65em !important;
+  height: fit-content !important;
+  background-color: white;
+  margin: auto !important;
+}
+
+.genai {
+  letter-spacing: -2.5px;
+  font-weight: 900;
+}
+.bot {
+  letter-spacing: -3px;
+  font-weight: 300;
+}
+.genaibot {
+  /*  position: absolute;
+  top: 120px; */
+  /* left: 971px;  */
+  text-align: center;
+  /* margin-top: 5rem */
+  font-size: 2rem;
+  color: #2874f0;
+}
+
+.userLogin {
+  /*   top: 316px;
+  left: 995px; */
+  font-size: 0.8rem;
+  font-weight: 500;
+  /* position: absolute; */
+  letter-spacing: 0.5px;
+  text-align: center;
+  color: #9747ff;
+}
+.layer1Parent {
+  text-align: center;
+}
+.layer1Icon {
+  width: 361.2px;
+  height: 369.1px;
+}
+.checkbox {
+  width: 16px;
+  height: 16px;
+}
+.otpContainer {
+  margin-left: 15px;
+}
+.loginScreenChild2 {
+  border-radius: 8px;
+  width: 308px;
+  height: 42px;
+  background-color: #9747ff;
+  cursor: pointer;
+  color: white;
+  font-weight: 500;
+  font-size: 16px;
+  border: none;
+  margin-bottom: 20px !important;
+}
+.orLoginWith {
+  letter-spacing: 0.5px;
+  color: #747474;
+  height: 16px;
+  width: fit-content;
+  font-weight: 400;
+  font-size: 14px;
+  margin: auto !important;
+}
+.needAnAccountParent {
+  width: fit-content;
+  height: 17px;
+  margin: auto !important;
+}
+.needAnAccount {
+  letter-spacing: 0.5px;
+  color: #747474;
+  display: inline;
+}
+.signupContainer {
+  color: #9747ff !important;
+  /* color: var(--primary-dark-purple); */
+}
+.image8Icon,
+.image9Icon {
+  width: 102px;
+  height: 63px;
+  object-fit: cover;
+  display: block;
+}
+.image9Icon {
+  height: 57px;
+}
+.inputText1 {
+  font-size: 17px;
+  background: #e9e7ff url(../../../assets/Vector.png) no-repeat scroll 7px;
+  padding-left: 30px !important;
+}
+.inputText2 {
+  font-size: 17px;
+  background: #e9e7ff url(../../../assets/Action.png) no-repeat scroll 7px;
+  padding-left: 30px !important;
+}
+.loginContainer {
+  margin: auto !important;
+  width: fit-content;
+}
+.imageByMacrovector {
+  color: #747474;
+}
+
+.orLoginWith span:after,
+.orLoginWith span:before {
+  content: "\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0";
+  text-decoration: line-through;
+}
