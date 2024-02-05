@@ -1,6 +1,6 @@
 import React from "react";
-import Navbar from "../Layout/Dashboard/Navbar";
-import Header from "../Layout/Dashboard/Header";
+/* import Navbar from "../Layout/Dashboard/Navbar";
+import Header from "../Layout/Dashboard/Header"; */
 const UserMgmtData = () => {
   return (
     <div>

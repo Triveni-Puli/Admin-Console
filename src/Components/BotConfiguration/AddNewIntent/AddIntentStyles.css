@@ -6,6 +6,120 @@ input {
   border-radius: 3px;
 }
 input,
+* {
+  font-family: "Roboto";
+}
+input {
+  border: 1px solid #c8d2dd;
+  border-radius: 3px;
+}
+input,
+label {
+  display: block;
+}
+.add-intent-main {
+  padding: 0.5rem 5rem 0.5rem 3rem !important;
+}
+.add-intent-label {
+  color: #19191e;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.name {
+  margin-top: 0.5rem !important;
+}
+.description {
+  margin-top: 0.3rem !important;
+}
+#description {
+  width: 450px;
+}
+
+.intent-entity {
+  border: 1px solid #c8d2dd;
+  border-radius: 3px;
+  margin-top: 1rem !important;
+  width: 450px;
+  padding: 0.7rem !important;
+}
+.intent-entity-text {
+  width: 400px !important;
+  height: 30px !important;
+  /*  */
+  justify-content: space-between;
+}
+#entity {
+  width: 400px;
+  margin-right: 0.4rem !important;
+}
+
+.add-enti-button {
+  background-color: #04aa6d;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  margin: 4px 2px;
+  cursor: pointer;
+  width: 2rem;
+}
+.intent-example {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #c8d2dd;
+  border-radius: 3px;
+  margin-top: 1rem !important;
+  width: 450px;
+  padding: 0.7rem !important;
+}
+.add-ex-button {
+  border: 1px solid #077251;
+  border-radius: 10px;
+  background-color: white;
+  color: #077251;
+  text-align: center;
+  display: inline-block;
+  font-size: 15px;
+  margin: 4px 2px !important;
+  cursor: pointer;
+  width: 3rem;
+  height: 1.5rem;
+}
+.add-intent-submit {
+  margin-top: 25px !important;
+  border: none;
+  background-color: #9747ff;
+  border-radius: 8px;
+  color: white;
+  padding: 8px 6px !important;
+  font-size: 12px;
+}
+.reasoning-action {
+  border: 1px solid #c8d2dd;
+  border-radius: 3px;
+  margin-top: 1rem !important;
+  width: 450px;
+  padding: 0.7rem !important;
+}
+.api-url {
+  font-size: 14px;
+  margin-top: 0.5rem !important;
+}
+.api-param {
+  font-size: 14px;
+  margin-top: 0.5rem !important;
+}
+
+#reason-description {
+  width: 425px;
+  font-size: 14px;
+  margin-top: 0.5rem !important;
+}
+
 label {
   display: block;
 }
