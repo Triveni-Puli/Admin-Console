@@ -2,15 +2,25 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../AddNewIntent/AddIntentStyles.css";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { showPopup, deleteItem } from "../AddNewIntent/IntentExample/actions"; // Import the action
+import Popup from "./IntentExample/AddPopup";
 
 const AddNewIntent = (props) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [inputEntity, setInputEntity] = useState("");
+  // const [items, setItems] = useState(state.items);
 
   // States for checking the errors
   const [submitted, setSubmitted] = useState(false);
-  //const [error, setError] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const dispatch = useDispatch();
+  const isPopupVisible = useSelector((state) => state.isPopupVisible);
+  const items = useSelector((state) => state.items);
+  console.log(items);
+
+  //const [error, setError] = useState(false)
 
   const handleName = (e) => {
     setName(e.target.value);
@@ -33,6 +43,7 @@ const AddNewIntent = (props) => {
   } */
     setSubmitted(true);
   };
+
   return (
     <div>
       <div className="d-flex">
@@ -52,7 +63,7 @@ const AddNewIntent = (props) => {
       <div className="add-intent-main">
         <div className="add-intent-label">Add New Intent</div>
         <hr />
-        <form onSubmit={handleSubmit}>
+        <form>
           <section>
             <div className="name">
               <label for="name">Name</label>
@@ -63,7 +74,6 @@ const AddNewIntent = (props) => {
                 name="name"
                 onChange={handleName}
                 placeholder="Book a cab"
-                required
               />
             </div>
             <div className="description">
@@ -75,7 +85,6 @@ const AddNewIntent = (props) => {
                 value={description}
                 name="Description"
                 placeholder="Booking a cab"
-                required
               />
             </div>
             <div className="intent-entity">
@@ -94,7 +103,9 @@ const AddNewIntent = (props) => {
                   name="entity"
                   placeholder="Add Entities"
                 />
-                <button className="add-enti-button">+</button>
+                <button type="button" className="add-enti-button">
+                  +
+                </button>
               </div>
             </div>
             <div className="intent-example">
@@ -104,9 +115,29 @@ const AddNewIntent = (props) => {
                   Add Examples for the intent
                 </p>
               </div>
-              <button className="add-ex-button">Add {""} +</button>
+              <div>
+                <button
+                  type="button"
+                  className="add-ex-button"
+                  onClick={() => dispatch(showPopup())}>
+                  Add {""} +
+                </button>{" "}
+                {isPopupVisible && <Popup />}
+                <ul>
+                  {items.map((item, i) => {
+                    <li key={i}>
+                      {item.text}
+                      <button
+                        type="button"
+                        onClick={() => dispatch(deleteItem(i))}>
+                        Delete
+                      </button>
+                    </li>;
+                  })}
+                </ul>
+              </div>
             </div>
-            <div className="reasoning-action">
+            <div className="reasoning-action ">
               <div>
                 <div>Reasoning and Action</div>
                 <p style={{ fontSize: "14px", color: "#A5AFBE" }}>
@@ -120,7 +151,6 @@ const AddNewIntent = (props) => {
                   type="text"
                   value=""
                   name="api-url"
-                  onChange={""}
                   placeholder="abcxyz@hcl.com"
                 />
               </div>
@@ -131,7 +161,6 @@ const AddNewIntent = (props) => {
                   type="text"
                   value=""
                   name="api-param"
-                  onChange={""}
                   placeholder="abcxyz@hcl.com"
                 />
               </div>
@@ -142,7 +171,6 @@ const AddNewIntent = (props) => {
                   type="text"
                   value=""
                   name="reason-description"
-                  onChange={""}
                   placeholder="abcxyz@hcl.com"
                 />
               </div>
