@@ -4,9 +4,11 @@ import "../Layout/Dashboard/dashboardStyles.css";
 import Navbar from "../Layout/Dashboard/Navbar";
 import Header from "../Layout/Dashboard/Header";
 import "./KaConfiguration.css"
-import showImg from "../../assets/show.svg";
+import showImg from "../../assets/showEye.svg";
 import editImg from "../../assets/edit.svg";
 import deleteImg from "../../assets/delete.svg";
+import delSmallImg from "../../assets/deleteSmall.svg";
+import plusImg from "../../assets/plusIcon.svg";
 
 const KaConfiguration = () => {
   const [KACollections, setKACollections] = useState([]);
@@ -42,14 +44,14 @@ const KaConfiguration = () => {
 
             <div className="configContainer">
               <div className="grid">
-                <div>
+                <div className="titleArea">
                   <span>K A Collections</span>
-                  <span className="topBtn">
-                    <button className="addBtn">Add New Collection</button>
-                    <button className="delBtn">Delete  Collection</button>
+                  <span className="topRight">
+                    <button className="topBtn addBtn">Add New Collection<img src={plusImg}></img></button>
+                    <button className="topBtn delBtn">Delete  Collection <img src={delSmallImg}></img></button>
                   </span>
                 </div>
-                <div className="gridSection">
+                <div className="gridDetailsSection">
                   <div class="gridRow gridHeader">
                       <div class="gridFirstCol"><input type="checkbox"></input></div>
                       <div class="gridSecCol">Name</div>
@@ -70,6 +72,7 @@ const KaConfiguration = () => {
                               <img src={deleteImg} />
                             </div>
                           </div>
+                          <hr className="hrLine"/>
                         </>
                       })
                     }
