@@ -1,18 +1,8 @@
 import React from "react";
-/* import BotLogo from "../assets/Layer_1.png";
-import UserImage from "../assets/user-octagon.png";
-import BotImage from "../assets/PRINT.png";
-import KnowledgeImage from "../assets/setting.png";
-import Chart from "../assets/chart.png";
-import ReinforcementImg from "../assets/Reinforcement.png";
-import ReportImg from "../assets/note.png"; */
+import "../Dashboard/dashboardStyles.css";
 import United from "../../../assets/United.svg";
 import Notification from "../../../assets/Notifications.png";
 import profileIcon from "../../../assets/Mask group.png";
-/* import { BrowserRouter, Link } from "react-router-dom";
-import { Nav } from "react-bootstrap";
-import DashboardImage from "../assets/Dashboard.png";
-import UserMgmt from "../Pages/UserMgmt"; */
 
 const Header = () => {
   return (

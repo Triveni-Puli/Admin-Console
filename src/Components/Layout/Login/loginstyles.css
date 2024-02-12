@@ -1,14 +1,16 @@
-* {
+/* * {
   padding: 0px !important;
   margin: 0px !important;
 }
-
+ */
 .main-container {
   background-image: linear-gradient(to right, #5f1ebe, #3c91ff);
   height: 100vh;
   justify-content: center;
   align-items: center;
   display: flex;
+  padding: 0px;
+  margin: 0px;
 }
 .botImage {
   width: 100%;

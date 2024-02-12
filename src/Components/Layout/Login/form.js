@@ -6,7 +6,7 @@ import "../Login/loginstyles.css";
 import Image4 from "../../../assets/image 8.png";
 import Image5 from "../../../assets/image 9.png";
 
-const Form = () => {
+const Form = ({ onLogin }) => {
   const userRef = useRef();
   const errRef = useRef();
   /*   const navigate = useNavigate();
@@ -41,11 +41,12 @@ const Form = () => {
       setMessage(response.data);
 
       console.log(response?.data?.body);
-      /*    navigate("/home"); */
-
-      setUser("");
-      setPwd("");
-      setSuccess(true);
+      if (response?.data?.statusCode === 200) {
+        onLogin();
+        setSuccess(true);
+      } else {
+        alert(response?.data?.body);
+      }
     } catch (err) {
       if (!err?.response) {
         setErrMsg("No Server Response");
