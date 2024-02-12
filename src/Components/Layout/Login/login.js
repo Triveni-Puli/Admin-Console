@@ -6,7 +6,7 @@ import Image2 from "../../../assets/vector-1.svg";
 import Image3 from "../../../assets/vector-2.svg";
 import Form from "./form";
 
-const Login = () => {
+const Login = ({ onLogin }) => {
   return (
     <div className="main-container">
       <div className="container-fluid">
@@ -29,7 +29,7 @@ const Login = () => {
               </div>
             </div>
             <div className="col col-lg-4 m-auto  ">
-              <Form />
+              <Form onLogin={onLogin} />
             </div>
           </div>
         </div>

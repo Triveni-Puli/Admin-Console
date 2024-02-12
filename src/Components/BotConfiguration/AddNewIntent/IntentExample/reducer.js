@@ -5,11 +5,15 @@ import {
   DELETE_ITEM,
   SHOW_DEL_POPUP,
   HIDE_DEL_POPUP,
+  ADD_INTENT_ENTITY,
+  REMOVE_INTENT_ENTITY,
+  CLEAR_LIST,
 } from "./actions";
 
 const initialState = {
   isPopupVisible: false,
   items: [],
+  intentEntities: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -33,7 +37,24 @@ const reducer = (state = initialState, action) => {
         ...state,
         items: state.items.filter((_, index) => index !== action.payload),
       };
-
+    case ADD_INTENT_ENTITY:
+      return {
+        ...state,
+        intentEntities: [...state.intentEntities, action.payload],
+      };
+    case REMOVE_INTENT_ENTITY:
+      return {
+        ...state,
+        intentEntities: state.intentEntities.filter(
+          (_, index) => index !== action.payload
+        ),
+      };
+    case CLEAR_LIST:
+      return {
+        ...state,
+        items: [],
+        intentEntities: [],
+      };
     default:
       return state;
   }
