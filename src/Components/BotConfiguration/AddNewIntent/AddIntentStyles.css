@@ -62,7 +62,7 @@ label {
   text-decoration: none;
   display: inline-block;
   font-size: 15px;
-  margin: 4px 2px;
+  /*  margin: 4px 2px; */
   cursor: pointer;
   width: 2rem;
 }
@@ -131,7 +131,7 @@ label {
   display: flex;
   justify-content: space-between;
   list-style-type: none;
-  padding: 5px !important;
+  padding: 5px;
   height: 30px;
   display: flex;
   align-items: center;
@@ -207,15 +207,44 @@ label {
   font-size: 18px;
 }
 .modalcontent {
-  margin-top: 0.5rem !important;
-  margin-bottom: 1rem !important;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
 }
 .modalcontent input {
   width: 100%;
   height: 30px;
-  margin-top: 0.5rem !important;
+  margin-top: 0.5rem;
 }
 .modalfooter {
   display: flex;
   justify-content: center;
+}
+
+.entity-container ul {
+  list-style-type: none;
+}
+.entity-container li {
+  display: flex;
+  margin: 5px 8px;
+  background-color: #c9e5ff;
+  border-radius: 15px;
+  color: #0049b2;
+  padding: 2px 5px;
+}
+
+.cross-circle {
+  width: 15px;
+  height: 15px;
+  margin: 5px 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: 1px solid #0049b2;
+  border-radius: 50%;
+}
+
+.cross-symbol {
+  color: #0049b2;
+  font-size: 10px;
 }

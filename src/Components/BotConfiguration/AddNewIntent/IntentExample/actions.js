@@ -8,6 +8,22 @@ export const DELETE_ITEM = "DELETE_ITEM";
 export const SHOW_DEL_POPUP = "SHOW_DEL_POPUP";
 export const HIDE_DEL_POPUP = "HIDE_DEL_POPUP";
 
+export const ADD_INTENT_ENTITY = "ADD_INTENT_ENTITY";
+export const REMOVE_INTENT_ENTITY = "REMOVE_INTENT_ENTITY";
+export const CLEAR_LIST = "CLEAR_LIST";
+
+export const clearList = () => ({ type: CLEAR_LIST });
+
+export const addIntentEntity = (text) => ({
+  type: ADD_INTENT_ENTITY,
+  payload: text,
+});
+
+export const removeIntentEntity = (index) => ({
+  type: REMOVE_INTENT_ENTITY,
+  payload: index,
+});
+
 export const showPopup = () => ({ type: SHOW_POPUP });
 
 export const hidePopup = () => ({ type: HIDE_POPUP });
