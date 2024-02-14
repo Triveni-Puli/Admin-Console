@@ -118,3 +118,48 @@
     /* color:#D4D4D4; */
 }
 
+.line {
+    color: #C8D2DD;
+    height: 1px;
+}
+
+.kaConfig {
+    display: flex;
+    flex-basis: 33%;
+    flex-direction: row;
+}
+
+.kaBottom {
+    height:250px;
+    background-color: #FFFFFF;
+    border: 1px solid #C8D2DD;
+    border-radius: 16px;
+    margin:20px;
+    padding: 20px;
+    /* width:80% */
+}
+
+.rightSpace {
+    margin-right: 20px;
+}
+
+.items {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.heading {
+    font-family: Roboto;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #19191E;
+}
+
+.bottomBtn {
+    text-align: center;
+}
+
