@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
+import { useDispatch, useSelector } from "react-redux";
 import delSmallImg from "../../assets/deleteSmall.svg";
 import plusImg from "../../assets/plusIcon.svg";
 import CustomGrid from '../Common/Grid';
+import {showCreatePageUI} from "./KaActions";
 import "./KaConfiguration.css"
 
 const ViewKaCollection = (props) => {
+  const dispatch = useDispatch();
   const [KACollections, setKACollections] = useState([]);
   useEffect(() => {
     axios.get("https://lohbeuf4mgodcuhxj3q343z7o40brjhx.lambda-url.ap-south-1.on.aws/", {
@@ -21,7 +24,8 @@ const ViewKaCollection = (props) => {
 
   
   function handleAddCollection(){
-    props.handleAddButton(true);
+    dispatch(showCreatePageUI(true));
+    // props.handleAddButton(true);
   }
 
   return (
