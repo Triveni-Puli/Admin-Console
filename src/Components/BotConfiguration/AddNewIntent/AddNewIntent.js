@@ -125,6 +125,7 @@ const AddNewIntent = () => {
     <div>
       <div className="d-flex">
         <Link
+          to="/botconfiguration"
           style={{
             textDecoration: "none",
             color: "#0049B2",

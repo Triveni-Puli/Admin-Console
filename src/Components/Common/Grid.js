@@ -12,7 +12,7 @@ import {
 import { createSvgIcon } from "@mui/material/utils";
 
 function EditToolbar(props) {
-  const { setRows, setRowModesModel } = props;
+  //const { setRows, setRowModesModel } = props;
   return <GridToolbarContainer></GridToolbarContainer>;
 }
 
@@ -24,13 +24,6 @@ export default function CustomGrid(props) {
   const gridGetRowId = props.getRowId || defaultGetRowId;
   const [rows, setRows] = React.useState(dataRows);
   const [rowModesModel, setRowModesModel] = React.useState({});
-
-  /* Checkbox Selection  to delete the records */
-  /* const [selectedRowIds,setSelectedRowIds]=useState([]);*/
-
-  // const handleSelectionChange = (selection) => {
-  //   props.onSelectionModelChange(selection);
-  // };
 
   const handleRowEditStop = (params, event) => {
     if (params.reason === GridRowEditStopReasons.rowFocusOut) {
@@ -48,33 +41,7 @@ export default function CustomGrid(props) {
 
   /*  Integrating Delete API in Botconfig */
   const handleDeleteClick = async (item) => {
-    console.log(item.id);
-    const data = JSON.stringify({ intent: item.id });
-    if (dataIdentifier === "botConfig") {
-      try {
-        /* for (const id of selectedRowIds) { */
-        const response = await axios.delete(
-          "https://hi954elm6a.execute-api.ap-south-1.amazonaws.com/dev/delete_intent",
-          { params: { intent: item.id } },
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        if (response.status === 200) {
-          console.log("Item deleted", response.data);
-
-          /*     setRows(updatedRows);
-          setSelectedRowIds([]); */
-          setRows(rows.filter((row) => row.intent !== item.id));
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    }
-
-    /*     setRows(rows.filter((row) => row.id !== id)); */
+    props.onDelete(item);
   };
 
   const processRowUpdate = (newRow) => {
@@ -84,6 +51,7 @@ export default function CustomGrid(props) {
   };
 
   const handleRowModesModelChange = (newRowModesModel) => {
+    console.log(newRowModesModel);
     setRowModesModel(newRowModesModel);
   };
 
@@ -264,7 +232,7 @@ export default function CustomGrid(props) {
         hideFooterPagination
         // editMode="row"
         // rowModesModel={rowModesModel}
-        // onRowModesModelChange={handleRowModesModelChange}
+        onRowModesModelChange={handleRowModesModelChange}
         // onRowEditStop={handleRowEditStop}
         // processRowUpdate={processRowUpdate}
         // slots={{
@@ -275,7 +243,7 @@ export default function CustomGrid(props) {
         // }}
         checkboxSelection
         // selectionModel={selectedRowIds}
-        // onSelectionModelChange={handleSelectionChange}
+        //onSelectionModelChange={(itm) => console.log(itm)}
       />
     </Box>
   );
