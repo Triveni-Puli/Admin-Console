@@ -16,6 +16,9 @@
   padding: 1rem !important;
   width: 25rem;
 }
+.modalDialog {
+  width: 25rem;
+}
 .btnn {
   border: none;
   padding: 0.5rem 1.5rem !important;
