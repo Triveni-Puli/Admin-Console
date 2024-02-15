@@ -115,7 +115,7 @@ const BotConfigData = () => {
                 getRowId={(row) => row.intent}
                 dataIdentifier="botConfig"
                 onSelectionModelChange={setGridSelectionModel}
-                onDelete={handleDelete}
+                //onDelete={handleDelete}
               />
             )}
           </div>
