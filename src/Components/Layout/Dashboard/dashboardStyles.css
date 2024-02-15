@@ -48,10 +48,13 @@
   margin-top: 0.6rem;
   list-style-type: none;
 }
-.sidebar-items a img:hover {
-  fill: white;
+.sidebar-items img:hover path {
+  stroke: white;
   margin-bottom: 2px;
 }
+/* svg:hover path {
+  stroke: #fce57e;
+} */
 .sidebar-items a:hover {
   background-color: #9747ff;
   color: #ffffff;
@@ -65,7 +68,7 @@
 
 .sidebar a {
   display: flex !important;
-  height: 2rem !important;
+  height: 2.5rem;
   align-items: center;
   text-decoration: none;
   color: #737791;
@@ -76,6 +79,8 @@
 }
 .sidebar-items img {
   margin-bottom: 1px;
+  color: #f9fafb;
+  fill: white;
 }
 
 .sidebar-items p {

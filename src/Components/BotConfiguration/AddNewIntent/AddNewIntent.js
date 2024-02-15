@@ -36,10 +36,11 @@ const AddNewIntent = () => {
 
   const [submitted, setSubmitted] = useState(false);
   const dispatch = useDispatch();
-  const isPopupVisible = useSelector((state) => state.isPopupVisible);
-  const isDelPopupVisible = useSelector((state) => state.isDelPopupVisible);
-  const items = useSelector((state) => state.items);
-  const intentEntities = useSelector((state) => state.intentEntities);
+  // const isPopupVisible = useSelector((state) => state.isPopupVisible);
+  // const isDelPopupVisible = useSelector((state) => state.isDelPopupVisible);
+  const items = useSelector((state) => state.reducer.items);
+  const intentEntities = useSelector((state) => state.reducer.intentEntities);
+  //console.log(useSelector((state) => console.log(state)));
 
   const handleName = (e) => {
     setName(e.target.value);
@@ -59,7 +60,7 @@ const AddNewIntent = () => {
   const handleAddEntity = () => {
     if (inputEntity.trim() !== "") {
       dispatch(addIntentEntity(inputEntity));
-      setInputEntity("");
+      //setInputEntity("");
     } else {
       alert("Please Enter the Intent Entity Value");
     }
@@ -189,16 +190,17 @@ const AddNewIntent = () => {
               </p>
               <div className="d-flex entity-container">
                 <ul>
-                  {intentEntities.map((intentEntity, index) => (
-                    <li key={index} className="list-item">
-                      <span>{intentEntity}</span>
-                      <div
-                        className="cross-circle"
-                        onClick={() => handleRemoveEntity(index)}>
-                        <span className="cross-symbol">X</span>
-                      </div>
-                    </li>
-                  ))}
+                  {intentEntities &&
+                    intentEntities.map((intentEntity, index) => (
+                      <li key={index} className="list-item">
+                        <span>{intentEntity}</span>
+                        <div
+                          className="cross-circle"
+                          onClick={() => handleRemoveEntity(index)}>
+                          <span className="cross-symbol">X</span>
+                        </div>
+                      </li>
+                    ))}
                 </ul>
               </div>
               <div className="d-flex intent-entity-text">
@@ -250,7 +252,7 @@ const AddNewIntent = () => {
               {/*  {isPopupVisible && <Popup />} */}
               <div>
                 <ul className="intent-list">
-                  {items.map((item, i) => {
+                  {items?.map((item, i) => {
                     return (
                       <div className="ex-list-items">
                         <li key={i}>
