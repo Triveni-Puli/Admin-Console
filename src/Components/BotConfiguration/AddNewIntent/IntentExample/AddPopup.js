@@ -3,6 +3,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { hidePopup, addNewItem } from "./actions";
 import "../AddIntentStyles.css";
 
+import Box from "@mui/material/Box";
+
+import Dialog from "@mui/material/Dialog";
+/* import DialogActions from "@mui/material/DialogActions"; */
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+/* import DialogTitle from "@mui/material/DialogTitle"; */
+import FormControl from "@mui/material/FormControl";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import Switch from "@mui/material/Switch";
+import Button from "@mui/material/Button";
+
 /* const Popup = () => {
   const dispatch = useDispatch();
   const [text, setText] = useState("");
@@ -58,7 +73,7 @@ export default Popup; */
 /* Add Popup using MUI
  */
 
-import Button from "@mui/joy/Button";
+/* import Button from "@mui/joy/Button"; */
 import Modal from "@mui/joy/Modal";
 import ModalClose from "@mui/joy/ModalClose";
 import Typography from "@mui/joy/Typography";
@@ -67,6 +82,9 @@ import Divider from "@mui/joy/Divider";
 import DialogTitle from "@mui/joy/DialogTitle";
 import ModalDialog from "@mui/joy/ModalDialog";
 import Input from "@mui/joy/Input";
+
+/* import Input from "@mui/material/Input"; */
+const ariaLabel = { "aria-label": "description" };
 
 export default function Popup({ addPopupOpen, onClose }) {
   /*   const [open, setOpen] = React.useState(false); */
@@ -80,10 +98,14 @@ export default function Popup({ addPopupOpen, onClose }) {
       setText("");
     }
   };
+
   return (
-    <React.Fragment>
+    <div className="modalDialog">
       <Modal open={addPopupOpen} onClose={onClose}>
-        <ModalDialog variant="outlined" role="alertdialog">
+        <ModalDialog
+          variant="outlined"
+          role="alertdialog"
+          style={{ width: "41rem" }}>
           <DialogTitle> Add Intent Example</DialogTitle>
           <Divider />
           <ModalClose variant="plain" sx={{ m: 1 }} />
@@ -93,16 +115,31 @@ export default function Popup({ addPopupOpen, onClose }) {
             value={text}
             onChange={(e) => setText(e.target.value)}
           />
-          <DialogActions>
-            <Button variant="solid" color="danger" onClick={handleAdd}>
+          <DialogActions
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}>
+            <Button
+              variant="contained"
+              style={{ backgroundColor: "#9747ff", width: "8rem" }}
+              onClick={handleAdd}>
               ADD
             </Button>
-            <Button variant="plain" color="neutral" onClick={onClose}>
+            <Button
+              variant="outlined"
+              style={{
+                color: "#C8D2DD",
+                width: "8rem",
+                border: "1px solid #C8D2DD",
+              }}
+              onClick={onClose}>
               CANCEL
             </Button>
           </DialogActions>
         </ModalDialog>
       </Modal>
-    </React.Fragment>
+    </div>
   );
 }

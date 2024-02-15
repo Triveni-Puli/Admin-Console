@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "../AddNewIntent/AddIntentStyles.css";
 import { useState } from "react";
 import axios from "axios";
@@ -17,8 +17,9 @@ import {
 import Popup from "./IntentExample/AddPopup";
 import DeletePopup from "./IntentExample/DeletePopup";
 
-const AddNewIntent = (props) => {
+const AddNewIntent = () => {
   const [name, setName] = useState("");
+  const [intentError, setIntentError] = useState("");
   const [description, setDescription] = useState("");
   const [inputEntity, setInputEntity] = useState("");
   const [apiUrl, setApiUrl] = useState("");
@@ -26,6 +27,10 @@ const AddNewIntent = (props) => {
   const [apiDescription, setApiDescription] = useState("");
   const [delPopupOpen, setDelPopupOpen] = useState(false);
   const [addPopupOpen, setAddpopupOpen] = useState(false);
+
+  //const [data, setData] = useState(null);
+  const history = useNavigate();
+
   // const [items, setItems] = useState(state.items);
 
   // States for checking the errors
@@ -36,8 +41,11 @@ const AddNewIntent = (props) => {
   const items = useSelector((state) => state.items);
   const intentEntities = useSelector((state) => state.intentEntities);
 
+  /*   dispatch(clearList()); */
+
   const handleName = (e) => {
     setName(e.target.value);
+    setIntentError("");
   };
 
   const handleDescription = (e) => {
@@ -66,8 +74,20 @@ const AddNewIntent = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const duplicateCheckResponse = await axios.get(
+        "https://hi954elm6a.execute-api.ap-south-1.amazonaws.com/dev/check_intent",
+        { params: { intent: name } },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(duplicateCheckResponse);
+
+      /*       call POST API on Form Submit if no duplicate intent present */
       const response = await axios.post(
-        "https://1wbzr8ickk.execute-api.ap-south-1.amazonaws.com/dev/",
+        "https://hi954elm6a.execute-api.ap-south-1.amazonaws.com/dev/put_intent",
         {
           intent: name,
           description: description,
@@ -83,20 +103,20 @@ const AddNewIntent = (props) => {
           },
         }
       );
-      if (response?.data?.statusCode === 200) {
-        dispatch(clearList());
-      }
-      /* 
-      setMessage(response.data); */
 
-      console.log(response);
       /*  if (response?.data?.statusCode === 200) {
-        onLogin();
-        setSuccess(true);
-      } else {
-        alert(response?.data?.body);
+       
       } */
+      console.log(response);
+      // setData(response?.data);
+      history(
+        "/botconfiguration"
+        // { state: { responseData: response.data } }
+      );
     } catch (err) {
+      if (err.response?.status === 400) {
+        setIntentError(err.response.data);
+      }
       console.log(err);
     }
   };
@@ -133,6 +153,7 @@ const AddNewIntent = (props) => {
                 placeholder="Book a cab"
                 required
               />
+              {intentError && <p style={{ color: "red" }}>{intentError}</p>}
             </div>
             <div className="description">
               <label for="description">Description</label>

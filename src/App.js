@@ -15,10 +15,17 @@ import Header from "./Components/Layout/Dashboard/Header";
 /* import "../src/Components/Layout/Dashboard/dashboardStyles.css"; */
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    window.sessionStorage.getItem("isLoggedIn")
+  );
   const handleLogin = () => {
     setIsLoggedIn(true);
+    window.sessionStorage.setItem("isLoggedIn", true);
   };
+  /*  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  }; */
   return (
     <div>
       <BrowserRouter>
