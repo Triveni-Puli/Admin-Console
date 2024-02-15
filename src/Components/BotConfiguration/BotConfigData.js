@@ -55,6 +55,35 @@ const BotConfigData = () => {
     setBotIntentList(updatedRows);
   };
 
+  const handleDelete = async (item) => {
+    console.log(item.id);
+    const data = JSON.stringify({ intent: item.id });
+    // if (dataIdentifier === "botConfig") {
+    try {
+      /* for (const id of selectedRowIds) { */
+      const response = await axios.delete(
+        "https://hi954elm6a.execute-api.ap-south-1.amazonaws.com/dev/delete_intent",
+        { params: { intent: item.id } },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.status === 200) {
+        console.log("Item deleted", response.data);
+
+        /*     setRows(updatedRows);
+          setBotIntentList([]); */
+        setBotIntentList(botIntentList.filter((row) => row.intent !== item.id));
+      }
+    } catch (err) {
+      console.log(err);
+    }
+
+    /*     setRows(rows.filter((row) => row.id !== id)); */
+  };
+
   return (
     <div>
       <div className="configContainer">
@@ -86,6 +115,7 @@ const BotConfigData = () => {
                 getRowId={(row) => row.intent}
                 dataIdentifier="botConfig"
                 onSelectionModelChange={setGridSelectionModel}
+                onDelete={handleDelete}
               />
             )}
           </div>
