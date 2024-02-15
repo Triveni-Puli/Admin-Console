@@ -23,6 +23,7 @@ const AddCustomKaCollection = () => {
   const [collectionNameErr, setCollectionNameErr] = useState('');
   const [selectedLlmType, setselectedLlmType] = useState('OpenAI');
   const [chunkSize, setChunkSize] = useState();
+  const [apiErrorMsg, setApiErrMsg] = useState('');
   const formValues = useSelector((state) => state.KnowlegdeAgent.formValues);
     console.log("form values", formValues);
   // const test = useSelector((state) => state.KnowlegdeAgent.test);
@@ -130,7 +131,10 @@ const AddCustomKaCollection = () => {
         },
       }).then(response => {
         dispatch(showCreatePageUI(false));
+        setApiErrMsg('');
       }).catch(err => {
+        console.log(err);
+        setApiErrMsg(err.response.data);
       });
   }
   return (
@@ -138,6 +142,7 @@ const AddCustomKaCollection = () => {
       <div className="configContainer" >
         <label className="heading">Add new Collection</label>
         <hr className="line"/>
+        <div className="error">{apiErrorMsg}</div>
         <div className="items">
           <label>Collection Name</label>
           <TextField id="outlined-basic" label="" variant="outlined" size="small" sx={{ width: 300 }}
@@ -165,7 +170,7 @@ const AddCustomKaCollection = () => {
           {activeStep == 3 && <ChunkConfigComponent chunkSize={chunkSize}/>}
         </div>
         <div className="bottomBtn">
-          <Button variant="outlined" sx={{ marginRight: 2 }} onClick={handleSave}>Save </Button>
+          <Button disabled= {activeStep !== 3} variant="outlined" sx={{ marginRight: 2 }} onClick={handleSave}>Save </Button>
           <Button variant="contained" onClick={handleNext}>Next</Button>
         </div>
       </div>
