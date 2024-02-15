@@ -1,15 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createStore } from "redux";
+import { createStore, combineReducers } from "redux";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 import { Provider } from "react-redux";
 import reducer from "./Components/BotConfiguration/AddNewIntent/IntentExample/reducer"; // Import the reducer
-
+import kareducer from './Components/KaConfiguration/KaReducer';
 import "bootstrap/dist/css/bootstrap.min.css";
-const store = createStore(reducer);
+
+// const rootRe
+const store = createStore(combineReducers({
+  reducer,
+  KnowlegdeAgent: kareducer
+}));
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
