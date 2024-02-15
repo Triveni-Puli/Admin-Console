@@ -68,7 +68,7 @@ const Form = ({ onLogin }) => {
           <Navigate to="/dashboard" state={message} replace={true} />
         </div>
       ) : (
-        <div style={{ width: "90%" }}>
+        <div style={{ width: "100%" }}>
           <p
             ref={errRef}
             className={errMsg ? "errmsg" : "offscreen"}

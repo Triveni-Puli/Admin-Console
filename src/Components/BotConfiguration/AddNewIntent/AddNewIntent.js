@@ -16,6 +16,7 @@ import {
 } from "../AddNewIntent/IntentExample/actions";
 import Popup from "./IntentExample/AddPopup";
 import DeletePopup from "./IntentExample/DeletePopup";
+import TextField from "@mui/material/TextField";
 
 const AddNewIntent = () => {
   const [name, setName] = useState("");
@@ -33,15 +34,12 @@ const AddNewIntent = () => {
 
   // const [items, setItems] = useState(state.items);
 
-  // States for checking the errors
   const [submitted, setSubmitted] = useState(false);
   const dispatch = useDispatch();
   const isPopupVisible = useSelector((state) => state.isPopupVisible);
   const isDelPopupVisible = useSelector((state) => state.isDelPopupVisible);
   const items = useSelector((state) => state.items);
   const intentEntities = useSelector((state) => state.intentEntities);
-
-  /*   dispatch(clearList()); */
 
   const handleName = (e) => {
     setName(e.target.value);
@@ -103,12 +101,7 @@ const AddNewIntent = () => {
           },
         }
       );
-
-      /*  if (response?.data?.statusCode === 200) {
-       
-      } */
       console.log(response);
-      // setData(response?.data);
       history(
         "/botconfiguration"
         // { state: { responseData: response.data } }
@@ -118,6 +111,25 @@ const AddNewIntent = () => {
         setIntentError(err.response.data);
       }
       console.log(err);
+    }
+  };
+
+  const handleNameBlur = async () => {
+    try {
+      const duplicateCheckResponse = await axios.get(
+        "https://hi954elm6a.execute-api.ap-south-1.amazonaws.com/dev/check_intent",
+        { params: { intent: name } },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+    } catch (err) {
+      console.log(err);
+      if (err.response?.status === 400) {
+        setIntentError(err.response.data);
+      }
     }
   };
 
@@ -151,6 +163,7 @@ const AddNewIntent = () => {
                 value={name}
                 name="name"
                 onChange={handleName}
+                onBlur={handleNameBlur}
                 placeholder="Book a cab"
                 required
               />
@@ -169,8 +182,9 @@ const AddNewIntent = () => {
               />
             </div>
             <div className="intent-entity">
-              <p>Intent Entities</p>
-              <p style={{ fontSize: "14px", color: "#A5AFBE" }}>
+              <p style={{ marginBottom: 0 }}>Intent Entities</p>
+              <p
+                style={{ fontSize: "14px", color: "#A5AFBE", marginBottom: 0 }}>
                 Add Entities for the intent
               </p>
               <div className="d-flex entity-container">
@@ -292,6 +306,7 @@ const AddNewIntent = () => {
               <div className="api-url">
                 <label for="api-url">API URL</label>
                 <input
+                  style={{ height: "30px" }}
                   id="api-url"
                   type="text"
                   value={apiUrl}
@@ -305,6 +320,7 @@ const AddNewIntent = () => {
               <div className="api-param">
                 <label for="api-param">API Parameters</label>
                 <input
+                  style={{ height: "30px" }}
                   id="api-param"
                   type="text"
                   value={apiParameter}

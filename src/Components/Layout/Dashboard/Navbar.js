@@ -7,16 +7,17 @@ import KnowledgeImage from "../../../assets/setting.png";
 import Chart from "../../../assets/chart.png";
 import ReinforcementImg from "../../../assets/Reinforcement.png";
 import ReportImg from "../../../assets/note.png";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { Nav } from "react-bootstrap";
-import DashboardImage from "../../../assets/Dashboard.png";
+// import DashboardImage from "../../../assets/Dashboard.png";
+import DashboardImage from "../../../assets/dashboard.svg";
 
 const Navbar = () => {
   return (
     <div>
       {" "}
       <div className="sidebar">
-        <div className="genaibot">
+        <div className="dashboard-genaibot">
           <img
             src={BotLogo}
             alt="Bot-Logo"
@@ -34,78 +35,78 @@ const Navbar = () => {
         <Nav className="flex-column sidebar">
           <ul>
             <li className="sidebar-items mt-4">
-              <Link to="/dashboard">
+              <NavLink to="/dashboard" activeClassName="active">
                 <img
                   src={DashboardImage}
-                  alt=""
+                  alt="dashboardsvg"
                   style={{
                     width: "20px",
                     height: "20px",
                   }}
                 />
                 <p>Dashboard</p>
-              </Link>
+              </NavLink>
             </li>
 
             <li className="sidebar-items">
-              <Link to="/usermanagement">
+              <NavLink to="/usermanagement" activeClassName="active">
                 <img
                   src={UserImage}
                   alt=""
                   style={{ width: "20px", height: "20px" }}
                 />
                 <p>User Management</p>
-              </Link>
+              </NavLink>
             </li>
             <li className="sidebar-items">
-              <Link to="/botconfiguration">
+              <NavLink to="/botconfiguration" activeClassName="active">
                 <img
                   src={BotImage}
                   alt=""
                   style={{ width: "20px", height: "20px" }}
                 />
                 <p>Bot Configuration</p>
-              </Link>
+              </NavLink>
             </li>
             <li className="sidebar-items">
-              <Link to="/knowledgeagentconfiguration">
+              <NavLink to="/knowledgeagentconfiguration">
                 <img
                   src={KnowledgeImage}
                   alt=""
                   style={{ width: "20px", height: "20px" }}
                 />
                 <p>Knowledge Agent Configuration</p>
-              </Link>
+              </NavLink>
             </li>
             <li className="sidebar-items">
-              <Link to="/analyticsconfiguration">
+              <NavLink to="/analyticsconfiguration">
                 <img
                   src={Chart}
                   alt=""
                   style={{ width: "20px", height: "20px" }}
                 />
                 <p>Analytics Configuration</p>
-              </Link>
+              </NavLink>
             </li>
             <li className="sidebar-items">
-              <Link to="/reinforcementlearning">
+              <NavLink to="/reinforcementlearning">
                 <img
                   src={ReinforcementImg}
                   alt=""
                   style={{ width: "20px", height: "20px" }}
                 />
                 <p>Reinforcement Learning</p>
-              </Link>
+              </NavLink>
             </li>
             <li className="sidebar-items">
-              <Link to="/reports">
+              <NavLink to="/reports">
                 <img
                   src={ReportImg}
                   alt=""
                   style={{ width: "20px", height: "20px" }}
                 />
                 <p>Reports</p>
-              </Link>
+              </NavLink>
             </li>
           </ul>
         </Nav>

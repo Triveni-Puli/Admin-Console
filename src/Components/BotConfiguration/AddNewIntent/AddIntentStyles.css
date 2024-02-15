@@ -28,24 +28,30 @@ label {
 
 .name {
   margin-top: 0.5rem !important;
+  width: 346px;
+}
+#name {
+  height: 30px;
 }
 .description {
   margin-top: 0.3rem !important;
 }
 #description {
   width: 450px;
+  height: 30px;
 }
 
 .intent-entity {
   border: 1px solid #c8d2dd;
   border-radius: 3px;
-  margin-top: 1rem !important;
+  margin-top: 1rem;
   width: 450px;
-  padding: 0.7rem !important;
+  padding: 0.7rem;
 }
 .intent-entity-text {
-  width: 400px !important;
-  height: 30px !important;
+  margin-top: 0.5rem;
+  width: 420px;
+  height: 30px;
   justify-content: space-between;
 }
 #entity {
@@ -104,28 +110,34 @@ label {
 .reasoning-action {
   border: 1px solid #c8d2dd;
   border-radius: 3px;
-  margin-top: 1rem !important;
+  margin-top: 1rem;
   width: 450px;
-  padding: 0.7rem !important;
+  padding: 0.7rem;
 }
 
 .api-url {
   font-size: 14px;
-  margin-top: 0.5rem !important;
+  margin: 5px 1px;
 }
 .api-param {
   font-size: 14px;
-  margin-top: 0.5rem !important;
+  margin: 5px 1px;
 }
 
 #reason-description {
   width: 425px;
+  height: 30px;
   font-size: 14px;
-  margin-top: 0.5rem !important;
+  margin: 5px 1px;
+  /* argin-top: 0.5rem; */
 }
 .intent-list {
   width: 425px;
-  margin: 0.5rem !important;
+  margin: 0.5rem;
+  padding-left: 0;
+}
+.intent-list li {
+  height: 30px;
 }
 .ex-list-items {
   display: flex;
@@ -222,14 +234,16 @@ label {
 
 .entity-container ul {
   list-style-type: none;
+  padding-left: 0;
+  margin-bottom: 0;
 }
 .entity-container li {
-  display: flex;
-  margin: 5px 8px;
+  display: inline-flex;
+  margin: 5px 3px;
   background-color: #c9e5ff;
-  border-radius: 15px;
+  border-radius: 10px 10px;
   color: #0049b2;
-  padding: 2px 5px;
+  padding: 1px 5px;
 }
 
 .cross-circle {
