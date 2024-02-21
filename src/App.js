@@ -37,7 +37,7 @@ function App() {
             <div className="col col-lg-3 sidebar-col">
               <Navbar />
             </div>
-            <div className="col col-lg-9">
+            <div className="col noPadding">
               <div class="container h-100 d-flex flex-column">
                 <div class="row header-row ">
                   <Header />

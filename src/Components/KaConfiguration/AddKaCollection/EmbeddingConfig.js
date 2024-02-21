@@ -77,31 +77,31 @@ const EmbeddingConfigComponent = (props) => {
   return (
     <>
       <div className="items">
-        <label>Embedding Type</label>
+        <label className="inputLabel">Embedding Type</label>
         <SelectComponent id="emdedding" list={embeddingTypeList} handleChange={handleEmbeddingTypeChange} />
       </div>
       <span >Embedding Config</span>
       <hr className="line" />
       <div className="kaConfig">
-        <div className="rightSpace">
-          <label>Model Name</label>
+        <div className="configCol">
+          <label className="inputLabel">Model Name</label>
           <SelectComponent id="emdeddingModel" list={modelList} handleChange={handleEmbeddingModelChange} />
         </div>
-        {showField(embeddingConfigList, 'credentials') && <div className="rightSpace">
-          <label>Credentials</label>
+        {showField(embeddingConfigList, 'credentials') && <div className="configCol">
+          <label className="inputLabel">Credentials</label>
           <InputBox onChange="" />
         </div>}
 
-        {showField(embeddingConfigList, 'api_key') && <div className="rightSpace">
-          <label>API Key</label>
+        {showField(embeddingConfigList, 'api_key') && <div className="configCol">
+          <label className="inputLabel">API Key</label>
           <InputBox type="password" onChange={handleApiKeyChange} />
         </div>}
-        {showField(embeddingConfigList, 'openai_api_version') && <div className="rightSpace">
-          <label>API Version</label>
+        {showField(embeddingConfigList, 'openai_api_version') && <div className="configCol">
+          <label className="inputLabel">API Version</label>
           <InputBox onChange="" />
         </div>}
-        {showField(embeddingConfigList, 'openai_api_base') && <div className="rightSpace">
-          <label>API Base</label>
+        {showField(embeddingConfigList, 'openai_api_base') && <div className="configCol">
+          <label className="inputLabel">API Base</label>
           <InputBox onChange="" />
         </div>}
       </div>

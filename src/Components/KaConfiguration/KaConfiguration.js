@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
-import delSmallImg from "../../assets/deleteSmall.svg";
-import plusImg from "../../assets/plusIcon.svg";
-import CustomGrid from '../Common/Grid';
 import ViewKaCollection from "./ViewKaCollection";
 import AddCustomKaCollection from "./AddKaCollection/AddCustomKaCollection";
 // import {  } from "./KaActions";
@@ -29,7 +25,6 @@ function handleSaveButton(){
          <ViewKaCollection handleAddButton={handleAddButton}/> :
          <AddCustomKaCollection handleSaveButton={handleSaveButton} />
       }
-
     </>
   )
 };
