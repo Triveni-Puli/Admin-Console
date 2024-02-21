@@ -1,6 +1,9 @@
 /* .row {
   height: 100vh;
 } */
+* {
+  font-style: "Roboto";
+}
 .main {
   overflow: hidden;
   width: 100vw !important;

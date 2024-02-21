@@ -42,7 +42,9 @@ function App() {
                 <div class="row header-row ">
                   <Header />
                 </div>
-                <div className="row flex-grow-1">
+                <div
+                  className="row flex-grow-1"
+                  style={{ backgroundColor: "#F9FAFB" }}>
                   <Routes>
                     <Route
                       path="/dashboard"
