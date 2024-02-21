@@ -4,13 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import delSmallImg from "../../assets/deleteSmall.svg";
 import plusImg from "../../assets/plusIcon.svg";
 import CustomGrid from '../Common/Grid';
-import {showCreatePageUI} from "./KaActions";
+import { showCreatePageUI } from "./KaActions";
 import "./KaConfiguration.css"
 
 const ViewKaCollection = (props) => {
   const dispatch = useDispatch();
   const [KACollections, setKACollections] = useState([]);
-  useEffect(() => {
+  function getKACollections() {
     axios.get("https://lohbeuf4mgodcuhxj3q343z7o40brjhx.lambda-url.ap-south-1.on.aws/", {
     }, {
       headers: {
@@ -20,12 +20,29 @@ const ViewKaCollection = (props) => {
       setKACollections(response.data);
     }).catch(err => {
     });
+  }
+
+  useEffect(() => {
+    getKACollections();
   }, [])
 
-  
-  function handleAddCollection(){
+
+  function handleAddCollection() {
     dispatch(showCreatePageUI(true));
     // props.handleAddButton(true);
+  }
+
+  function handleDelete(collectionName) {
+    // var a = KACollections.filter((row) => row.collection_name !== collectionName) ;
+    axios.delete("https://erj3tyfntew3xum2dh6icphrye0ktrco.lambda-url.ap-south-1.on.aws/delete_collection", {
+      params: {
+        "collection_name": collectionName
+      }
+    }, {
+    }).then(response => {
+      getKACollections();
+    }).catch(err => {
+    });
   }
 
   return (
@@ -40,7 +57,7 @@ const ViewKaCollection = (props) => {
             </span>
           </div>
           <div className="gridDetailsSection">
-            {KACollections.length > 0 && <CustomGrid rows={KACollections} />}
+            {KACollections.length > 0 && <CustomGrid rows={KACollections} handleDelete={handleDelete} />}
           </div>
         </div>
       </div>

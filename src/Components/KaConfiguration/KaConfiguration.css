@@ -129,22 +129,30 @@
 
 .kaConfig {
     display: flex;
-    flex-basis: 33%;
+    /* flex-basis: 25%; */
     flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .kaBottom {
-    height:250px;
+    min-height: 120px;
+    /* height:250px; */
     background-color: #FFFFFF;
     border: 1px solid #C8D2DD;
     border-radius: 16px;
     margin:20px;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
     /* width:80% */
 }
 
 .rightSpace {
     margin-right: 20px;
+}
+
+.configCol {
+    flex-basis: 30%;
 }
 
 .items {
