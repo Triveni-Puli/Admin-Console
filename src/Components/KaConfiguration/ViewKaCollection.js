@@ -40,7 +40,7 @@ const ViewKaCollection = (props) => {
       }
     }, {
     }).then(response => {
-      getKACollections();
+      // getKACollections();
     }).catch(err => {
     });
   }
@@ -57,7 +57,7 @@ const ViewKaCollection = (props) => {
             </span>
           </div>
           <div className="gridDetailsSection">
-            {KACollections.length > 0 && <CustomGrid rows={KACollections} handleDelete={handleDelete} />}
+            {KACollections.length > 0 && <CustomGrid rows={KACollections} onDelete={handleDelete} />}
           </div>
         </div>
       </div>

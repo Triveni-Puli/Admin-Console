@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
 import SelectComponent from "../../Common/Select";
-import TextField from '@mui/material/TextField';
+// import TextField from '@mui/material/TextField';
 import { setFormValues } from "../KaActions";
 import { showField } from "../../../shared/methods"
 import InputBox from "../../Common/InputBox";
@@ -89,20 +89,20 @@ const EmbeddingConfigComponent = (props) => {
         </div>
         {showField(embeddingConfigList, 'credentials') && <div className="rightSpace">
           <label>Credentials</label>
-          <TextField id="outlined-basic" label="" variant="outlined" size="small" onChange="" />
+          <InputBox onChange="" />
         </div>}
 
         {showField(embeddingConfigList, 'api_key') && <div className="rightSpace">
           <label>API Key</label>
-          <TextField id="outlined-basic" label="" variant="outlined" size="small" type="password" onChange={handleApiKeyChange} />
+          <InputBox type="password" onChange={handleApiKeyChange} />
         </div>}
         {showField(embeddingConfigList, 'openai_api_version') && <div className="rightSpace">
           <label>API Version</label>
-          <TextField id="outlined-basic" label="" variant="outlined" size="small" onChange="" />
+          <InputBox onChange="" />
         </div>}
         {showField(embeddingConfigList, 'openai_api_base') && <div className="rightSpace">
           <label>API Base</label>
-          <TextField id="outlined-basic" label="" variant="outlined" size="small" onChange="" />
+          <InputBox onChange="" />
         </div>}
       </div>
     </>

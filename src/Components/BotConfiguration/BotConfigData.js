@@ -89,7 +89,9 @@ const BotConfigData = () => {
       <div className="configContainer">
         <div className="grid">
           <div className="titleArea">
-            <span>Bot Intents</span>
+            <span style={{ fontSize: "20px", fontWeight: 500 }}>
+              Bot Intents
+            </span>
             <span className="topRight">
               <Link
                 to={{
@@ -99,12 +101,24 @@ const BotConfigData = () => {
                   //  }
                 }}>
                 {/*               <Link to="/addNewintent"> */}
-                <button className="topBtn addBtn" onClick={handleAddNewIntent}>
-                  Add New Intent<img src={plusImg}></img>
+                <button
+                  className="topBtn addBtn"
+                  onClick={handleAddNewIntent}
+                  style={{
+                    width: "146px",
+                    fontSize: "14px",
+                    fontWeight: 600,
+                  }}>
+                  Add New Intent
+                  <img style={{ marginLeft: "6px" }} src={plusImg}></img>
                 </button>
               </Link>
-              <button className="topBtn delBtn" onClick={handleDeleteMultiple}>
-                Delete Intent <img src={delSmallImg}></img>
+              <button
+                className="topBtn delBtn"
+                onClick={handleDeleteMultiple}
+                style={{ width: "140px", fontSize: "14px", fontWeight: 600 }}>
+                Delete Intent{" "}
+                <img style={{ marginLeft: "6px" }} src={delSmallImg}></img>
               </button>
             </span>
           </div>
@@ -115,7 +129,7 @@ const BotConfigData = () => {
                 getRowId={(row) => row.intent}
                 dataIdentifier="botConfig"
                 onSelectionModelChange={setGridSelectionModel}
-                //onDelete={handleDelete}
+                onDelete={handleDelete}
               />
             )}
           </div>

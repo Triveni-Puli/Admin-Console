@@ -10,6 +10,8 @@ import {
   GridRowEditStopReasons,
 } from "@mui/x-data-grid";
 import { createSvgIcon } from "@mui/material/utils";
+//import { ClassNames } from "@emotion/react/types";
+//import { makeStyles } from "@mui/styles";
 
 function EditToolbar(props) {
   const { setRows, setRowModesModel } = props;
@@ -48,34 +50,7 @@ export default function CustomGrid(props) {
 
   /*  Integrating Delete API in Botconfig */
   const handleDeleteClick = async (item) => {
-    /*    props.onDelete(item); */
-    console.log(item.id);
-    const data = JSON.stringify({ intent: item.id });
-    if (dataIdentifier === "botConfig") {
-      try {
-        /* for (const id of selectedRowIds) { */
-        const response = await axios.delete(
-          "https://hi954elm6a.execute-api.ap-south-1.amazonaws.com/dev/delete_intent",
-          { params: { intent: item.id } },
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        if (response.status === 200) {
-          console.log("Item deleted", response.data);
-
-          /*     setRows(updatedRows);
-          setSelectedRowIds([]); */
-          setRows(rows.filter((row) => row.intent !== item.id));
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    }
-
-    /*     setRows(rows.filter((row) => row.id !== id)); */
+    props.onDelete(item);
   };
 
   const processRowUpdate = (newRow) => {
@@ -166,6 +141,8 @@ export default function CustomGrid(props) {
         headerName: "Actions",
         width: 120,
         cellClassName: "actions",
+        align: "left",
+        headerAlign: "left",
         getActions: ({ id }) => {
           const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
           return [
@@ -191,12 +168,14 @@ export default function CustomGrid(props) {
       {
         field: "collection_name",
         headerName: "Name",
+        headerClassName: "mui-custom-header",
         width: 180,
         editable: true,
       },
       {
         field: "description",
         headerName: "Description",
+        headerClassName: "mui-custom-header",
         type: "number",
         width: 450,
         align: "left",
@@ -208,7 +187,10 @@ export default function CustomGrid(props) {
         field: "actions",
         type: "actions",
         headerName: "Actions",
+        headerClassName: "mui-custom-header",
         width: 150,
+        align: "left",
+        headerAlign: "left",
         cellClassName: "actions",
         getActions: ({ id, field }) => {
           // const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
@@ -258,9 +240,13 @@ export default function CustomGrid(props) {
         },
       }}>
       <DataGrid
+        sx={{
+          borderRadius: "20px",
+        }}
         // getRowId={(row) => row.collection_name}
         getRowId={gridGetRowId}
-        rows={rows}
+        rows={dataRows}
+        //rows={dataRows}
         columns={columns}
         rowsPerPageOptions={[]}
         hideFooterPagination

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import SelectComponent from "../../Common/Select";
-import TextField from '@mui/material/TextField';
+// import TextField from '@mui/material/TextField';
 import {showField} from "../../../shared/methods";
+import InputBox from "../../Common/InputBox";
+
 
 const VectorDBConfigComponent = (props) => {
   const [vectorDBList, setVectorDBList] = useState([]);
@@ -50,15 +52,15 @@ const VectorDBConfigComponent = (props) => {
           <div className="kaConfig">
           { dbConfigList && showField(dbConfigList, 'api_key') && <div className="rightSpace">
               <label>API Key</label>
-              <TextField id="outlined-basic" label="" variant="outlined" size="small" type="password"  />
+              <InputBox type="password"  />
             </div> }
             { dbConfigList && showField(dbConfigList, 'environment') && <div className="rightSpace">
               <label>Environment</label>
-              <TextField id="outlined-basic" label="" variant="outlined" size="small" />
+              <InputBox />
             </div> }
             { dbConfigList && showField(dbConfigList, 'url') && <div className="rightSpace">
               <label>Url</label>
-              <TextField id="outlined-basic" label="" variant="outlined" size="small" />
+              <InputBox />
             </div> }
           </div>
         </>}
