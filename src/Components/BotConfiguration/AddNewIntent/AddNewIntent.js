@@ -3,6 +3,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import "../AddNewIntent/AddIntentStyles.css";
 import { useState } from "react";
 import axios from "axios";
+import addExImg from "../../../assets/addImg.svg";
+import addEntImg from "../../../assets/addentiImg.svg";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -60,7 +62,7 @@ const AddNewIntent = () => {
   const handleAddEntity = () => {
     if (inputEntity.trim() !== "") {
       dispatch(addIntentEntity(inputEntity));
-      //setInputEntity("");
+      setInputEntity("");
     } else {
       alert("Please Enter the Intent Entity Value");
     }
@@ -147,17 +149,30 @@ const AddNewIntent = () => {
           }}>
           <p>Bot Intents</p>
         </Link>
-        <p className="pt-1" style={{ fontSize: "14px" }}>
+        <p className="pt-0" style={{ fontSize: "16px", fontWeight: "400" }}>
           &nbsp; {">"}&nbsp;Add New Intent
         </p>
       </div>
       <div className="add-intent-main">
-        <div className="add-intent-label">Add New Intent</div>
+        <div
+          className="add-intent-label"
+          style={{ fontSize: "20px", fontWeight: "500" }}>
+          Add New Intent
+        </div>
         <hr />
         <form onSubmit={handleSubmit}>
           <section>
             <div className="name">
-              <label for="name">Name</label>
+              <label
+                for="name"
+                style={{
+                  fontSize: "14px",
+                  fontWeight: "500",
+                  lineHeight: "17px",
+                  letterSpacing: "0em",
+                }}>
+                Name
+              </label>
               <input
                 id="name"
                 type="text"
@@ -171,7 +186,16 @@ const AddNewIntent = () => {
               {intentError && <p style={{ color: "red" }}>{intentError}</p>}
             </div>
             <div className="description">
-              <label for="description">Description</label>
+              <label
+                for="description"
+                style={{
+                  fontSize: "14px",
+                  fontWeight: "500",
+                  lineHeight: "17px",
+                  letterSpacing: "0em",
+                }}>
+                Description
+              </label>
               <input
                 id="description"
                 type="text"
@@ -185,7 +209,12 @@ const AddNewIntent = () => {
             <div className="intent-entity">
               <p style={{ marginBottom: 0 }}>Intent Entities</p>
               <p
-                style={{ fontSize: "14px", color: "#A5AFBE", marginBottom: 0 }}>
+                style={{
+                  fontSize: "14px",
+                  fontWeight: "400",
+                  color: "#A5AFBE",
+                  marginBottom: 0,
+                }}>
                 Add Entities for the intent
               </p>
               <div className="d-flex entity-container">
@@ -218,7 +247,7 @@ const AddNewIntent = () => {
                   type="button"
                   className="add-enti-button"
                   onClick={handleAddEntity}>
-                  +
+                  <img src={addEntImg} alt="" />
                 </button>
               </div>
             </div>
@@ -226,7 +255,13 @@ const AddNewIntent = () => {
               <div className="intent-example">
                 <div>
                   <div>Intent Examples</div>
-                  <p style={{ fontSize: "14px", color: "#A5AFBE" }}>
+                  <p
+                    style={{
+                      fontSize: "14px",
+                      fontWeight: "400",
+                      color: "#A5AFBE",
+                      marginBottom: 0,
+                    }}>
                     Add Examples for the intent
                   </p>
                 </div>
@@ -240,7 +275,7 @@ const AddNewIntent = () => {
                   type="button"
                   className="add-ex-button"
                   onClick={() => setAddpopupOpen(true)}>
-                  Add {""} +
+                  Add {""} <img src={addExImg} alt="" />
                 </button>
               </div>
               {addPopupOpen && (
@@ -267,8 +302,8 @@ const AddNewIntent = () => {
                               {/*  onClick={() => dispatch(showDelPopup())} */}
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                width="16"
-                                height="16"
+                                width="24"
+                                height="24"
                                 fill="currentColor"
                                 class="bi bi-trash"
                                 viewBox="0 0 16 16">
@@ -300,15 +335,25 @@ const AddNewIntent = () => {
             </div>
             <div className="reasoning-action ">
               <div>
-                <div>Reasoning and Action</div>
-                <p style={{ fontSize: "14px", color: "#A5AFBE" }}>
+                <div style={{ height: "22px" }}>Reasoning and Action</div>
+                <p
+                  style={{
+                    fontSize: "14px",
+                    color: "#A5AFBE",
+                    fontWeight: 400,
+                    letterSpacing: "0em",
+                    height: "17px",
+                  }}>
                   Add reasoning and action
                 </p>
               </div>
               <div className="api-url">
-                <label for="api-url">API URL</label>
+                <label
+                  for="api-url"
+                  style={{ fontSize: "14px", height: "17px" }}>
+                  API URL
+                </label>
                 <input
-                  style={{ height: "30px" }}
                   id="api-url"
                   type="text"
                   value={apiUrl}
@@ -320,9 +365,12 @@ const AddNewIntent = () => {
                 />
               </div>
               <div className="api-param">
-                <label for="api-param">API Parameters</label>
+                <label
+                  for="api-param"
+                  style={{ fontSize: "14px", height: "17px" }}>
+                  API Parameters
+                </label>
                 <input
-                  style={{ height: "30px" }}
                   id="api-param"
                   type="text"
                   value={apiParameter}
@@ -334,7 +382,11 @@ const AddNewIntent = () => {
                 />
               </div>
               <div className="reason-description">
-                <label for="reason-description">Description</label>
+                <label
+                  for="reason-description"
+                  style={{ fontSize: "14px", height: "17px" }}>
+                  Description
+                </label>
                 <input
                   id="reason-description"
                   type="text"

@@ -1,17 +1,6 @@
-* {
-  font-family: "Roboto";
-}
 input {
   border: 1px solid #c8d2dd;
-  border-radius: 3px;
-}
-input,
-* {
-  font-family: "Roboto";
-}
-input {
-  border: 1px solid #c8d2dd;
-  border-radius: 3px;
+  border-radius: 5px;
 }
 input,
 label {
@@ -27,135 +16,196 @@ label {
 }
 
 .name {
-  margin-top: 0.5rem !important;
+  margin-top: 0.5rem;
   width: 346px;
+  font-size: 14px;
+  height: 70px;
 }
 #name {
-  height: 30px;
+  height: 47px;
+  font-size: 14px;
+  padding: 6px;
+  width: 346px;
+  padding: 15px 12px 15px 14px;
+  border-radius: 5px;
+  border: 1px solid #c8d2dd;
+  margin-top: 8px;
 }
 .description {
-  margin-top: 0.3rem !important;
+  margin-top: 20px;
 }
 #description {
-  width: 450px;
-  height: 30px;
+  height: 47px;
+  font-size: 14px;
+  padding: 6px;
+  width: 346px;
+  padding: 15px 12px 15px 14px;
+  border-radius: 5px;
+  border: 1px solid #c8d2dd;
+  margin-top: 8px;
 }
 
 .intent-entity {
   border: 1px solid #c8d2dd;
-  border-radius: 3px;
-  margin-top: 1rem;
-  width: 450px;
+  border-radius: 5px;
+  margin-top: 20px;
   padding: 0.7rem;
+  background-color: white;
+  color: #19191e;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 21.6px;
+  width: 728px;
 }
 .intent-entity-text {
-  margin-top: 0.5rem;
-  width: 420px;
-  height: 30px;
-  justify-content: space-between;
+  margin: 8px 0px;
 }
 #entity {
-  width: 400px;
-  margin-right: 0.4rem !important;
+  padding: 15px 12px 15px 14px;
+  border-radius: 5px;
+  border: 1px solid #c8d2dd;
+  width: 615px;
+  height: 47px;
+  margin-right: 1.5rem;
+  font-size: 14px;
 }
 
 .add-enti-button {
-  background-color: #04aa6d;
+  background-color: #077251;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   color: white;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 15px;
-  /*  margin: 4px 2px; */
   cursor: pointer;
-  width: 2rem;
+  width: 47px;
+  height: 47px;
 }
 .intent-container {
   border: 1px solid #c8d2dd;
-  border-radius: 3px;
-  width: 450px;
-  margin-top: 1rem !important;
+  border-radius: 5px;
+  margin-top: 20px;
+  padding: 0.7rem;
+  background-color: white;
+  color: #19191e;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 21.6px;
+  width: 728px;
 }
 .intent-example {
   display: flex;
   justify-content: space-between;
-  padding: 0.7rem !important;
+  font-size: 18px;
 }
 
 .add-ex-button {
-  border: 1px solid #077251;
-  border-radius: 10px;
+  border: 2px solid #077251;
+  border-radius: 12px;
   background-color: white;
   color: #077251;
   text-align: center;
   display: inline-block;
-  font-size: 15px;
-  margin: 4px 2px !important;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 4px 2px;
   cursor: pointer;
-  width: 3rem;
-  height: 1.5rem;
+  width: 71px;
+  height: 36px;
 }
 
 .add-intent-submit {
-  margin-top: 25px !important;
+  margin-top: 25px;
   border: none;
   background-color: #9747ff;
   border-radius: 8px;
   color: white;
-  padding: 8px 6px !important;
-  font-size: 12px;
+  padding: 8px 6px;
+  width: 144px;
+  height: 50px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 19px;
+  letter-spacing: 0em;
 }
 .reasoning-action {
   border: 1px solid #c8d2dd;
-  border-radius: 3px;
-  margin-top: 1rem;
-  width: 450px;
+  border-radius: 5px;
+  margin-top: 20px;
+  /* width: 450px; */
   padding: 0.7rem;
+  background-color: white;
+  color: #19191e;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 22px;
+  letter-spacing: 0em;
+  width: 728px;
+  height: 345px;
 }
 
 .api-url {
+  width: 346px;
   font-size: 14px;
   margin: 5px 1px;
+  height: 70px;
+}
+#api-url {
+  padding: 15px 12px 15px 14px;
+  height: 47px;
+  width: 346px;
+  margin-top: 10px;
+}
+#api-param {
+  padding: 15px 12px 15px 14px;
+  height: 47px;
+  width: 346px;
+  margin-top: 10px;
 }
 .api-param {
+  width: 346px;
   font-size: 14px;
-  margin: 5px 1px;
+  margin: 15px 1px;
+  height: 70px;
+}
+
+.reason-description {
+  width: 680px;
+  font-size: 14px;
+  margin: 15px 1px;
+  height: 70px;
 }
 
 #reason-description {
-  width: 425px;
-  height: 30px;
-  font-size: 14px;
+  width: 680px;
+  height: 47px;
   margin: 5px 1px;
-  /* argin-top: 0.5rem; */
+  font-size: 14px;
+  padding: 15px 12px 15px 14px;
 }
+
 .intent-list {
-  width: 425px;
-  margin: 0.5rem;
   padding-left: 0;
 }
-.intent-list li {
-  height: 30px;
-}
+
 .ex-list-items {
   display: flex;
   justify-content: space-between;
   list-style-type: none;
-  padding: 5px;
-  height: 30px;
-  display: flex;
-  align-items: center;
   position: relative;
-  margin-top: 10px !important;
+  margin-top: 13px;
 }
 .intent-example-text {
   border: 1px solid #c8d2dd;
-  border-radius: 3px;
-  width: 370px;
+  border-radius: 5px;
+  width: 612px;
+  font-weight: 400;
+  font-size: 14px;
+  height: 47px;
+  padding: 11px 12px 11px 14px;
   display: inline-block;
-  padding-left: 5px !important;
 }
 .icons {
   position: absolute;
@@ -163,73 +213,13 @@ label {
 }
 .trash-btn {
   border: none;
-  height: 26px;
+  height: 47px;
   text-align: center;
   background-color: #c3325f;
   color: white !important;
-  border-radius: 3px;
-  width: 1.7rem !important;
-}
-
-.modalcontainer {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1;
-}
-.modall {
-  background-color: white;
-  border-radius: 5px;
-  padding: 1rem !important;
-  width: 25rem;
-}
-.btnn {
-  border: none;
-  padding: 0.5rem 1.5rem !important;
-  border-radius: 5px;
-  cursor: pointer;
-  margin: 0.5rem !important;
-  font-size: 14px;
-}
-.cancel {
-  color: #8291a0;
-  background-color: #ebe9e9;
-}
-.add {
-  color: white;
-  background-color: #9747ff;
-}
-.delete {
-  color: white;
-  background-color: #c3325f;
-}
-.close {
-  cursor: pointer;
-}
-
-.modalheader {
-  display: flex;
-  justify-content: space-between;
-  font-size: 18px;
-}
-.modalcontent {
-  margin-top: 0.5rem;
-  margin-bottom: 1rem;
-}
-.modalcontent input {
-  width: 100%;
-  height: 30px;
-  margin-top: 0.5rem;
-}
-.modalfooter {
-  display: flex;
-  justify-content: center;
+  border-radius: 8px;
+  width: 47px;
+  margin-right: 6px;
 }
 
 .entity-container ul {
@@ -238,12 +228,17 @@ label {
   margin-bottom: 0;
 }
 .entity-container li {
+  height: 28px;
   display: inline-flex;
-  margin: 5px 3px;
+  margin: 6px 3px;
   background-color: #c9e5ff;
-  border-radius: 10px 10px;
+  border-radius: 8px;
+  border: 1px solid #c9e5ff;
   color: #0049b2;
-  padding: 1px 5px;
+  padding: 6px 10px 6px 10px;
+  font-size: 12px;
+  font-weight: 400;
+  align-items: center;
 }
 
 .cross-circle {
