@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
 import Button from '@mui/material/Button';
 import SelectComponent from "../../Common/Select";
+import InputBox from "../../Common/InputBox";
 import TextField from '@mui/material/TextField';
 import RangeSliderComponent from '../../Common/RangeSlider';
 import Stepper from '@mui/material/Stepper';
@@ -18,52 +19,33 @@ import "../KaConfiguration.css"
 
 const AddCustomKaCollection = () => {
   const dispatch = useDispatch();
-  const [collection, setCollection] = useState('');
+  const [collectionName, setCollectionName] = useState('');
   // const [description, setDescription] = useState('');
   const [collectionNameErr, setCollectionNameErr] = useState('');
   const [selectedLlmType, setselectedLlmType] = useState('OpenAI');
-  const [chunkSize, setChunkSize] = useState();
   const [apiErrorMsg, setApiErrMsg] = useState('');
   const formValues = useSelector((state) => state.KnowlegdeAgent.formValues);
     console.log("form values", formValues);
-  // const test = useSelector((state) => state.KnowlegdeAgent.test);
-  // console.log("test", test);
   useEffect(() => {
-    axios.post("https://5yguhudqn325lpvt6g2ekm22gy0qnfrj.lambda-url.ap-south-1.on.aws/max_chunk_size", {
-      "model": "gpt-3.5-turbo-1106",
-      "model_name": "text-embedding-ada-002"
-    }, {
-      headers: {
-        "Content-Type": "text/plain",
-      },
-    }).then(response => {
-      setChunkSize(response.data);
-     //  console.log("response", response);
-    }).catch(err => {
-    });
   }, [])
 
-  const steps = [
-    'Step 1',
-    'Step 2',
-    'Step 3',
-    'Step 4'
-  ];
-
-
+  const steps = [0,1,2,3];
   const [activeStep, setActiveStep] = useState(0);
   const handleNext = () => {
     // setFormValues({ ...formValues, ...newValues });
     setActiveStep(activeStep + 1);
   };
-  
+
+  function handleKALink() {
+    dispatch(showCreatePageUI(false));
+  }
 
   function checkCollectionName(event){
-    const collectionName = event.target.value;
-    setCollection(collectionName);
-    if(collectionName){
+    const collection = event.target.value;
+    setCollectionName(collection);
+    if(collection){
       axios.post("https://5yguhudqn325lpvt6g2ekm22gy0qnfrj.lambda-url.ap-south-1.on.aws/verify_collection", {
-        "collection_name": collectionName
+        "collection_name": collection
       }, {
         headers: {
           "Content-Type": "text/plain",
@@ -93,8 +75,9 @@ const AddCustomKaCollection = () => {
   }
 
   function handleSave(){
+
     // dispatch(showCreatePageUI(false));
-    
+    if(activeStep===3){
     axios.post("https://erj3tyfntew3xum2dh6icphrye0ktrco.lambda-url.ap-south-1.on.aws/create_collection", {
       "config": {
         "collection_name": formValues.collectionName,
@@ -103,21 +86,32 @@ const AddCustomKaCollection = () => {
             "llm_type": formValues.llmType,
             "llm_config": {
                 "model": formValues.llmModel,
-                 "openai_api_key": formValues.llmApiKey,
+                 "api_key": formValues.llmApiKey,
                  "temperature": 0.3,
-                 "max_tokens": 512,
-                "top_p": 1
+                 "max_tokens": formValues.llmMaxToken,
+                 "deployment_name":"",
+                 "openai_api_version":"",
+                 "openai_api_base":"",
+                 "credentials":""
+                //  "top_p": 1
             }
         },
         "vector_db": {
             "db_type": "ChromaDB",
-            "db_config": {}
+            "db_config": {
+              "api_key": "",
+              "environment":"",
+              "url":""
+            }
         },
         "embedding": {
-             "embedding_type": "OpenAI",
+             "embedding_type": formValues.embeddingType,
             "embedding_config": {
-                 "model_name": "text-embedding-ada-002",
-                 "openai_api_key": formValues.embeddingApiKey
+                 "model_name": formValues.embeddingModel,
+                 "api_key": formValues.embeddingApiKey,
+                 "openai_api_version":"",
+                 "openai_api_base":"",
+                 "credentials":""
             }
         },
         "splitter_config": {
@@ -136,29 +130,37 @@ const AddCustomKaCollection = () => {
         console.log(err);
         setApiErrMsg(err.response.data);
       });
+
+    }
+    if(activeStep <3){
+    setActiveStep(activeStep + 1);
+    }
+
+  }
+  function handlePrevious() {
+    setActiveStep(activeStep-1);
   }
   return (
     <>
       <div className="configContainer" >
-        <label className="heading">Add new Collection</label>
+        <span><a href="" style={{textDecoration: "none"}} onClick={handleKALink}>K A Collections</a> {">"} Add new Collection </span>
+        <div className="heading">Add new Collection</div>
         <hr className="line"/>
         <div className="error">{apiErrorMsg}</div>
         <div className="items">
           <label>Collection Name</label>
-          <TextField id="outlined-basic" label="" variant="outlined" size="small" sx={{ width: 300 }}
-          onBlur={checkCollectionName} onChange={handleCollectionNameChange}
-          />
+          <InputBox width={300} onBlur={checkCollectionName} onChange={handleCollectionNameChange}/>
         <div className="error">{collectionNameErr}</div>
         </div>
         <div className="items">
           <label>Description</label>
-          <TextField id="outlined-basic" label="" variant="outlined" size="small" sx={{ width: 450 }} onChange={handleDescChange}/>
+          <InputBox width={450} onChange={handleDescChange}/>
         </div>
         <Button variant="outlined" sx={{ marginRight: 2 }}>Create Default </Button>
         <Button variant="contained">Create Custom</Button>
         <Stepper activeStep={activeStep} sx={{ marginTop: 4, marginBottom: 4 }} alternativeLabel>
           {steps.map((label) => (
-            <Step key={label}>
+            <Step key={label} >
               <StepLabel></StepLabel>
             </Step>
           ))}
@@ -167,11 +169,11 @@ const AddCustomKaCollection = () => {
           {activeStep == 0 && <LLMConfigComponent handleLlmChange = {handleLlmChange} />}
           {activeStep == 1 && <EmbeddingConfigComponent/>}
           {activeStep == 2 && <VectorDBConfigComponent />}
-          {activeStep == 3 && <ChunkConfigComponent chunkSize={chunkSize}/>}
+          {activeStep == 3 && <ChunkConfigComponent/>}
         </div>
         <div className="bottomBtn">
-          <Button disabled= {activeStep !== 3} variant="outlined" sx={{ marginRight: 2 }} onClick={handleSave}>Save </Button>
-          <Button variant="contained" onClick={handleNext}>Next</Button>
+          <Button disabled= {activeStep === 0} variant="outlined" sx={{ marginRight: 2 }} onClick={handlePrevious}> Previous </Button>
+          <Button variant="contained" onClick={handleSave}>{activeStep === 3 ? "SUBMIT AND CREATE COLLECTION": "Save & Continue"}</Button>
         </div>
       </div>
     </>

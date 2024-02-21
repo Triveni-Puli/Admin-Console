@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Slider from '@mui/material/Slider';
-import { HomeMax } from "@mui/icons-material";
 
 const RangeSliderComponent = (props) => {
   const min = props.min;
   const max= props.max;
+  const step = props.step;
   const [value, setValue] = React.useState([min,max]);
 
   const handleChange = (event, newValue) => {
@@ -12,13 +12,18 @@ const RangeSliderComponent = (props) => {
   };
     const list = props.list;
     return(
-        <Slider sx={{ width: 300 }}
+        <Slider sx={{ width: 250 }}
         getAriaLabel={() => 'Temperature range'}
         value={value}
         onChange={handleChange}
         valueLabelDisplay="auto"
         min= {min}
         max= {max}
+        step = {step}
+        marks={true}
+        // getAriaValueText={value}
+        // aria-labelledby="discrete-slider"
+        // valueLabelDisplay="on"
         // getAriaValueText={22}
       />
   )
@@ -26,7 +31,8 @@ const RangeSliderComponent = (props) => {
 
 RangeSliderComponent.defaultProps = {
   min: '',
-  max: ''
+  max: '',
+  step:''
 }
 
 export default RangeSliderComponent;
