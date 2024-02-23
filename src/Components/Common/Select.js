@@ -19,6 +19,7 @@ const SelectComponent = (props) => {
             value={value}
             onChange={handleChange}
             size="small"
+            disabled ={props.disabled}
         >{
         list.map((val, key)=>{
             return <MenuItem value={val}>{val}</MenuItem>
@@ -29,6 +30,7 @@ const SelectComponent = (props) => {
 }
 SelectComponent.defaultProps = {
     id: "",
+    disabled: false,
     handleChange: ()=>{}
 }
 

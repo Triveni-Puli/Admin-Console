@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
 import SelectComponent from "../../Common/Select";
 // import TextField from '@mui/material/TextField';
-import { setFormValues } from "../KaActions";
+import { setFieldValue } from "../KaActions";
 import { showField } from "../../../shared/methods"
 import InputBox from "../../Common/InputBox";
 
@@ -14,6 +14,7 @@ const EmbeddingConfigComponent = (props) => {
   const [embeddingTypeList, setEmbeddingTypeList] = useState([]);
   const [modelList, setModelList] = useState([]);
   const [embeddingConfigList, setEmbeddingConfigList] = useState([]);
+  const [apikey, setApiKey] = useState('');
 
 
   function getEmbeddingListAPI() {
@@ -62,17 +63,18 @@ const EmbeddingConfigComponent = (props) => {
   }
 
   function handleEmbeddingTypeChange(embeddingType) {
-    dispatch(setFormValues("embeddingType", embeddingType));
+    dispatch(setFieldValue("embeddingType", embeddingType));
     getEmbeddingModelAPI(embeddingType);
     getEmbeddingConfigList(embeddingType);
   }
 
   function handleEmbeddingModelChange(embeddingModelType) {
-    dispatch(setFormValues("embeddingModel", embeddingModelType));
+    dispatch(setFieldValue("embeddingModel", embeddingModelType));
   }
 
   function handleApiKeyChange(event) {
-    dispatch(setFormValues("embeddingApiKey", event.target.value));
+    dispatch(setFieldValue("embeddingApiKey", event.target.value));
+    setApiKey(event.target.value);
   }
   return (
     <>
@@ -94,7 +96,7 @@ const EmbeddingConfigComponent = (props) => {
 
         {showField(embeddingConfigList, 'api_key') && <div className="configCol">
           <label className="inputLabel">API Key</label>
-          <InputBox type="password" onChange={handleApiKeyChange} />
+          <InputBox type="password" value={apikey} onChange={handleApiKeyChange} />
         </div>}
         {showField(embeddingConfigList, 'openai_api_version') && <div className="configCol">
           <label className="inputLabel">API Version</label>

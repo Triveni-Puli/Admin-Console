@@ -8,14 +8,14 @@ import LLMConfigComponent from "./LLMConfig";
 import EmbeddingConfigComponent from "./EmbeddingConfig";
 import VectorDBConfigComponent from "./VectorDBConfig";
 import ChunkConfigComponent from "./ChunkConfig";
-import {showCreatePageUI, setFormValues} from "../KaActions";
+import {showCreatePageUI, setFieldValue} from "../KaActions";
 import "../KaConfiguration.css"
 
 
 const AddCustomKaCollection = () => {
   const dispatch = useDispatch();
   const [collectionName, setCollectionName] = useState('');
-  // const [description, setDescription] = useState('');
+  const [description, setDescription] = useState('');
   const [collectionNameErr, setCollectionNameErr] = useState('');
   const [selectedLlmType, setselectedLlmType] = useState('OpenAI');
   const [apiErrorMsg, setApiErrMsg] = useState('');
@@ -57,16 +57,17 @@ const AddCustomKaCollection = () => {
 
   function handleLlmChange(val){
     setselectedLlmType(val);
-    dispatch(setFormValues("llmType", val));
+    dispatch(setFieldValue("llmType", val));
   }
 
   function handleDescChange(event){
-    // setDescription(event.target.value);
-    dispatch(setFormValues("description", event.target.value));
+    setDescription(event.target.value);
+    dispatch(setFieldValue("description", event.target.value));
   }
 
   function handleCollectionNameChange(event){
-    dispatch(setFormValues("collectionName", event.target.value));
+    setCollectionName(event.target.value);
+    dispatch(setFieldValue("collectionName", event.target.value));
   }
 
   function handleSave(){
@@ -80,14 +81,15 @@ const AddCustomKaCollection = () => {
             // "llm_type": formValues.llmType,
             "llm_type": "OpenAI",
             "llm_config": {
-                "model": formValues.llmModel,
                  "api_key": formValues.llmApiKey,
                  "temperature": 0.3,
                  "max_tokens": formValues.llmMaxToken,
                  "deployment_name":"",
                  "openai_api_version":"",
                  "openai_api_base":"",
-                 "credentials":""
+                 "credentials":"",
+                 "model": "gpt-3.5-turbo",
+                  // "model": formValues.llmModel,
                 //  "top_p": 1
             }
         },
@@ -144,12 +146,12 @@ const AddCustomKaCollection = () => {
         <div className="error">{apiErrorMsg}</div>
         <div className="items">
           <label className="inputLabel">Collection Name</label>
-          <InputBox width={370} onBlur={checkCollectionName} onChange={handleCollectionNameChange}/>
+          <InputBox width={370} value={collectionName} onBlur={checkCollectionName} onChange={handleCollectionNameChange}/>
         <div className="error">{collectionNameErr}</div>
         </div>
         <div className="items">
           <label className="inputLabel">Description</label>
-          <InputBox className="inputBorder" width={728} onChange={handleDescChange}/>
+          <InputBox className="inputBorder" value={description} width={728} onChange={handleDescChange}/>
         </div>
         <div className="switcher">
         <Button className="defaultBtn"  sx={{ marginRight: 5 }}>Create Default </Button>
