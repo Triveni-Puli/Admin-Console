@@ -5,7 +5,7 @@
   font-style: "Roboto";
 }
 .main {
-  overflow: hidden;
+  /*   overflow: hidden; */
   width: 100vw !important;
 }
 /* .header-row {
@@ -23,18 +23,29 @@
   font-weight: 300;
 }
 .dashboard-genaibot {
-  text-align: left;
+  /* text-align: left;
   font-size: 40px;
   font-weight: 300;
   color: #2874f0;
   font-style: "Roboto";
   padding-left: 25px;
-  padding-top: 10px;
+  padding-top: 10px; */
+  width: 212.29px;
+  height: 44.74px;
+  padding-left: 35px;
+  padding-top: 15px;
+  margin-bottom: 20px;
 }
 
 .sidebar-col {
   background-color: white;
   padding-left: 5px;
+  /*  position: fixed; */
+  position: sticky;
+
+  left: 0;
+  flex-grow: 0;
+  flex-shrink: 0;
   width: 21% !important
 }
 

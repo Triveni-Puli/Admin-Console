@@ -10,8 +10,6 @@ import {
   GridRowEditStopReasons,
 } from "@mui/x-data-grid";
 import { createSvgIcon } from "@mui/material/utils";
-//import { ClassNames } from "@emotion/react/types";
-//import { makeStyles } from "@mui/styles";
 
 function EditToolbar(props) {
   const { setRows, setRowModesModel } = props;
@@ -52,7 +50,6 @@ export default function CustomGrid(props) {
     setRows(rows.filter((row) => row.id !== id));
   }; */
 
-  /*  Integrating Delete API in Botconfig */
   const handleDeleteClick = async (item) => {
     props.onDelete(item);
   };
@@ -123,21 +120,38 @@ export default function CustomGrid(props) {
   let defaultColumns;
   if (dataIdentifier === "userManagement") {
     defaultColumns = [
-      {
-        field: "collection_name",
+      /*       {
+        field: "User_Name",
         headerName: "Name",
         width: 220,
         editable: true,
+        renderCell: (params) => (
+              console.log(params);
+          <span style={{ fontWeight: 500 }}>{params.value}</span>
+        ),
+      },  */
+      {
+        field: "User_Name",
+        headerName: "Name",
+        width: 200,
+        renderCell: (params) => (
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <span style={{ fontWeight: 500 }}>{params.row.User_Name}</span>
+            <div style={{ fontSize: 400, color: "#8291A0", fontSize: "12px" }}>
+              {params.row.Email_id}
+            </div>{" "}
+          </div>
+        ),
       },
       {
-        field: "role",
+        field: "Role Type",
         headerName: "Role",
         type: "dropdown",
         width: 160,
         editable: true,
       },
-      { field: "date_added", headerName: "Date Added", width: 160 },
-      { field: "last_active", headerName: "Last Active", width: 160 },
+      { field: "Creation_Date", headerName: "Date Added", width: 140 },
+      { field: "last_active", headerName: "Last Active", width: 140 },
 
       {
         field: "actions",
@@ -172,6 +186,9 @@ export default function CustomGrid(props) {
       {
         field: "collection_name",
         headerName: "Name",
+        renderCell: (params) => (
+          <span style={{ fontWeight: 500 }}>{params.value}</span>
+        ),
         headerClassName: "mui-custom-header",
         width: 180,
         editable: true,
@@ -242,6 +259,9 @@ export default function CustomGrid(props) {
         "& .textPrimary": {
           color: "text.primary",
         },
+        "& .MuiDataGrid-columnHeaders": {
+          backgroundColor: "#D6D6D6",
+        },
       }}>
       <DataGrid
         sx={{
@@ -250,7 +270,6 @@ export default function CustomGrid(props) {
         // getRowId={(row) => row.collection_name}
         getRowId={gridGetRowId}
         rows={dataRows}
-        //rows={dataRows}
         columns={columns}
         rowsPerPageOptions={[]}
         hideFooterPagination
@@ -263,8 +282,8 @@ export default function CustomGrid(props) {
         //   toolbar: EditToolbar,
         // }}
         // slotProps={{
-        //   toolbar: { setRows, setRowModesModel },
-        // }}
+        // //   toolbar: { setRows, setRowModesModel },
+        // // }}
         checkboxSelection
         // selectionModel={selectedRowIds}
         //onSelectionModelChange={(itm) => console.log(itm)}

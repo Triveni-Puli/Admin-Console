@@ -5,8 +5,12 @@ import CustomGrid from "../Common/Grid";
 import React, { useEffect, useState } from "react";
 import delSmallImg from "../../assets/deleteSmall.svg";
 import axios from "axios";
-import { clearList } from "../BotConfiguration/AddNewIntent/IntentExample/actions";
+import {
+  clearList,
+  deleteItem,
+} from "../BotConfiguration/AddNewIntent/IntentExample/actions";
 import { useDispatch, useSelector } from "react-redux";
+import DeletePopup from "../BotConfiguration/AddNewIntent/IntentExample/DeletePopup";
 
 const BotConfigData = () => {
   // const [responseData, setResponseData] = useState({});
@@ -27,6 +31,7 @@ const BotConfigData = () => {
   const dispatch = useDispatch();
   const [botIntentList, setBotIntentList] = useState([]);
   const [gridSelectionModel, setGridSelectionModel] = useState([]);
+  const [delPopupOpen, setDelPopupOpen] = useState(false);
   useEffect(() => {
     axios
       .get(
@@ -55,7 +60,7 @@ const BotConfigData = () => {
     setBotIntentList(updatedRows);
   };
 
-  const handleDelete = async (item) => {
+  const handleDeleteAPI = async (item) => {
     console.log(item.id);
     const data = JSON.stringify({ intent: item.id });
     // if (dataIdentifier === "botConfig") {
@@ -80,8 +85,23 @@ const BotConfigData = () => {
     } catch (err) {
       console.log(err);
     }
+  };
 
-    /*     setRows(rows.filter((row) => row.id !== id)); */
+  const handleDeleteiIcon = (index) => {
+    setDelPopupOpen(true);
+    delPopupOpen && (
+      <DeletePopup
+        delPopupOpen={delPopupOpen}
+        onClose={() => setDelPopupOpen(false)}
+        onDelete={() => handleDeleteItem(index)}
+      />
+    );
+  };
+
+  const handleDeleteItem = (index) => {
+    dispatch(deleteItem(index));
+    /*  dispatch(hideDelPopup()); */
+    setDelPopupOpen(false);
   };
 
   return (
@@ -129,7 +149,8 @@ const BotConfigData = () => {
                 getRowId={(row) => row.intent}
                 dataIdentifier="botConfig"
                 onSelectionModelChange={setGridSelectionModel}
-                onDelete={handleDelete}
+                onDelete={handleDeleteAPI}
+                //  onDeleteIcon={handleDeleteiIcon((row) => row.id)}
               />
             )}
           </div>

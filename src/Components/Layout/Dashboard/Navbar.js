@@ -11,6 +11,7 @@ import { Link, NavLink } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 // import DashboardImage from "../../../assets/Dashboard.png";
 import DashboardImage from "../../../assets/dashboard.svg";
+import GenAIBotLogo from "../../../assets/Union.png";
 
 const Navbar = () => {
   return (
@@ -18,7 +19,8 @@ const Navbar = () => {
       {" "}
       <div className="sidebar">
         <div className="dashboard-genaibot">
-          <img
+          <img src={GenAIBotLogo} alt="GenAi-bot-logo" />
+          {/*  <img
             src={BotLogo}
             alt="Bot-Logo"
             style={{
@@ -29,7 +31,7 @@ const Navbar = () => {
             }}
           />
           <span className="genai">GenAI</span>
-          <span className="bot">Bot</span>
+          <span className="bot">Bot</span> */}
         </div>
 
         <Nav className="flex-column sidebar">
