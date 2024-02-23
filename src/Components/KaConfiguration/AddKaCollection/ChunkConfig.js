@@ -27,11 +27,11 @@ const ChunkConfigComponent = (props) => {
         <>
             <div className="kaConfig">
                 <div className="items rightSpace">
-                    <label>Chunk Size</label>
+                    <label className="inputLabel">Chunk Size</label>
                     <RangeSliderComponent min={100} max={chunkSize} step={1400} />
                 </div>
                 <div className="items">
-                    <label>Chunk Overlap</label>
+                    <label className="inputLabel">Chunk Overlap</label>
                     <RangeSliderComponent min={0} max={500} step={50}  />
                 </div>
             </div>

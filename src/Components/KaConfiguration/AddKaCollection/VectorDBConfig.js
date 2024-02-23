@@ -42,7 +42,7 @@ const VectorDBConfigComponent = (props) => {
   return (
     <>
       <div className="items">
-        <label>Vector DB Type</label>
+        <label className="inputLabel">Vector DB Type</label>
         <SelectComponent list={vectorDBList} handleChange={handleDBChange} />
       </div>
       {(selectedDB !== "ChromaDB" && selectedDB !== "FAISS" ) &&
@@ -50,16 +50,16 @@ const VectorDBConfigComponent = (props) => {
           <span >DB Config</span>
           <hr className="line" />
           <div className="kaConfig">
-          { dbConfigList && showField(dbConfigList, 'api_key') && <div className="rightSpace">
-              <label>API Key</label>
+          { dbConfigList && showField(dbConfigList, 'api_key') && <div className="configCol">
+              <label className="inputLabel">API Key</label>
               <InputBox type="password"  />
             </div> }
-            { dbConfigList && showField(dbConfigList, 'environment') && <div className="rightSpace">
-              <label>Environment</label>
+            { dbConfigList && showField(dbConfigList, 'environment') && <div className="configCol">
+              <label className="inputLabel">Environment</label>
               <InputBox />
             </div> }
-            { dbConfigList && showField(dbConfigList, 'url') && <div className="rightSpace">
-              <label>Url</label>
+            { dbConfigList && showField(dbConfigList, 'url') && <div className="configCol">
+              <label className="inputLabel">Url</label>
               <InputBox />
             </div> }
           </div>

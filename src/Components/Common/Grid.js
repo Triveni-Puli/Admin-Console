@@ -119,7 +119,7 @@ export default function CustomGrid(props) {
       /*       {
         field: "User_Name",
         headerName: "Name",
-        width: 200,
+        width: 220,
         editable: true,
         renderCell: (params) => (
               console.log(params);
@@ -143,7 +143,7 @@ export default function CustomGrid(props) {
         field: "Role Type",
         headerName: "Role",
         type: "dropdown",
-        width: 150,
+        width: 160,
         editable: true,
       },
       { field: "Creation_Date", headerName: "Date Added", width: 140 },
@@ -153,7 +153,7 @@ export default function CustomGrid(props) {
         field: "actions",
         type: "actions",
         headerName: "Actions",
-        width: 120,
+        width: 180,
         cellClassName: "actions",
         align: "left",
         headerAlign: "left",
@@ -194,7 +194,7 @@ export default function CustomGrid(props) {
         headerName: "Description",
         headerClassName: "mui-custom-header",
         type: "number",
-        width: 450,
+        width: 520,
         align: "left",
         headerAlign: "left",
         // editable: true,

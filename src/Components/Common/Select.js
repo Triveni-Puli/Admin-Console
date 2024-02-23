@@ -13,7 +13,7 @@ const SelectComponent = (props) => {
         props.handleChange(event.target.value);
     }
     return(
-        <Select sx={{ width: 250 }}
+        <Select sx={{ width: 280 }}
             labelId={id}
             id= {id}
             value={value}

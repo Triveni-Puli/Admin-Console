@@ -143,24 +143,26 @@ const AddCustomKaCollection = () => {
   return (
     <>
       <div className="configContainer" >
-        <span><a href="" style={{textDecoration: "none"}} onClick={handleKALink}>K A Collections</a> {">"} Add new Collection </span>
+        <span className="kaTopText"><a href="" style={{textDecoration: "none"}} onClick={handleKALink}>K A Collections</a> {">"} Add new Collection </span>
         <div className="heading">Add new Collection</div>
         <hr className="line"/>
         <div className="error">{apiErrorMsg}</div>
         <div className="items">
-          <label>Collection Name</label>
-          <InputBox width={300} onBlur={checkCollectionName} onChange={handleCollectionNameChange}/>
+          <label className="inputLabel">Collection Name</label>
+          <InputBox width={370} onBlur={checkCollectionName} onChange={handleCollectionNameChange}/>
         <div className="error">{collectionNameErr}</div>
         </div>
         <div className="items">
-          <label>Description</label>
-          <InputBox width={450} onChange={handleDescChange}/>
+          <label className="inputLabel">Description</label>
+          <InputBox className="inputBorder" width={728} onChange={handleDescChange}/>
         </div>
-        <Button variant="outlined" sx={{ marginRight: 2 }}>Create Default </Button>
-        <Button variant="contained">Create Custom</Button>
-        <Stepper activeStep={activeStep} sx={{ marginTop: 4, marginBottom: 4 }} alternativeLabel>
+        <div className="switcher">
+        <Button className="defaultBtn"  sx={{ marginRight: 5 }}>Create Default </Button>
+        <Button className="customBtn" >Create Custom</Button>
+        </div>
+        <Stepper  activeStep={activeStep} sx={{ marginTop: 4, marginBottom: 4 }} alternativeLabel>
           {steps.map((label) => (
-            <Step key={label} >
+            <Step key={label}  >
               <StepLabel></StepLabel>
             </Step>
           ))}
@@ -172,8 +174,8 @@ const AddCustomKaCollection = () => {
           {activeStep == 3 && <ChunkConfigComponent/>}
         </div>
         <div className="bottomBtn">
-          <Button disabled= {activeStep === 0} variant="outlined" sx={{ marginRight: 2 }} onClick={handlePrevious}> Previous </Button>
-          <Button variant="contained" onClick={handleSave}>{activeStep === 3 ? "SUBMIT AND CREATE COLLECTION": "Save & Continue"}</Button>
+          <button className="btn btnPrev" disabled= {activeStep === 0} variant="outlined" sx={{ marginRight: 2 }} onClick={handlePrevious}> Previous </button>
+          <button className="btn btnSave" variant="contained" onClick={handleSave}>{activeStep === 3 ? "SUBMIT AND CREATE COLLECTION": "Save & Continue"}</button>
         </div>
       </div>
     </>
