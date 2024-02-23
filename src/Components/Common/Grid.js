@@ -38,8 +38,12 @@ export default function CustomGrid(props) {
     }
   };
 
-  const handleEditClick = (id) => () => {
-    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
+  // const handleEditClick = (id) => () => {
+  //   setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
+  // };
+
+  const handleEditClick = (id) => {
+    props.onEdit(id);
   };
 
   /*   const handleDeleteClick = (id) => () => {
@@ -222,7 +226,7 @@ export default function CustomGrid(props) {
               icon={<EditIcon />}
               label="Edit"
               className="textPrimary"
-              onClick={handleEditClick(id)}
+              onClick={()=> handleEditClick({id})}
               color="inherit"
             />,
             <GridActionsCellItem
