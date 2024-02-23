@@ -51,7 +51,15 @@ export default function Popup({ addPopupOpen, onClose }) {
             Add Intent Example
           </DialogTitle>
           <Divider style={{ border: "1.3px solid #C8D2DD" }} />
-          <ModalClose variant="plain" sx={{ m: 1 }} />
+          <ModalClose
+            variant="plain"
+            sx={{
+              m: 2,
+              "& .MuiSvgIcon-root": {
+                color: "#323232",
+              },
+            }}
+          />
           <Typography
             level="body-sm"
             style={{

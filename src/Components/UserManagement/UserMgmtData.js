@@ -7,11 +7,11 @@ import { createSvgIcon } from "@mui/material/utils";
 import axios from "axios";
 
 const UserMgmtData = () => {
-  const [KACollections, setKACollections] = useState([]);
+  const [userManagementdata, setUserManagementdata] = useState([]);
   useEffect(() => {
     axios
       .get(
-        "https://lohbeuf4mgodcuhxj3q343z7o40brjhx.lambda-url.ap-south-1.on.aws/",
+        " https://476gx73uu6.execute-api.ap-south-1.amazonaws.com/default/Get_all_user_details_api?Role%20Type=admin",
         {},
         {
           headers: {
@@ -20,10 +20,11 @@ const UserMgmtData = () => {
         }
       )
       .then((response) => {
-        setKACollections(response.data);
+        setUserManagementdata(response.data);
       })
       .catch((err) => {});
   }, []);
+
   return (
     <div>
       <div className="configContainer">
@@ -37,9 +38,10 @@ const UserMgmtData = () => {
             </span>
           </div>
           <div className="gridDetailsSection">
-            {KACollections.length > 0 && (
+            {userManagementdata.length > 0 && (
               <CustomGrid
-                rows={KACollections}
+                rows={userManagementdata}
+                getRowId={(row) => row.User_Id}
                 dataIdentifier="userManagement"
               />
             )}

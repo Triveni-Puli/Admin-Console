@@ -5,6 +5,7 @@ import { useState } from "react";
 import axios from "axios";
 import addExImg from "../../../assets/addImg.svg";
 import addEntImg from "../../../assets/addentiImg.svg";
+import cancelImg from "../../../assets/Cancel.png";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -223,11 +224,17 @@ const AddNewIntent = () => {
                     intentEntities.map((intentEntity, index) => (
                       <li key={index} className="list-item">
                         <span>{intentEntity}</span>
-                        <div
+                        <img
+                          className="cancel-symbol"
+                          src={cancelImg}
+                          alt="Cancel"
+                          onClick={() => handleRemoveEntity(index)}
+                        />
+                        {/*  <div
                           className="cross-circle"
                           onClick={() => handleRemoveEntity(index)}>
                           <span className="cross-symbol">X</span>
-                        </div>
+                        </div> */}
                       </li>
                     ))}
                 </ul>
