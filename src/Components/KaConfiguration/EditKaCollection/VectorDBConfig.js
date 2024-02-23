@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
+import {  useSelector } from "react-redux";
 import SelectComponent from "../../Common/Select";
 // import TextField from '@mui/material/TextField';
 import {showField} from "../../../shared/methods";
@@ -7,10 +8,12 @@ import InputBox from "../../Common/InputBox";
 
 
 const VectorDBConfigComponent = (props) => {
+  const collectionDetails = useSelector((state) => state.KnowlegdeAgent.collectionDetails);
+  const dbDetails = collectionDetails.vector_db.db_config;
   const [vectorDBList, setVectorDBList] = useState([]);
   const [dbConfigList, setDBConfigList] = useState([]);
   const [selectedDB, setSelectedDB] = useState([]);
-
+  const dbType = collectionDetails.vector_db.db_type;
   useEffect(() => {
     axios.get("https://5yguhudqn325lpvt6g2ekm22gy0qnfrj.lambda-url.ap-south-1.on.aws/db_type", {}, {
       headers: {
@@ -20,6 +23,7 @@ const VectorDBConfigComponent = (props) => {
       setVectorDBList(response.data);
     }).catch(err => {
     });
+    getVectorDBConfigList(dbType);
   }, [])
   function getVectorDBConfigList(dbType) {
     axios.post("https://5yguhudqn325lpvt6g2ekm22gy0qnfrj.lambda-url.ap-south-1.on.aws/db_config", {
@@ -43,9 +47,9 @@ const VectorDBConfigComponent = (props) => {
     <>
       <div className="items">
         <label className="inputLabel">Vector DB Type</label>
-        <SelectComponent list={vectorDBList} handleChange={handleDBChange} />
+        <SelectComponent disabled list={[dbType]} handleChange="" />
       </div>
-      {(selectedDB !== "ChromaDB" && selectedDB !== "FAISS" ) &&
+      {(dbType !== "ChromaDB" && dbType !== "FAISS" ) &&
         <>
           <span >DB Config</span>
           <hr className="line" />

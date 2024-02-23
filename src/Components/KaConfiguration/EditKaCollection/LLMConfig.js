@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import SelectComponent from "../../Common/Select";
 // import TextField from '@mui/material/TextField';
 import RangeSliderComponent from '../../Common/RangeSlider';
-import { setFormValues } from "../KaActions";
+import { setFieldValue } from "../KaActions";
 import { showField } from "../../../shared/methods"
 import InputBox from "../../Common/InputBox";
 
@@ -12,12 +12,16 @@ import InputBox from "../../Common/InputBox";
 
 const LLMConfigComponent = (props) => {
   const dispatch = useDispatch();
-  const [llmTypeList, setLlmTypeList] = useState([]);
+  const collectionDetails = useSelector((state) => state.KnowlegdeAgent.collectionDetails);
+  const llmDetails = collectionDetails.llm.llm_config;
+  const [llmTypeList, setLlmTypeList] = useState([collectionDetails.llm.llm_type]);
   const [llmConfigList, setLlmConfigList] = useState([]);
-  const [modelList, setModelList] = useState([]);
+  const [modelList, setModelList] = useState([llmDetails.model]);
   // const [selectedLlmType, setselectedLlmType] = useState('');
   const [selectedModel, setselectedModel] = useState('');
-  const [apikey, setApiKey] = useState('');
+  const [apikey, setApiKey] = useState(llmDetails.api_key);
+  const [maxToken, setMaxToken] = useState(llmDetails.max_tokens);
+  
 
   // const llmTypeList = ["OpenAI", "AzureOpenAI", "VertexAI", "Anthropic", "Cohere"];
 
@@ -79,16 +83,17 @@ const LLMConfigComponent = (props) => {
 
   function handleModelChange(val) {
     setselectedModel(val);
-    dispatch(setFormValues("llmModel", val));
+    dispatch(setFieldValue("llmModel", val));
   }
 
   function handleAPIKeyChange(event) {
-    dispatch(setFormValues("llmApiKey", event.target.value));
+    dispatch(setFieldValue("llmApiKey", event.target.value));
     setApiKey(event.target.value);
   }
 
   function handleTokenChange(event) {
-    dispatch(setFormValues("llmMaxToken", event.target.value));
+    dispatch(setFieldValue("llmMaxToken", event.target.value));
+    setMaxToken(event.target.value);
   }
 
   return (
@@ -114,19 +119,19 @@ const LLMConfigComponent = (props) => {
         </div>}
         {showField(llmConfigList, 'api_key') && <div className="configCol">
           <label className="inputLabel">API Key</label>
-          <InputBox className="inputBorder" type="password" onChange={handleAPIKeyChange} />
+          <InputBox className="inputBorder" type="password" value ={apikey} onChange={handleAPIKeyChange} />
         </div>}
         {showField(llmConfigList, 'openai_api_version') && <div className="configCol">
           <label className="inputLabel">API Version</label>
-          <InputBox onChange={handleAPIKeyChange} />
+          <InputBox onChange="" />
         </div>}
         {showField(llmConfigList, 'openai_api_base') && <div className="rightSpace configCol">
           <label className="inputLabel">API Base</label>
-          <InputBox onChange={handleAPIKeyChange} />
+          <InputBox onChange="" />
         </div>}
         <div className="rightSpace configCol">
           <label className="inputLabel">Max Tokens</label>
-          <InputBox className="inputBorder" onChange={handleTokenChange} />
+          <InputBox className="inputBorder" value={maxToken} onChange={handleTokenChange} />
         </div>
         <div>
           <label className="inputLabel">Temperature</label>

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import delSmallImg from "../../assets/deleteSmall.svg";
 import plusImg from "../../assets/plusIcon.svg";
 import CustomGrid from '../Common/Grid';
-import { showCreatePageUI, showEditPageUI } from "./KaActions";
+import { showCreatePageUI, showEditPageUI, setCollectionDetails } from "./KaActions";
 import "./KaConfiguration.css"
 
 const ViewKaCollection = (props) => {
@@ -55,7 +55,9 @@ const ViewKaCollection = (props) => {
         "Content-Type": "text/plain",
       },
     }).then(response => {
+      dispatch(setCollectionDetails(response.data));
       dispatch(showEditPageUI(true));
+
       // setKACollections(KACollections.filter((row) => row.collection_name !== collection.id));
     }).catch(err => {
     });

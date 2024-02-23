@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
 import SelectComponent from "../../Common/Select";
 // import TextField from '@mui/material/TextField';
-import { setFormValues } from "../KaActions";
+import { setFieldValue } from "../KaActions";
 import { showField } from "../../../shared/methods"
 import InputBox from "../../Common/InputBox";
 
@@ -14,8 +14,8 @@ const EmbeddingConfigComponent = (props) => {
   const [embeddingTypeList, setEmbeddingTypeList] = useState([]);
   const [modelList, setModelList] = useState([]);
   const [embeddingConfigList, setEmbeddingConfigList] = useState([]);
-
-
+  const collectionDetails = useSelector((state) => state.KnowlegdeAgent.collectionDetails);
+  const embeddingDetails = collectionDetails.embedding.embedding_config;
   function getEmbeddingListAPI() {
     axios.get("https://5yguhudqn325lpvt6g2ekm22gy0qnfrj.lambda-url.ap-south-1.on.aws/embedding_type", {}, {
       headers: {
@@ -45,6 +45,7 @@ const EmbeddingConfigComponent = (props) => {
   useEffect(() => {
     getEmbeddingListAPI();
     getEmbeddingModelAPI("OpenAI");
+    getEmbeddingConfigList("OpenAI");
   }, [])
 
   function getEmbeddingConfigList(embeddingType) {
@@ -62,30 +63,30 @@ const EmbeddingConfigComponent = (props) => {
   }
 
   function handleEmbeddingTypeChange(embeddingType) {
-    dispatch(setFormValues("embeddingType", embeddingType));
+    dispatch(setFieldValue("embeddingType", embeddingType));
     getEmbeddingModelAPI(embeddingType);
     getEmbeddingConfigList(embeddingType);
   }
 
   function handleEmbeddingModelChange(embeddingModelType) {
-    dispatch(setFormValues("embeddingModel", embeddingModelType));
+    dispatch(setFieldValue("embeddingModel", embeddingModelType));
   }
 
   function handleApiKeyChange(event) {
-    dispatch(setFormValues("embeddingApiKey", event.target.value));
+    dispatch(setFieldValue("embeddingApiKey", event.target.value));
   }
   return (
     <>
       <div className="items">
         <label className="inputLabel">Embedding Type</label>
-        <SelectComponent id="emdedding" list={embeddingTypeList} handleChange={handleEmbeddingTypeChange} />
+        <SelectComponent id="emdedding" disabled list={[collectionDetails.embedding.embedding_type]} handleChange="" />
       </div>
       <span >Embedding Config</span>
       <hr className="line" />
       <div className="kaConfig">
         <div className="configCol">
           <label className="inputLabel">Model Name</label>
-          <SelectComponent id="emdeddingModel" list={modelList} handleChange={handleEmbeddingModelChange} />
+          <SelectComponent id="emdeddingModel" disabled list={[embeddingDetails.model_name]} handleChange="" />
         </div>
         {showField(embeddingConfigList, 'credentials') && <div className="configCol">
           <label className="inputLabel">Credentials</label>
@@ -94,7 +95,7 @@ const EmbeddingConfigComponent = (props) => {
 
         {showField(embeddingConfigList, 'api_key') && <div className="configCol">
           <label className="inputLabel">API Key</label>
-          <InputBox type="password" onChange={handleApiKeyChange} />
+          <InputBox disabled type="password" onChange={handleApiKeyChange} value={embeddingDetails.api_key} />
         </div>}
         {showField(embeddingConfigList, 'openai_api_version') && <div className="configCol">
           <label className="inputLabel">API Version</label>
