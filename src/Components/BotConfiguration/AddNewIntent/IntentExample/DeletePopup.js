@@ -39,7 +39,15 @@ export default function DeletePopup({ onClose, delPopupOpen, onDelete }) {
           </DialogTitle>
           <Divider style={{ border: "1.3px solid #C8D2DD" }} />
 
-          <ModalClose variant="plain" sx={{ m: 1 }} />
+          <ModalClose
+            variant="plain"
+            sx={{
+              m: 1,
+              "& .MuiSvgIcon-root": {
+                color: "#323232",
+              },
+            }}
+          />
           <DialogContent
             style={{
               width: "445px",

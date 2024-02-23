@@ -1,9 +1,10 @@
 import React from "react";
+import DashboardContent from "../Common/DashboardContent";
 
 const DashboardData = () => {
   return (
     <div>
-      <h1>Dashboard</h1>
+      <DashboardContent />
     </div>
   );
 };

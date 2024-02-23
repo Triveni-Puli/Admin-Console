@@ -116,20 +116,37 @@ export default function CustomGrid(props) {
   let defaultColumns;
   if (dataIdentifier === "userManagement") {
     defaultColumns = [
-      {
-        field: "collection_name",
+      /*       {
+        field: "User_Name",
         headerName: "Name",
         width: 200,
         editable: true,
+        renderCell: (params) => (
+              console.log(params);
+          <span style={{ fontWeight: 500 }}>{params.value}</span>
+        ),
+      },  */
+      {
+        field: "User_Name",
+        headerName: "Name",
+        width: 200,
+        renderCell: (params) => (
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <span style={{ fontWeight: 500 }}>{params.row.User_Name}</span>
+            <div style={{ fontSize: 400, color: "#8291A0", fontSize: "12px" }}>
+              {params.row.Email_id}
+            </div>{" "}
+          </div>
+        ),
       },
       {
-        field: "role",
+        field: "Role Type",
         headerName: "Role",
         type: "dropdown",
         width: 150,
         editable: true,
       },
-      { field: "date_added", headerName: "Date Added", width: 140 },
+      { field: "Creation_Date", headerName: "Date Added", width: 140 },
       { field: "last_active", headerName: "Last Active", width: 140 },
 
       {
