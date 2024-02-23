@@ -12,7 +12,7 @@ import {showCreatePageUI, setFormValues} from "../KaActions";
 import "../KaConfiguration.css"
 
 
-const AddCustomKaCollection = () => {
+const EditCustomKaCollection = () => {
   const dispatch = useDispatch();
   const [collectionName, setCollectionName] = useState('');
   // const [description, setDescription] = useState('');
@@ -70,66 +70,67 @@ const AddCustomKaCollection = () => {
   }
 
   function handleSave(){
-    // dispatch(showCreatePageUI(false));
-    if(activeStep===3){
-    axios.post("https://erj3tyfntew3xum2dh6icphrye0ktrco.lambda-url.ap-south-1.on.aws/create_collection", {
-      "config": {
-        "collection_name": formValues.collectionName,
-        "description": formValues.description,
-        "llm": {
-            // "llm_type": formValues.llmType,
-            "llm_type": "OpenAI",
-            "llm_config": {
-                "model": formValues.llmModel,
-                 "api_key": formValues.llmApiKey,
-                 "temperature": 0.3,
-                 "max_tokens": formValues.llmMaxToken,
-                 "deployment_name":"",
-                 "openai_api_version":"",
-                 "openai_api_base":"",
-                 "credentials":""
-                //  "top_p": 1
-            }
-        },
-        "vector_db": {
-            "db_type": "ChromaDB",
-            "db_config": {
-              "api_key": "",
-              "environment":"",
-              "url":""
-            }
-        },
-        "embedding": {
-             "embedding_type": formValues.embeddingType,
-            "embedding_config": {
-                 "model_name": formValues.embeddingModel,
-                 "api_key": formValues.embeddingApiKey,
-                 "openai_api_version":"",
-                 "openai_api_base":"",
-                 "credentials":""
-            }
-        },
-        "splitter_config": {
-            "chunk_size": 2000,
-             "chunk_overlap": 100
-        }
-    }
-      }, {
-        headers: {
-          "Content-Type": "text/plain",
-        },
-      }).then(response => {
-        dispatch(showCreatePageUI(false));
-        setApiErrMsg('');
-      }).catch(err => {
-        console.log(err);
-        setApiErrMsg(err.response.data);
-      });
 
-    }
-    if(activeStep <3){
-    setActiveStep(activeStep + 1);
-    }
+    // dispatch(showCreatePageUI(false));
+    // if(activeStep===3){
+    // axios.post("https://erj3tyfntew3xum2dh6icphrye0ktrco.lambda-url.ap-south-1.on.aws/create_collection", {
+    //   "config": {
+    //     "collection_name": formValues.collectionName,
+    //     "description": formValues.description,
+    //     "llm": {
+    //         // "llm_type": formValues.llmType,
+    //         "llm_type": "OpenAI",
+    //         "llm_config": {
+    //             "model": formValues.llmModel,
+    //              "api_key": formValues.llmApiKey,
+    //              "temperature": 0.3,
+    //              "max_tokens": formValues.llmMaxToken,
+    //              "deployment_name":"",
+    //              "openai_api_version":"",
+    //              "openai_api_base":"",
+    //              "credentials":""
+    //             //  "top_p": 1
+    //         }
+    //     },
+    //     "vector_db": {
+    //         "db_type": "ChromaDB",
+    //         "db_config": {
+    //           "api_key": "",
+    //           "environment":"",
+    //           "url":""
+    //         }
+    //     },
+    //     "embedding": {
+    //          "embedding_type": formValues.embeddingType,
+    //         "embedding_config": {
+    //              "model_name": formValues.embeddingModel,
+    //              "api_key": formValues.embeddingApiKey,
+    //              "openai_api_version":"",
+    //              "openai_api_base":"",
+    //              "credentials":""
+    //         }
+    //     },
+    //     "splitter_config": {
+    //         "chunk_size": 2000,
+    //          "chunk_overlap": 100
+    //     }
+    // }
+    //   }, {
+    //     headers: {
+    //       "Content-Type": "text/plain",
+    //     },
+    //   }).then(response => {
+    //     dispatch(showCreatePageUI(false));
+    //     setApiErrMsg('');
+    //   }).catch(err => {
+    //     console.log(err);
+    //     setApiErrMsg(err.response.data);
+    //   });
+
+    // }
+    // if(activeStep <3){
+    // setActiveStep(activeStep + 1);
+    // }
 
   }
   function handlePrevious() {
@@ -138,8 +139,8 @@ const AddCustomKaCollection = () => {
   return (
     <>
       <div className="configContainer" >
-        <span className="kaTopText"><a href="" style={{textDecoration: "none"}} onClick={handleKALink}>K A Collections</a> {">"} Add new Collection </span>
-        <div className="heading">Add new Collection</div>
+        <span className="kaTopText"><a href="" style={{textDecoration: "none"}} onClick={handleKALink}>K A Collections</a> {">"} Edit Collection </span>
+        <div className="heading">Edit Collection</div>
         <hr className="line"/>
         <div className="error">{apiErrorMsg}</div>
         <div className="items">
@@ -172,7 +173,7 @@ const AddCustomKaCollection = () => {
           {activeStep == 3 && <ChunkConfigComponent/>}
         </div>
         <div className="bottomBtn">
-          {activeStep !== 0 && activeStep !== 3 && <button className="btn btnPrev" disabled= {activeStep === 0} variant="outlined" sx={{ marginRight: 2 }} onClick={handlePrevious}> Previous </button>}
+          {activeStep !== 1 && activeStep !== 3 && <button className="btn btnPrev" disabled= {activeStep === 0} variant="outlined" sx={{ marginRight: 2 }} onClick={handlePrevious}> Previous </button>}
           <button className="btn btnSave" variant="contained" onClick={handleSave}>{activeStep === 3 ? "SUBMIT AND CREATE COLLECTION": "Save & Continue"}</button>
         </div>
       </div>
@@ -180,4 +181,4 @@ const AddCustomKaCollection = () => {
   )
 };
 
-export default AddCustomKaCollection;
+export default EditCustomKaCollection;

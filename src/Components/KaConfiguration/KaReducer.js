@@ -1,11 +1,14 @@
 const initialState = {
     showCreateUI: false,
+    showEditUI: false,
     formValues: {}
   };
 const KaReducer = (state = initialState, action) => {
     switch (action.type) {
         case "SHOW_CREATE_PAGE_UI":
             return { ...state, showCreateUI: action.payload };
+        case "SHOW_EDIT_PAGE_UI":
+            return { ...state, showEditUI: action.payload };
         case "SET_FORM_VALUES":
             const fieldObj = {
                 [action.payload.field]: action.payload.value
