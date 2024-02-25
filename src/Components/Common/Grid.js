@@ -141,16 +141,6 @@ export default function CustomGrid(props) {
   let defaultColumns;
   if (dataIdentifier === "userManagement") {
     defaultColumns = [
-      /*       {
-        field: "User_Name",
-        headerName: "Name",
-        width: 220,
-        editable: true,
-        renderCell: (params) => (
-              console.log(params);
-          <span style={{ fontWeight: 500 }}>{params.value}</span>
-        ),
-      },  */
       {
         field: "User_Name",
         headerName: "Name",
