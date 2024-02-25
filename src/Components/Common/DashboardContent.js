@@ -6,60 +6,46 @@ import Image4 from "../../assets/Top Products.png";
 import Image5 from "../../assets/Total Revenue (1).png";
 import Image6 from "../../assets/Total Revenue (2).png";
 
-const ImageContainer = ({ images }) => {
-  return (
-    <div
-      className="container"
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(3, 1fr)",
-        gridGap: "10px",
-      }}>
-      <img
-        src={Image1}
-        alt="Image 1"
-        style={{ maxWidth: "570px", height: "351px" }}
-      />
-      <img
-        src={Image2}
-        alt="Image 2"
-        style={{ maxWidth: "420px", height: "351px" }}
-      />
-      <img
-        src={Image3}
-        alt="Image 3"
-        style={{ maxWidth: "420px", height: "351px" }}
-      />
-      <img
-        src={Image4}
-        alt="Image 4"
-        style={{ maxWidth: "570px", height: "351px" }}
-      />
-      <img
-        src={Image5}
-        alt="Image 5"
-        style={{ maxWidth: "420px", height: "351px" }}
-      />
-      <img
-        src={Image6}
-        alt="Image 6"
-        style={{ maxWidth: "420px", height: "351px" }}
-      />
-
-      {/*  {images.map((image, index) => (
-
-        <img key={index} src={image} alt={`Image ${index}`} style={{ maxWidth: '100%', height: 'auto' }} />
-
-      ))} */}
-    </div>
-  );
-};
+const images = [
+  { src: Image1, width: 570, height: 351 },
+  { src: Image2, width: 420, height: 351 },
+  { src: Image3, width: 420, height: 351 },
+  { src: Image4, width: 570, height: 351 },
+  { src: Image5, width: 420, height: 351 },
+  { src: Image6, width: 420, height: 351 },
+  // Add more images as needed
+];
 
 const DashboardContent = () => {
   return (
-    <div>
-      <ImageContainer />
-    </div>
+    <>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(3, 1fr)",
+          // gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+          gap: "10px",
+          // overflowX: "auto",
+        }}>
+        {" "}
+        {images.map((image, index) => (
+          <div
+            key={index}
+            style={{
+              width: `${image.width}px`,
+              height: `${image.height}px`,
+              overflow: "hidden",
+            }}>
+            {" "}
+            <img
+              src={image.src}
+              alt={`Image ${index + 1}`}
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            />{" "}
+          </div>
+        ))}{" "}
+      </div>
+    </>
   );
 };
 
