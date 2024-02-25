@@ -1,6 +1,5 @@
 //import * as React from "react";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import Box from "@mui/material/Box";
 import {
   GridRowModes,
@@ -47,7 +46,7 @@ export default function CustomGrid(props) {
   }; */
 
   const handleDeleteClick = async (item) => {
-    props.onDelete(item);
+    props.onDeleteIcon(item);
   };
 
   const processRowUpdate = (newRow) => {
@@ -116,16 +115,6 @@ export default function CustomGrid(props) {
   let defaultColumns;
   if (dataIdentifier === "userManagement") {
     defaultColumns = [
-      /*       {
-        field: "User_Name",
-        headerName: "Name",
-        width: 200,
-        editable: true,
-        renderCell: (params) => (
-              console.log(params);
-          <span style={{ fontWeight: 500 }}>{params.value}</span>
-        ),
-      },  */
       {
         field: "User_Name",
         headerName: "Name",

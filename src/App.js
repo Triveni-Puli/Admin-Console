@@ -38,37 +38,41 @@ function App() {
               <Navbar />
             </div>
             <div className="col col-lg-9">
-              <div class="container h-100 d-flex flex-column">
-                <div class="row header-row ">
-                  <Header />
+              <div className=" h-100 d-flex flex-column">
+                <div className="row header-row ">
+                  <div className="col-lg-12">
+                    <Header />
+                  </div>
                 </div>
                 <div
                   className="row flex-grow-1"
                   style={{ backgroundColor: "#F9FAFB" }}>
-                  <Routes>
-                    <Route
-                      path="/dashboard"
-                      element={<DashboardData />}></Route>
-                    <Route
-                      path="/usermanagement"
-                      element={<UserMgmtData />}></Route>
-                    <Route
-                      path="/botconfiguration"
-                      element={<BotConfigData />}></Route>
-                    <Route
-                      path="/knowledgeagentconfiguration"
-                      element={<KaConfiguration />}></Route>
-                    <Route
-                      path="/analyticsconfiguration"
-                      element={<AnalyticsConfig />}></Route>
-                    <Route
-                      path="/reinforcementlearning"
-                      element={<Reinforcement />}></Route>
-                    <Route path="/reports" element={<Reports />}></Route>
-                    <Route
-                      path="/addNewintent"
-                      element={<AddNewIntent />}></Route>
-                  </Routes>
+                  <div className="col-lg-12">
+                    <Routes>
+                      <Route
+                        path="/dashboard"
+                        element={<DashboardData />}></Route>
+                      <Route
+                        path="/usermanagement"
+                        element={<UserMgmtData />}></Route>
+                      <Route
+                        path="/botconfiguration"
+                        element={<BotConfigData />}></Route>
+                      <Route
+                        path="/knowledgeagentconfiguration"
+                        element={<KaConfiguration />}></Route>
+                      <Route
+                        path="/analyticsconfiguration"
+                        element={<AnalyticsConfig />}></Route>
+                      <Route
+                        path="/reinforcementlearning"
+                        element={<Reinforcement />}></Route>
+                      <Route path="/reports" element={<Reports />}></Route>
+                      <Route
+                        path="/addNewintent"
+                        element={<AddNewIntent />}></Route>
+                    </Routes>
+                  </div>
                 </div>
               </div>
             </div>

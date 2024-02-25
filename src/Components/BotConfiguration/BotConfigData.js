@@ -32,6 +32,8 @@ const BotConfigData = () => {
   const [botIntentList, setBotIntentList] = useState([]);
   const [gridSelectionModel, setGridSelectionModel] = useState([]);
   const [delPopupOpen, setDelPopupOpen] = useState(false);
+  const [selectedRow, setSelectedRow] = useState(null);
+
   useEffect(() => {
     axios
       .get(
@@ -60,12 +62,8 @@ const BotConfigData = () => {
     setBotIntentList(updatedRows);
   };
 
-  const handleDeleteAPI = async (item) => {
-    console.log(item.id);
-    const data = JSON.stringify({ intent: item.id });
-    // if (dataIdentifier === "botConfig") {
+  const handleDeleteItem = async (item) => {
     try {
-      /* for (const id of selectedRowIds) { */
       const response = await axios.delete(
         "https://hi954elm6a.execute-api.ap-south-1.amazonaws.com/dev/delete_intent",
         { params: { intent: item.id } },
@@ -77,31 +75,20 @@ const BotConfigData = () => {
       );
       if (response.status === 200) {
         console.log("Item deleted", response.data);
-
-        /*     setRows(updatedRows);
-          setBotIntentList([]); */
-        setBotIntentList(botIntentList.filter((row) => row.intent !== item.id));
+        const updatedBotIntentListAfterDel = botIntentList.filter(
+          (row) => row.intent !== item.id
+        );
+        setBotIntentList(updatedBotIntentListAfterDel);
+        setDelPopupOpen(false);
       }
     } catch (err) {
       console.log(err);
     }
   };
 
-  const handleDeleteiIcon = (index) => {
+  const handleDeleteClick = (row) => {
+    setSelectedRow(row);
     setDelPopupOpen(true);
-    delPopupOpen && (
-      <DeletePopup
-        delPopupOpen={delPopupOpen}
-        onClose={() => setDelPopupOpen(false)}
-        onDelete={() => handleDeleteItem(index)}
-      />
-    );
-  };
-
-  const handleDeleteItem = (index) => {
-    dispatch(deleteItem(index));
-    /*  dispatch(hideDelPopup()); */
-    setDelPopupOpen(false);
   };
 
   return (
@@ -149,8 +136,15 @@ const BotConfigData = () => {
                 getRowId={(row) => row.intent}
                 dataIdentifier="botConfig"
                 onSelectionModelChange={setGridSelectionModel}
-                onDelete={handleDeleteAPI}
-                //  onDeleteIcon={handleDeleteiIcon((row) => row.id)}
+                //onDelete={handleDeleteAPI}
+                onDeleteIcon={handleDeleteClick}
+              />
+            )}
+            {delPopupOpen && (
+              <DeletePopup
+                delPopupOpen={delPopupOpen}
+                onClose={() => setDelPopupOpen(false)}
+                onDelete={() => handleDeleteItem(selectedRow)}
               />
             )}
           </div>
