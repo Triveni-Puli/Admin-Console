@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import delSmallImg from "../../assets/deleteSmall.svg";
 import plusImg from "../../assets/plusIcon.svg";
 import CustomGrid from '../Common/Grid';
-import { showCreatePageUI } from "./KaActions";
+import { showCreatePageUI, showEditPageUI, setCollectionDetails } from "./KaActions";
 import "./KaConfiguration.css"
 
 const ViewKaCollection = (props) => {
@@ -32,15 +32,33 @@ const ViewKaCollection = (props) => {
     // props.handleAddButton(true);
   }
 
-  function handleDelete(collectionName) {
-    // var a = KACollections.filter((row) => row.collection_name !== collectionName) ;
+  function handleDelete(collection) {
     axios.delete("https://erj3tyfntew3xum2dh6icphrye0ktrco.lambda-url.ap-south-1.on.aws/delete_collection", {
       params: {
-        "collection_name": collectionName
+        "collection_name": collection.id
       }
     }, {
     }).then(response => {
-      // getKACollections();
+      setKACollections(KACollections.filter((row) => row.collection_name !== collection.id));
+    }).catch(err => {
+    });
+  }
+
+  function handleEdit(collection){
+    console.log("in edit", collection.id);
+    axios.post("https://erj3tyfntew3xum2dh6icphrye0ktrco.lambda-url.ap-south-1.on.aws/get_collection_config", {
+      // params: {
+        "collection_name": collection.id
+      // }
+    }, {
+      headers: {
+        "Content-Type": "text/plain",
+      },
+    }).then(response => {
+      dispatch(setCollectionDetails(response.data));
+      dispatch(showEditPageUI(true));
+
+      // setKACollections(KACollections.filter((row) => row.collection_name !== collection.id));
     }).catch(err => {
     });
   }
@@ -57,7 +75,7 @@ const ViewKaCollection = (props) => {
             </span>
           </div>
           <div className="gridDetailsSection">
-            {KACollections.length > 0 && <CustomGrid rows={KACollections} onDelete={handleDelete} />}
+            {KACollections.length > 0 && <CustomGrid rows={KACollections} onEdit={handleEdit} onDelete={handleDelete} />}
           </div>
         </div>
       </div>

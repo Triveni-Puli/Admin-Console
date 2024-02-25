@@ -12,13 +12,16 @@ import InputBox from "../../Common/InputBox";
 
 const LLMConfigComponent = (props) => {
   const dispatch = useDispatch();
-  const [llmTypeList, setLlmTypeList] = useState([]);
+  const collectionDetails = useSelector((state) => state.KnowlegdeAgent.collectionDetails);
+  const llmDetails = collectionDetails.llm.llm_config;
+  const [llmTypeList, setLlmTypeList] = useState([collectionDetails.llm.llm_type]);
   const [llmConfigList, setLlmConfigList] = useState([]);
-  const [modelList, setModelList] = useState([]);
+  const [modelList, setModelList] = useState([llmDetails.model]);
   // const [selectedLlmType, setselectedLlmType] = useState('');
   const [selectedModel, setselectedModel] = useState('');
-  const [apikey, setApiKey] = useState('');
-  const [maxToken, setMaxToken] = useState('');
+  const [apikey, setApiKey] = useState(llmDetails.api_key);
+  const [maxToken, setMaxToken] = useState(llmDetails.max_tokens);
+  
 
   // const llmTypeList = ["OpenAI", "AzureOpenAI", "VertexAI", "Anthropic", "Cohere"];
 
@@ -116,15 +119,15 @@ const LLMConfigComponent = (props) => {
         </div>}
         {showField(llmConfigList, 'api_key') && <div className="configCol">
           <label className="inputLabel">API Key</label>
-          <InputBox className="inputBorder" type="password" value={apikey} onChange={handleAPIKeyChange} />
+          <InputBox className="inputBorder" type="password" value ={apikey} onChange={handleAPIKeyChange} />
         </div>}
         {showField(llmConfigList, 'openai_api_version') && <div className="configCol">
           <label className="inputLabel">API Version</label>
-          <InputBox onChange={handleAPIKeyChange} />
+          <InputBox onChange="" />
         </div>}
         {showField(llmConfigList, 'openai_api_base') && <div className="rightSpace configCol">
           <label className="inputLabel">API Base</label>
-          <InputBox onChange={handleAPIKeyChange} />
+          <InputBox onChange="" />
         </div>}
         <div className="rightSpace configCol">
           <label className="inputLabel">Max Tokens</label>

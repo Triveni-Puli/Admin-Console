@@ -8,19 +8,23 @@ import LLMConfigComponent from "./LLMConfig";
 import EmbeddingConfigComponent from "./EmbeddingConfig";
 import VectorDBConfigComponent from "./VectorDBConfig";
 import ChunkConfigComponent from "./ChunkConfig";
-import {showCreatePageUI, setFieldValue} from "../KaActions";
+import {showEditPageUI, setFieldValue} from "../KaActions";
 import "../KaConfiguration.css"
 
 
-const AddCustomKaCollection = () => {
+const EditCustomKaCollection = () => {
   const dispatch = useDispatch();
+  const collectionDetails = useSelector((state) => state.KnowlegdeAgent.collectionDetails);
   const [collectionName, setCollectionName] = useState('');
-  const [description, setDescription] = useState('');
+  const [description, setDescription] = useState(collectionDetails.description);
   const [collectionNameErr, setCollectionNameErr] = useState('');
   const [selectedLlmType, setselectedLlmType] = useState('OpenAI');
   const [apiErrorMsg, setApiErrMsg] = useState('');
   const formValues = useSelector((state) => state.KnowlegdeAgent.formValues);
+
     console.log("form values", formValues);
+    console.log("collec values", collectionDetails);
+
   useEffect(() => {
   }, [])
 
@@ -32,27 +36,7 @@ const AddCustomKaCollection = () => {
   };
 
   function handleKALink() {
-    dispatch(showCreatePageUI(false));
-  }
-
-  function checkCollectionName(event){
-    const collection = event.target.value;
-    setCollectionName(collection);
-    if(collection){
-      axios.post("https://5yguhudqn325lpvt6g2ekm22gy0qnfrj.lambda-url.ap-south-1.on.aws/verify_collection", {
-        "collection_name": collection
-      }, {
-        headers: {
-          "Content-Type": "text/plain",
-        },
-      }).then(response => {
-        console.log("response", response);
-        setCollectionNameErr('');
-      }).catch(err => {
-        console.log("err", err);
-        setCollectionNameErr(err.response.data.message);
-      });
-    }
+    dispatch(showEditPageUI(false));
   }
 
   function handleLlmChange(val){
@@ -65,15 +49,9 @@ const AddCustomKaCollection = () => {
     dispatch(setFieldValue("description", event.target.value));
   }
 
-  function handleCollectionNameChange(event){
-    setCollectionName(event.target.value);
-    dispatch(setFieldValue("collectionName", event.target.value));
-  }
-
-  function handleSave(){
-    // dispatch(showCreatePageUI(false));
+  function handleSubmit(){
     if(activeStep===3){
-    axios.post("https://erj3tyfntew3xum2dh6icphrye0ktrco.lambda-url.ap-south-1.on.aws/create_collection", {
+    axios.post("https://erj3tyfntew3xum2dh6icphrye0ktrco.lambda-url.ap-south-1.on.aws/edit_collection", {
       "config": {
         "collection_name": formValues.collectionName,
         "description": formValues.description,
@@ -89,7 +67,8 @@ const AddCustomKaCollection = () => {
                  "openai_api_base":"",
                  "credentials":"",
                  "model": "gpt-3.5-turbo",
-                  // "model": formValues.llmModel,
+
+                // "model": formValues.llmModel,
                 //  "top_p": 1
             }
         },
@@ -121,7 +100,7 @@ const AddCustomKaCollection = () => {
           "Content-Type": "text/plain",
         },
       }).then(response => {
-        dispatch(showCreatePageUI(false));
+        dispatch(showEditPageUI(false));
         setApiErrMsg('');
       }).catch(err => {
         console.log(err);
@@ -140,33 +119,22 @@ const AddCustomKaCollection = () => {
   return (
     <>
       <div className="configContainer" >
-        <span className="kaTopText"><a href="" style={{textDecoration: "none"}} onClick={handleKALink}>K A Collections</a> {">"} Add new Collection </span>
-        <div className="heading">Add new Collection</div>
+        <span className="kaTopText"><a href="" style={{textDecoration: "none"}} onClick={handleKALink}>K A Collections</a> {">"} Edit Collection </span>
+        <div className="heading">Edit Collection</div>
         <hr className="line"/>
-        <div className="error">{apiErrorMsg}</div>
         <div className="items">
           <label className="inputLabel">Collection Name</label>
-          <InputBox width={370} value={collectionName} onBlur={checkCollectionName} onChange={handleCollectionNameChange}/>
-        <div className="error">{collectionNameErr}</div>
+          <InputBox value={collectionDetails.collection_name} width={370}  onChange="" disabled/>
         </div>
         <div className="items">
           <label className="inputLabel">Description</label>
           <InputBox className="inputBorder" value={description} width={728} onChange={handleDescChange}/>
         </div>
-        <div className="switcher">
+        {/* <div className="switcher">
         <Button className="defaultBtn"  sx={{ marginRight: 5 }}>Create Default </Button>
         <Button className="customBtn" >Create Custom</Button>
-        </div>
+        </div> */}
         <StepperComponent activeStep={activeStep}/>
-        {/* <Stepper  activeStep={activeStep} sx={{ marginTop: 4, marginBottom: 4 }} alternativeLabel>
-          {steps.map((label) => (
-            <Step key={label} sx={{ '& .MuiStepLabel-root .Mui-completed': {
-              color: '#8291A0', // circle color (COMPLETED)
-            }}}  >
-              <StepLabel></StepLabel>
-            </Step>
-          ))}
-        </Stepper> */}
         <div className="kaBottom">
           {activeStep == 0 && <LLMConfigComponent handleLlmChange = {handleLlmChange} />}
           {activeStep == 1 && <EmbeddingConfigComponent/>}
@@ -175,11 +143,11 @@ const AddCustomKaCollection = () => {
         </div>
         <div className="bottomBtn">
           {activeStep !== 0 && activeStep !== 3 && <button className="btn btnPrev" disabled= {activeStep === 0} variant="outlined" sx={{ marginRight: 2 }} onClick={handlePrevious}> Previous </button>}
-          <button className="btn btnSave" variant="contained" onClick={handleSave}>{activeStep === 3 ? "SUBMIT AND CREATE COLLECTION": "Save & Continue"}</button>
+          <button className="btn btnSave" variant="contained" onClick={handleSubmit}>{activeStep === 3 ? "SUBMIT AND EDIT COLLECTION": "Save & Continue"}</button>
         </div>
       </div>
     </>
   )
 };
 
-export default AddCustomKaCollection;
+export default EditCustomKaCollection;

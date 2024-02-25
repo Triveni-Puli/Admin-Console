@@ -8,6 +8,7 @@ const RangeSliderComponent = (props) => {
   const [value, setValue] = React.useState([min,max]);
 
   const handleChange = (event, newValue) => {
+    console.log("slider", newValue);
     setValue(newValue);
   };
     const list = props.list;

@@ -13,12 +13,13 @@ const SelectComponent = (props) => {
         props.handleChange(event.target.value);
     }
     return(
-        <Select sx={{ width: 250 }}
+        <Select sx={{ width: 280 }}
             labelId={id}
             id= {id}
             value={value}
             onChange={handleChange}
             size="small"
+            disabled ={props.disabled}
         >{
         list.map((val, key)=>{
             return <MenuItem value={val}>{val}</MenuItem>
@@ -29,6 +30,7 @@ const SelectComponent = (props) => {
 }
 SelectComponent.defaultProps = {
     id: "",
+    disabled: false,
     handleChange: ()=>{}
 }
 

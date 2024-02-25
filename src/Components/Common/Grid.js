@@ -37,8 +37,12 @@ export default function CustomGrid(props) {
     }
   };
 
-  const handleEditClick = (id) => () => {
-    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
+  // const handleEditClick = (id) => () => {
+  //   setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
+  // };
+
+  const handleEditClick = (id) => {
+    props.onEdit(id);
   };
 
   /*   const handleDeleteClick = (id) => () => {
@@ -94,6 +98,28 @@ export default function CustomGrid(props) {
     "Plus"
   );
 
+  const FolderSearchIcon = createSvgIcon(
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M7 6.5H16.75C18.8567 6.5 19.91 6.5 20.6667 7.00559C20.9943 7.22447 21.2755 7.50572 21.4944 7.83329C22 8.58996 22 9.39331 22 11.5M12 6.5L11.3666 5.23313C10.8418 4.18358 10.3622 3.12712 9.19926 2.69101C8.6899 2.5 8.10802 2.5 6.94427 2.5C5.1278 2.5 4.21956 2.5 3.53806 2.88032C3.05227 3.15142 2.65142 3.55227 2.38032 4.03806C2 4.71956 2 5.6278 2 7.44427V10.5C2 15.214 2 17.5711 3.46447 19.0355C4.8215 20.3926 6.94493 20.4921 11 20.4994H12"
+        stroke="#323232"
+        stroke-width="2"
+        stroke-linecap="round"
+      />
+      <path
+        d="M22 21.5L19.8529 19.3529M19.8529 19.3529C19.9675 19.2384 20.0739 19.1158 20.1714 18.986C20.602 18.413 20.8571 17.7006 20.8571 16.9286C20.8571 15.035 19.3221 13.5 17.4286 13.5C15.535 13.5 14 15.035 14 16.9286C14 18.8221 15.535 20.3571 17.4286 20.3571C18.3753 20.3571 19.2325 19.9734 19.8529 19.3529Z"
+        stroke="#323232"
+        stroke-width="2"
+        stroke-linecap="round"
+      />
+    </svg>
+  );
+
   const DeleteIcon = createSvgIcon(
     <svg
       width="20"
@@ -115,6 +141,16 @@ export default function CustomGrid(props) {
   let defaultColumns;
   if (dataIdentifier === "userManagement") {
     defaultColumns = [
+      /*       {
+        field: "User_Name",
+        headerName: "Name",
+        width: 220,
+        editable: true,
+        renderCell: (params) => (
+              console.log(params);
+          <span style={{ fontWeight: 500 }}>{params.value}</span>
+        ),
+      },  */
       {
         field: "User_Name",
         headerName: "Name",
@@ -132,7 +168,7 @@ export default function CustomGrid(props) {
         field: "Role Type",
         headerName: "Role",
         type: "dropdown",
-        width: 150,
+        width: 160,
         editable: true,
       },
       { field: "Creation_Date", headerName: "Date Added", width: 140 },
@@ -142,7 +178,7 @@ export default function CustomGrid(props) {
         field: "actions",
         type: "actions",
         headerName: "Actions",
-        width: 120,
+        width: 180,
         cellClassName: "actions",
         align: "left",
         headerAlign: "left",
@@ -183,7 +219,7 @@ export default function CustomGrid(props) {
         headerName: "Description",
         headerClassName: "mui-custom-header",
         type: "number",
-        width: 450,
+        width: 520,
         align: "left",
         headerAlign: "left",
         // editable: true,
@@ -211,7 +247,14 @@ export default function CustomGrid(props) {
               icon={<EditIcon />}
               label="Edit"
               className="textPrimary"
-              onClick={handleEditClick(id)}
+              onClick={() => handleEditClick({ id })}
+              color="inherit"
+            />,
+            <GridActionsCellItem
+              icon={<FolderSearchIcon />}
+              label="Folder Search"
+              className="textPrimary"
+              onClick={() => {}}
               color="inherit"
             />,
             <GridActionsCellItem
