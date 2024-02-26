@@ -137,7 +137,7 @@ const BotConfigData = () => {
                 dataIdentifier="botConfig"
                 onSelectionModelChange={setGridSelectionModel}
                 //onDelete={handleDeleteAPI}
-                onDeleteIcon={handleDeleteClick}
+                onDelete={handleDeleteClick}
               />
             )}
             {delPopupOpen && (

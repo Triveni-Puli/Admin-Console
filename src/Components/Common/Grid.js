@@ -50,7 +50,7 @@ export default function CustomGrid(props) {
   }; */
 
   const handleDeleteClick = async (item) => {
-    props.onDeleteIcon(item);
+    props.onDelete(item);
   };
 
   const processRowUpdate = (newRow) => {

@@ -38,7 +38,7 @@ function App() {
               <Navbar />
             </div>
             <div className="col col-lg-9">
-              <div className=" h-100 d-flex flex-column">
+              <div className="container h-100 d-flex flex-column">
                 <div className="row header-row ">
                   <div className="col-lg-12">
                     <Header />
