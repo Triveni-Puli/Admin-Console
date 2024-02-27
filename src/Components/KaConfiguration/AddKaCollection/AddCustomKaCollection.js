@@ -67,7 +67,7 @@ const AddCustomKaCollection = () => {
 
   function handleCollectionNameChange(event){
     setCollectionName(event.target.value);
-    dispatch(setFieldValue("collectionName", event.target.value));
+    dispatch(setFieldValue("collection_name", event.target.value));
   }
 
   function handleSave(){
@@ -75,7 +75,7 @@ const AddCustomKaCollection = () => {
     if(activeStep===3){
     axios.post("https://erj3tyfntew3xum2dh6icphrye0ktrco.lambda-url.ap-south-1.on.aws/create_collection", {
       "config": {
-        "collection_name": formValues.collectionName,
+        "collection_name": formValues.collection_name,
         "description": formValues.description,
         "llm": {
             // "llm_type": formValues.llmType,

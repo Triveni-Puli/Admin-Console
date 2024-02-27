@@ -10,7 +10,7 @@ import {
   deleteItem,
 } from "../BotConfiguration/AddNewIntent/IntentExample/actions";
 import { useDispatch, useSelector } from "react-redux";
-import DeletePopup from "../BotConfiguration/AddNewIntent/IntentExample/DeletePopup";
+import DeletePopup from "../Common/DeletePopup";
 
 const BotConfigData = () => {
   // const [responseData, setResponseData] = useState({});
@@ -33,6 +33,7 @@ const BotConfigData = () => {
   const [gridSelectionModel, setGridSelectionModel] = useState([]);
   const [delPopupOpen, setDelPopupOpen] = useState(false);
   const [selectedRow, setSelectedRow] = useState(null);
+  const delPopupMsg = "Are you sure you want to delete the intent?";
 
   useEffect(() => {
     axios
@@ -145,6 +146,7 @@ const BotConfigData = () => {
                 delPopupOpen={delPopupOpen}
                 onClose={() => setDelPopupOpen(false)}
                 onDelete={() => handleDeleteItem(selectedRow)}
+                popupMsg = {delPopupMsg}
               />
             )}
           </div>
