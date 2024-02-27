@@ -18,7 +18,7 @@ import {
   clearList,
 } from "../AddNewIntent/IntentExample/actions";
 import Popup from "./IntentExample/AddPopup";
-import DeletePopup from "./IntentExample/DeletePopup";
+import DeletePopup from "../../Common/DeletePopup";
 import TextField from "@mui/material/TextField";
 
 const AddNewIntent = () => {
@@ -31,7 +31,7 @@ const AddNewIntent = () => {
   const [apiDescription, setApiDescription] = useState("");
   const [delPopupOpen, setDelPopupOpen] = useState(false);
   const [addPopupOpen, setAddpopupOpen] = useState(false);
-
+  const delPopupMsg = "Are you sure you want to delete the intent example?";
   //const [data, setData] = useState(null);
   const history = useNavigate();
 
@@ -324,6 +324,7 @@ const AddNewIntent = () => {
                                 delPopupOpen={delPopupOpen}
                                 onClose={() => setDelPopupOpen(false)}
                                 onDelete={() => handleDeleteItem(i)}
+                                popupMsg = {delPopupMsg}
                               />
                             )}
 
