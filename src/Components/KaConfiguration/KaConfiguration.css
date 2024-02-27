@@ -217,7 +217,7 @@
     padding: 10px 5px 10px 25px;
 }
 
-.customBtn {
+.switcherBlueBtn {
     width: 168px;
     height: 36px !important;
     background-color: #2874F0 !important;
@@ -227,7 +227,7 @@
     color: #FFFFFF !important;
 }
 
-.defaultBtn {
+.switcherWhiteBtn {
     text-transform: capitalize !important;
 }
 
