@@ -24,9 +24,6 @@ const KaReducer = (state = initialState, action) => {
                 collectionDetails: Object.assign(state.collectionDetails, action.payload),
                 };
         case "SET_FORM_VALUES":
-            // const formObj = {
-            //     [action.payload.field]: action.payload.value
-            // }
             return {
                 ...state,
                 formValues: Object.assign(state.formValues, action.payload),
