@@ -40,6 +40,9 @@ export default function CustomGrid(props) {
   // const handleEditClick = (id) => () => {
   //   setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
   // };
+  const handleViewClick = (id) => {
+    props.onView(id);
+  };
 
   const handleEditClick = (id) => {
     props.onEdit(id);
@@ -230,7 +233,7 @@ export default function CustomGrid(props) {
             <GridActionsCellItem
               icon={<VisibilityIcon />}
               label="View"
-              onClick=""
+              onClick={() => handleViewClick({ id })}
               // color="inherit"
             />,
             <GridActionsCellItem

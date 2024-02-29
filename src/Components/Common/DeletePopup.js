@@ -11,7 +11,12 @@ import ModalDialog from "@mui/joy/ModalDialog";
 import ModalClose from "@mui/joy/ModalClose";
 //import crossImg from "../../../../assets/crossimg.svg"
 
-export default function DeletePopup({ onClose, delPopupOpen, onDelete, popupMsg }) {
+export default function DeletePopup({
+  onClose,
+  delPopupOpen,
+  onDelete,
+  popupMsg,
+}) {
   return (
     <React.Fragment>
       <Modal open={delPopupOpen} onClose={onClose}>

@@ -10,7 +10,9 @@ import {
   deleteItem,
 } from "../BotConfiguration/AddNewIntent/IntentExample/actions";
 import { useDispatch, useSelector } from "react-redux";
+
 import DeletePopup from "../Common/DeletePopup";
+import ViewBotIntent from "./ViewIntent/ViewBotIntent";
 
 const BotConfigData = () => {
   // const [responseData, setResponseData] = useState({});
@@ -33,6 +35,8 @@ const BotConfigData = () => {
   const [gridSelectionModel, setGridSelectionModel] = useState([]);
   const [delPopupOpen, setDelPopupOpen] = useState(false);
   const [selectedRow, setSelectedRow] = useState(null);
+
+  const [viewIntentForm, setViewIntentForm] = useState(false);
   const delPopupMsg = "Are you sure you want to delete the intent?";
 
   useEffect(() => {
@@ -92,6 +96,12 @@ const BotConfigData = () => {
     setDelPopupOpen(true);
   };
 
+  const handleViewClick = (row) => {
+    console.log(row);
+    setSelectedRow(row);
+    setViewIntentForm(true);
+  };
+
   return (
     <div>
       <div className="configContainer">
@@ -139,16 +149,19 @@ const BotConfigData = () => {
                 onSelectionModelChange={setGridSelectionModel}
                 //onDelete={handleDeleteAPI}
                 onDelete={handleDeleteClick}
+                onView={handleViewClick}
               />
             )}
             {delPopupOpen && (
               <DeletePopup
-                delPopupOpen={delPopupOpen}
+                message="Are you sure you want to delete the Intent?"
+                onPopupOpen={delPopupOpen}
                 onClose={() => setDelPopupOpen(false)}
                 onDelete={() => handleDeleteItem(selectedRow)}
-                popupMsg = {delPopupMsg}
+                popupMsg={delPopupMsg}
               />
             )}
+            {viewIntentForm && <ViewBotIntent data={botIntentList} />}
           </div>
         </div>
       </div>

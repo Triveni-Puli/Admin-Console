@@ -5,9 +5,11 @@ import React, { useEffect, useState } from "react";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import { createSvgIcon } from "@mui/material/utils";
 import axios from "axios";
+import AddUserPopup from "./AddUserPopup";
 
 const UserMgmtData = () => {
   const [userManagementdata, setUserManagementdata] = useState([]);
+  const [adduserPopup, setAddUserPopup] = useState(false);
   useEffect(() => {
     axios
       .get(
@@ -25,6 +27,13 @@ const UserMgmtData = () => {
       .catch((err) => {});
   }, []);
 
+  const handleOpenPopup = () => {
+    setAddUserPopup(true);
+  };
+
+  const handleClosePopup = () => {
+    setAddUserPopup(false);
+  };
   return (
     <div>
       <div className="configContainer">
@@ -32,9 +41,10 @@ const UserMgmtData = () => {
           <div className="titleArea">
             {/*      <span>Bot Intents</span> */}
             <span className="topRight">
-              <button className="topBtn addBtn">
+              <button className="topBtn addBtn" onClick={handleOpenPopup}>
                 Add User<img src={plusImg}></img>
               </button>
+              <AddUserPopup open={adduserPopup} onClose={handleClosePopup} />
             </span>
           </div>
           <div className="gridDetailsSection">

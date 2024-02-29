@@ -38,7 +38,7 @@ label {
   height: 47px;
   font-size: 14px;
   padding: 6px;
-  width: 346px;
+  width: 964px;
   padding: 15px 12px 15px 14px;
   border-radius: 5px;
   border: 1px solid #c8d2dd;
@@ -55,7 +55,7 @@ label {
   font-size: 18px;
   font-weight: 500;
   line-height: 21.6px;
-  width: 728px;
+  width: 964px;
 }
 .intent-entity-text {
   margin: 8px 0px;
@@ -82,6 +82,7 @@ label {
   cursor: pointer;
   width: 47px;
   height: 47px;
+  margin-top: 25px;
 }
 .intent-container {
   border: 1px solid #c8d2dd;
@@ -93,7 +94,7 @@ label {
   font-size: 18px;
   font-weight: 500;
   line-height: 21.6px;
-  width: 728px;
+  width: 964px;
 }
 .intent-example {
   display: flex;
@@ -142,7 +143,7 @@ label {
   font-weight: 500;
   line-height: 22px;
   letter-spacing: 0em;
-  width: 728px;
+  width: 964px;
   height: 345px;
 }
 
@@ -225,10 +226,10 @@ label {
 .entity-container ul {
   list-style-type: none;
   padding-left: 0;
-  margin-bottom: 0;
+  /*   margin-bottom: 0;  */
 }
 .entity-container li {
-  height: 28px;
+  /*   height: 28px;
   display: inline-flex;
   margin: 6px 3px;
   background-color: #c9e5ff;
@@ -238,7 +239,7 @@ label {
   padding: 6px 10px 6px 10px;
   font-size: 12px;
   font-weight: 400;
-  align-items: center;
+  align-items: center; */
 }
 
 .cancel-symbol {
@@ -249,6 +250,59 @@ label {
   cursor: pointer;
 }
 
+.intent-entity-container {
+  display: flex;
+  align-items: center;
+}
+.intent-input-group {
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+}
+#intent-dropdown {
+  height: 47px;
+  width: 159px;
+  border: 1px solid #c8d2dd;
+  border-radius: 5px;
+  padding: 12px 12px 11px 14px;
+
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.intent-entity-container input,
+.intent-entity-container select,
+.intent-entity-container p {
+  margin-right: 10px;
+  margin-top: 5px;
+}
+#intent-name {
+  width: 195px;
+  height: 47px;
+  border: 1px solid #c8d2dd;
+  border-radius: 5px;
+  padding: 15px 12px 15px 14px;
+  font-size: 14px;
+  font-weight: 400;
+}
+#intent-description {
+  width: 232px;
+  height: 47px;
+  border: 1px solid #c8d2dd;
+  border-radius: 5px;
+  padding: 15px 12px 15px 14px;
+  font-size: 14px;
+  font-weight: 400;
+}
+#intent-example {
+  width: 215px;
+  height: 47px;
+  border: 1px solid #c8d2dd;
+  border-radius: 5px;
+  padding: 15px 12px 15px 14px;
+  font-size: 14px;
+  font-weight: 400;
+}
 /* .cross-circle {
   width: 15px;
   height: 15px;
