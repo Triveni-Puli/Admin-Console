@@ -14,9 +14,9 @@ export const CLEAR_LIST = "CLEAR_LIST";
 
 export const clearList = () => ({ type: CLEAR_LIST });
 
-export const addIntentEntity = (text) => ({
+export const addIntentEntity = (obj) => ({
   type: ADD_INTENT_ENTITY,
-  payload: text,
+  payload: obj,
 });
 
 export const removeIntentEntity = (index) => ({
@@ -30,7 +30,10 @@ export const hidePopup = () => ({ type: HIDE_POPUP });
 
 export const addNewItem = (text) => ({ type: ADD_NEW_ITEM, payload: text });
 
-export const deleteItem = (index) => ({ type: DELETE_ITEM, payload: index });
+export const deleteItem = (index) => ({
+  type: DELETE_ITEM,
+  payload: index,
+});
 
 export const showDelPopup = () => ({ type: SHOW_DEL_POPUP });
 export const hideDelPopup = () => ({ type: HIDE_DEL_POPUP });

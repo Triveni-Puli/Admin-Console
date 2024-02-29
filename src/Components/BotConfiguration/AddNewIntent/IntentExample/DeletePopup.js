@@ -11,10 +11,15 @@ import ModalDialog from "@mui/joy/ModalDialog";
 import ModalClose from "@mui/joy/ModalClose";
 //import crossImg from "../../../../assets/crossimg.svg"
 
-export default function DeletePopup({ onClose, delPopupOpen, onDelete }) {
+export default function DeletePopup({
+  onClose,
+  onPopupOpen,
+  onDelete,
+  message,
+}) {
   return (
     <React.Fragment>
-      <Modal open={delPopupOpen} onClose={onClose}>
+      <Modal open={onPopupOpen} onClose={onClose}>
         <ModalDialog
           variant="outlined"
           role="alertdialog"
@@ -60,7 +65,7 @@ export default function DeletePopup({ onClose, delPopupOpen, onDelete }) {
               color: "#373737",
               marginTop: "20px",
             }}>
-            Are you sure you want to delete the intent example?
+            {message}
           </DialogContent>
           <DialogActions
             style={{

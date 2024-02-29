@@ -12,6 +12,7 @@ import Reinforcement from "./Components/Reinforcement/Reinforcement";
 import Reports from "./Components/Reports/Reports";
 import Navbar from "./Components/Layout/Dashboard/Navbar";
 import Header from "./Components/Layout/Dashboard/Header";
+import ViewBotIntent from "./Components/BotConfiguration/ViewIntent/ViewBotIntent";
 /* import "../src/Components/Layout/Dashboard/dashboardStyles.css"; */
 
 function App() {
@@ -71,6 +72,9 @@ function App() {
                       <Route
                         path="/addNewintent"
                         element={<AddNewIntent />}></Route>
+                      <Route
+                        path="/viewIntent"
+                        element={<ViewBotIntent />}></Route>
                     </Routes>
                   </div>
                 </div>

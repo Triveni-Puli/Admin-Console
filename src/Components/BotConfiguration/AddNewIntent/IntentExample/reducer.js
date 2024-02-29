@@ -29,10 +29,20 @@ const reducer = (state = initialState, action) => {
     case ADD_NEW_ITEM:
       return {
         ...state,
-        items: [...state.items, { text: action.payload }],
+        items: [...state.items, action.payload],
         isPopupVisible: false,
       };
     case DELETE_ITEM:
+      /*    const { index, itemType } = action.payload;
+      if (itemType === "entity") {
+        const newEntities = [...state.intentEntities];
+        newEntities.splice(index, 1);
+        return { ...state, intentEntities: newEntities };
+      } else if (itemType === "example") {
+        const newExamples = [...state.items];
+        newExamples.splice(index, 1);
+        return { ...state, items: newExamples };
+      } */
       return {
         ...state,
         items: state.items.filter((_, index) => index !== action.payload),
@@ -43,10 +53,13 @@ const reducer = (state = initialState, action) => {
         intentEntities: [...state.intentEntities, action.payload],
       };
     case REMOVE_INTENT_ENTITY:
+      /*   const newIntentEntites = state.intentEntities.filter(
+        (item, index) => item !== action.payload
+      ); */
       return {
         ...state,
         intentEntities: state.intentEntities.filter(
-          (_, index) => index !== action.payload
+          (intentEntity) => intentEntity.id != action.payload
         ),
       };
     case CLEAR_LIST:
