@@ -13,10 +13,12 @@ import InputBox from "../../Common/InputBox";
 const LLMConfigComponent = (props) => {
   const dispatch = useDispatch();
   const collectionDetails = useSelector((state) => state.KnowlegdeAgent.collectionDetails);
-  const llmDetails = collectionDetails.llm.llm_config;
-  const [llmTypeList, setLlmTypeList] = useState([collectionDetails.llm.llm_type]);
+  const llmDetails = collectionDetails && collectionDetails.llm  && collectionDetails.llm.llm_config;
+  const llmType = collectionDetails && collectionDetails.llm  && collectionDetails.llm.llm_type;
+  const llmModel = llmDetails && llmDetails.model;
+  const [llmTypeList, setLlmTypeList] = useState([llmType]);
   const [llmConfigList, setLlmConfigList] = useState([]);
-  const [modelList, setModelList] = useState([llmDetails.model]);
+  const [modelList, setModelList] = useState([llmModel]);
   // const [selectedLlmType, setselectedLlmType] = useState('');
   const [selectedModel, setselectedModel] = useState('');
   const [apikey, setApiKey] = useState(llmDetails.api_key);

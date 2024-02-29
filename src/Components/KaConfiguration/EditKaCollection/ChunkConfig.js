@@ -6,7 +6,7 @@ import RangeSliderComponent from '../../Common/RangeSlider';
 // import "./KaConfiguration.css"
 
 const ChunkConfigComponent = (props) => {
-  const [chunkSize, setChunkSize] = useState();
+  const [chunkSize, setChunkSize] = useState(14400);
 // const chunkSize = props.chunkSize;
     useEffect(()=> {
         axios.post("https://5yguhudqn325lpvt6g2ekm22gy0qnfrj.lambda-url.ap-south-1.on.aws/max_chunk_size", {
@@ -26,11 +26,11 @@ const ChunkConfigComponent = (props) => {
     return (
         <>
             <div className="kaConfig">
-                <div className="configCol">
+                <div className="chunkCol">
                     <label className="inputLabel">Chunk Size</label>
                     <RangeSliderComponent min={100} max={chunkSize} step={1400} />
                 </div>
-                <div className="configCol">
+                <div className="chunkCol">
                     <label className="inputLabel">Chunk Overlap</label>
                     <RangeSliderComponent min={0} max={500} step={50}  />
                 </div>

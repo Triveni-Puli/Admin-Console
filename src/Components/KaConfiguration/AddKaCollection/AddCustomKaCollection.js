@@ -8,28 +8,41 @@ import LLMConfigComponent from "./LLMConfig";
 import EmbeddingConfigComponent from "./EmbeddingConfig";
 import VectorDBConfigComponent from "./VectorDBConfig";
 import ChunkConfigComponent from "./ChunkConfig";
-import {showCreatePageUI, setFieldValue} from "../KaActions";
+import {showCreatePageUI, setFieldValue, setCollectionDetails, setFormValues} from "../KaActions";
 import "../KaConfiguration.css"
 
 
 const AddCustomKaCollection = () => {
   const dispatch = useDispatch();
+  const collectionDetails = useSelector((state) => state.KnowlegdeAgent.collectionDetails);
+  const llmDetails = collectionDetails&&collectionDetails.llm&&collectionDetails.llm.llm_config;
   const [collectionName, setCollectionName] = useState('');
   const [description, setDescription] = useState('');
   const [collectionNameErr, setCollectionNameErr] = useState('');
   const [selectedLlmType, setselectedLlmType] = useState('OpenAI');
   const [apiErrorMsg, setApiErrMsg] = useState('');
+  const [isDefault, setIsDefault] = useState(false);
+  const [defaultCollection, setDefaultCollection] = useState({});
   const formValues = useSelector((state) => state.KnowlegdeAgent.formValues);
-    console.log("form values", formValues);
   useEffect(() => {
-  }, [])
-
-  // const steps = [0,1,2,3];
+    // if(isDefault){
+      axios.get("https://5yguhudqn325lpvt6g2ekm22gy0qnfrj.lambda-url.ap-south-1.on.aws/default_config", {
+      }, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then(response => {
+        console.log("response", response.data);
+        dispatch(setCollectionDetails(response.data));
+      }).catch(err => {
+        
+      }) 
+  // }else{
+  //   dispatch(setCollectionDetails({}));
+  // }
+  }, [isDefault])
+  
   const [activeStep, setActiveStep] = useState(0);
-  const handleNext = () => {
-    // setFormValues({ ...formValues, ...newValues });
-    setActiveStep(activeStep + 1);
-  };
 
   function handleKALink() {
     dispatch(showCreatePageUI(false));
@@ -69,7 +82,6 @@ const AddCustomKaCollection = () => {
     setCollectionName(event.target.value);
     dispatch(setFieldValue("collection_name", event.target.value));
   }
-
   function handleSave(){
     // dispatch(showCreatePageUI(false));
     if(activeStep===3){
@@ -83,7 +95,7 @@ const AddCustomKaCollection = () => {
             "llm_config": {
                  "api_key": formValues.llmApiKey,
                  "temperature": 0.3,
-                 "max_tokens": formValues.llmMaxToken,
+                 "max_tokens": isDefault ? llmDetails.max_tokens :formValues.llmMaxToken,
                  "deployment_name":"",
                  "openai_api_version":"",
                  "openai_api_base":"",
@@ -102,9 +114,10 @@ const AddCustomKaCollection = () => {
             }
         },
         "embedding": {
-             "embedding_type": formValues.embeddingType,
+            //  "embedding_type": isDefault ? "OpenAI" :formValues.embeddingType,
+             "embedding_type": "OpenAI",
             "embedding_config": {
-                 "model_name": formValues.embeddingModel,
+                 "model_name": "text-embedding-ada-002",
                  "api_key": formValues.embeddingApiKey,
                  "openai_api_version":"",
                  "openai_api_base":"",
@@ -137,29 +150,24 @@ const AddCustomKaCollection = () => {
   function handlePrevious() {
     setActiveStep(activeStep-1);
   }
-
+// console.log("default", defaultCollection);
   function handleDefault(){
+    setIsDefault(true);
     const defaultBtn = document.getElementById("default");
     const customBtn = document.getElementById("custom");
     defaultBtn.classList.remove("switcherWhiteBtn");
     customBtn.classList.remove("switcherBlueBtn");
     defaultBtn.classList.add("switcherBlueBtn");
     customBtn.classList.add("switcherWhiteBtn");
-    axios.get("https://5yguhudqn325lpvt6g2ekm22gy0qnfrj.lambda-url.ap-south-1.on.aws/default_config", {
-      }, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }).then(response => {
-        console.log("response", response.data);
-        // setCollectionNameErr('');
-      }).catch(err => {
-        // console.log("err", err);
-        // setCollectionNameErr(err.response.data.message);
-      })
+   
   }
 
   function handleCustom(){
+    setIsDefault(false);
+    dispatch(setCollectionDetails({}));
+
+    // dispatch(setFormValues({}));
+    // dispatch(setCollectionDetails({}));
     const defaultBtn = document.getElementById("default");
     const customBtn = document.getElementById("custom");
     customBtn.classList.remove("switcherWhiteBtn");
@@ -190,9 +198,9 @@ const AddCustomKaCollection = () => {
         </div>
         <StepperComponent activeStep={activeStep}/>
         <div className="kaBottom">
-          {activeStep == 0 && <LLMConfigComponent handleLlmChange = {handleLlmChange} />}
-          {activeStep == 1 && <EmbeddingConfigComponent/>}
-          {activeStep == 2 && <VectorDBConfigComponent />}
+          {activeStep == 0 && <LLMConfigComponent  isDefault={isDefault} handleLlmChange = {handleLlmChange} />}
+          {activeStep == 1 && <EmbeddingConfigComponent  isDefault={isDefault}/>}
+          {activeStep == 2 && <VectorDBConfigComponent isDefault={isDefault} />}
           {activeStep == 3 && <ChunkConfigComponent/>}
         </div>
         <div className="bottomBtn">
