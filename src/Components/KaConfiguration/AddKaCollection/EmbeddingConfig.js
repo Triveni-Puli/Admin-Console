@@ -9,10 +9,13 @@ import InputBox from "../../Common/InputBox";
 
 // import "./KaConfiguration.css"
 
-const EmbeddingConfigComponent = (props) => {
+const EmbeddingConfigComponent = ({isDefault}) => {
   const dispatch = useDispatch();
-  const [embeddingTypeList, setEmbeddingTypeList] = useState([]);
-  const [modelList, setModelList] = useState([]);
+  const collectionDetails = useSelector((state) => state.KnowlegdeAgent.collectionDetails);
+  const embeddingDetails = collectionDetails.embedding.embedding_config;
+  const formValues = useSelector((state) => state.KnowlegdeAgent.formValues);
+  const [embeddingTypeList, setEmbeddingTypeList] = useState(["OpenAI"]);
+  const [modelList, setModelList] = useState(["text-embedding-ada-002"]);
   const [embeddingConfigList, setEmbeddingConfigList] = useState([]);
   const [apikey, setApiKey] = useState('');
 
@@ -82,18 +85,18 @@ const EmbeddingConfigComponent = (props) => {
     <>
       <div className="items">
         <label className="inputLabel">Embedding Type</label>
-        <SelectComponent id="emdedding" list={embeddingTypeList} handleChange={handleEmbeddingTypeChange} />
+        <SelectComponent id="emdedding"  disabled={isDefault} list={embeddingTypeList} handleChange={handleEmbeddingTypeChange} />
       </div>
       <span >Embedding Config</span>
       <hr className="line" />
       <div className="kaConfig">
         <div className="configCol">
           <label className="inputLabel">Model Name</label>
-          <SelectComponent id="emdeddingModel" list={modelList} handleChange={handleEmbeddingModelChange} />
+          <SelectComponent id="emdeddingModel" disabled={isDefault} list={modelList} handleChange={handleEmbeddingModelChange} />
         </div>
         {showField(embeddingConfigList, 'credentials') && <div className="configCol">
           <label className="inputLabel">Credentials</label>
-          <InputBox onChange="" />
+          <InputBox disabled={isDefault} onChange="" />
         </div>}
 
         {showField(embeddingConfigList, 'api_key') && <div className="configCol">
@@ -102,11 +105,11 @@ const EmbeddingConfigComponent = (props) => {
         </div>}
         {showField(embeddingConfigList, 'openai_api_version') && <div className="configCol">
           <label className="inputLabel">API Version</label>
-          <InputBox onChange="" />
+          <InputBox disabled={isDefault} onChange="" />
         </div>}
         {showField(embeddingConfigList, 'openai_api_base') && <div className="configCol">
           <label className="inputLabel">API Base</label>
-          <InputBox onChange="" />
+          <InputBox disabled={isDefault} onChange="" />
         </div>}
       </div>
     </>

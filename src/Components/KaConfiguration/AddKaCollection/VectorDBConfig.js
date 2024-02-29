@@ -6,10 +6,10 @@ import {showField} from "../../../shared/methods";
 import InputBox from "../../Common/InputBox";
 
 
-const VectorDBConfigComponent = (props) => {
-  const [vectorDBList, setVectorDBList] = useState([]);
+const VectorDBConfigComponent = ({isDefault}) => {
+  const [vectorDBList, setVectorDBList] = useState(["ChromaDB"]);
   const [dbConfigList, setDBConfigList] = useState([]);
-  const [selectedDB, setSelectedDB] = useState([]);
+  const [selectedDB, setSelectedDB] = useState(["ChromaDB"]);
 
   useEffect(() => {
     axios.get("https://5yguhudqn325lpvt6g2ekm22gy0qnfrj.lambda-url.ap-south-1.on.aws/db_type", {}, {
@@ -20,6 +20,8 @@ const VectorDBConfigComponent = (props) => {
       setVectorDBList(response.data);
     }).catch(err => {
     });
+    getVectorDBConfigList(selectedDB);
+
   }, [])
   function getVectorDBConfigList(dbType) {
     axios.post("https://5yguhudqn325lpvt6g2ekm22gy0qnfrj.lambda-url.ap-south-1.on.aws/db_config", {
@@ -43,7 +45,7 @@ const VectorDBConfigComponent = (props) => {
     <>
       <div className="items">
         <label className="inputLabel">Vector DB Type</label>
-        <SelectComponent list={vectorDBList} handleChange={handleDBChange} />
+        <SelectComponent disabled = {isDefault} list={vectorDBList} handleChange={handleDBChange} />
       </div>
       {(selectedDB !== "ChromaDB" && selectedDB !== "FAISS" ) &&
         <>
@@ -52,15 +54,15 @@ const VectorDBConfigComponent = (props) => {
           <div className="kaConfig">
           { dbConfigList && showField(dbConfigList, 'api_key') && <div className="configCol">
               <label className="inputLabel">API Key</label>
-              <InputBox type="password"  />
+              <InputBox type="password" disabled = {isDefault}  />
             </div> }
             { dbConfigList && showField(dbConfigList, 'environment') && <div className="configCol">
               <label className="inputLabel">Environment</label>
-              <InputBox />
+              <InputBox disabled = {isDefault} />
             </div> }
             { dbConfigList && showField(dbConfigList, 'url') && <div className="configCol">
               <label className="inputLabel">Url</label>
-              <InputBox />
+              <InputBox disabled = {isDefault} />
             </div> }
           </div>
         </>}

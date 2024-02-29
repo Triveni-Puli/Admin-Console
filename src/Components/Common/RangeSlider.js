@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Slider from '@mui/material/Slider';
+import "../../common.css";
 
 const RangeSliderComponent = (props) => {
   const min = props.min;
@@ -13,6 +14,7 @@ const RangeSliderComponent = (props) => {
   };
     const list = props.list;
     return(
+      <>
         <Slider sx={{ width: 250 }}
         getAriaLabel={() => 'Temperature range'}
         value={value}
@@ -27,6 +29,11 @@ const RangeSliderComponent = (props) => {
         // valueLabelDisplay="on"
         // getAriaValueText={22}
       />
+      <div className="sliderDiv"><input value={min} disabled className="sliderInput"></input>
+        <span className="line">---</span>
+        <input value={max} disabled className="sliderInput"></input>
+      </div>
+    </>
   )
 }
 

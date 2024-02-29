@@ -2,16 +2,16 @@ import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
 import SelectComponent from "../../Common/Select";
-// import TextField from '@mui/material/TextField';
 import RangeSliderComponent from '../../Common/RangeSlider';
 import { setFieldValue } from "../KaActions";
 import { showField } from "../../../shared/methods"
 import InputBox from "../../Common/InputBox";
 
-// import "./KaConfiguration.css"
-
 const LLMConfigComponent = (props) => {
+  const isDefault = props.isDefault;
   const dispatch = useDispatch();
+  const collectionDetails = useSelector((state) => state.KnowlegdeAgent.collectionDetails);
+  const llmDetails = collectionDetails&&collectionDetails.llm&&collectionDetails.llm.llm_config;
   const [llmTypeList, setLlmTypeList] = useState([]);
   const [llmConfigList, setLlmConfigList] = useState([]);
   const [modelList, setModelList] = useState([]);
@@ -19,9 +19,7 @@ const LLMConfigComponent = (props) => {
   const [selectedModel, setselectedModel] = useState('');
   const [apikey, setApiKey] = useState('');
   const [maxToken, setMaxToken] = useState('');
-
-  // const llmTypeList = ["OpenAI", "AzureOpenAI", "VertexAI", "Anthropic", "Cohere"];
-
+  const formValues = useSelector((state) => state.KnowlegdeAgent.formValues);
 
   function getLlmListAPI() {
     axios.get("https://5yguhudqn325lpvt6g2ekm22gy0qnfrj.lambda-url.ap-south-1.on.aws/llm_type", {}, {
@@ -63,8 +61,6 @@ const LLMConfigComponent = (props) => {
     });
   }
 
-
-
   useEffect(() => {
     getLlmListAPI();
     getLlmModelAPI("OpenAI");
@@ -93,26 +89,29 @@ const LLMConfigComponent = (props) => {
     setMaxToken(event.target.value);
   }
 
+  console.log("values2", formValues);
+    console.log("collect2",collectionDetails);
+
   return (
     <>
       <div className="items">
         <label className="inputLabel">LLM Type</label>
-        {llmTypeList.length > 0 && <SelectComponent id="llm" list={llmTypeList} handleChange={handleLlmChange} />}
+        {llmTypeList.length > 0 && <SelectComponent id="llm" disabled={isDefault} list={llmTypeList} handleChange={handleLlmChange} />}
       </div>
       <span >LLM Config</span>
       <hr className="line" />
       <div className="kaConfig">
         <div className="configCol">
           <label className="inputLabel">Model Name</label>
-          {modelList.length > 0 && <SelectComponent id="llmModel" list={modelList} handleChange={handleModelChange} />}
+          {modelList.length > 0 && <SelectComponent id="llmModel" disabled={isDefault} list={modelList} handleChange={handleModelChange} />}
         </div>
         {showField(llmConfigList, 'credentials') && <div className="configCol">
           <label className="inputLabel">Credentials</label>
-          <InputBox className="inputBorder" onChange="" />
+          <InputBox className="inputBorder" disabled={isDefault} onChange="" />
         </div>}
         {showField(llmConfigList, 'deployment_name') && <div className="configCol">
           <label className="inputLabel">Deployment Name</label>
-          <InputBox onChange="" />
+          <InputBox disabled={isDefault} onChange="" />
         </div>}
         {showField(llmConfigList, 'api_key') && <div className="configCol">
           <label className="inputLabel">API Key</label>
@@ -120,15 +119,15 @@ const LLMConfigComponent = (props) => {
         </div>}
         {showField(llmConfigList, 'openai_api_version') && <div className="configCol">
           <label className="inputLabel">API Version</label>
-          <InputBox onChange={handleAPIKeyChange} />
+          <InputBox disabled={isDefault} onChange={handleAPIKeyChange} />
         </div>}
         {showField(llmConfigList, 'openai_api_base') && <div className="rightSpace configCol">
           <label className="inputLabel">API Base</label>
-          <InputBox onChange={handleAPIKeyChange} />
+          <InputBox disabled={isDefault} onChange={handleAPIKeyChange} />
         </div>}
         <div className="rightSpace configCol">
           <label className="inputLabel">Max Tokens</label>
-          <InputBox className="inputBorder" value={maxToken} onChange={handleTokenChange} />
+          <InputBox disabled={isDefault} className="inputBorder" value={isDefault ? llmDetails.max_tokens : maxToken} onChange={handleTokenChange} />
         </div>
         <div>
           <label className="inputLabel">Temperature</label>

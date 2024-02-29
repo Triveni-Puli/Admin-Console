@@ -171,6 +171,12 @@
     flex-direction: column;
 }
 
+.chunkCol {
+    display: flex;
+    flex-basis: 40%;
+    flex-direction: column;
+}
+
 .items {
     display: flex;
     flex-direction: column;
