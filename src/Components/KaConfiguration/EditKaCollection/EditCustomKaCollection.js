@@ -8,7 +8,7 @@ import LLMConfigComponent from "./LLMConfig";
 import EmbeddingConfigComponent from "./EmbeddingConfig";
 import VectorDBConfigComponent from "./VectorDBConfig";
 import ChunkConfigComponent from "./ChunkConfig";
-import {showEditPageUI, setFieldValue} from "../KaActions";
+import {showEditPageUI, setFieldValue, setFormValues} from "../KaActions";
 import "../KaConfiguration.css"
 
 
@@ -22,13 +22,12 @@ const EditCustomKaCollection = () => {
   const [apiErrorMsg, setApiErrMsg] = useState('');
   const formValues = useSelector((state) => state.KnowlegdeAgent.formValues);
 
-    console.log("form values", formValues);
-    console.log("collec values", collectionDetails);
+   
 
   useEffect(() => {
+    dispatch(setFormValues(collectionDetails))
   }, [])
 
-  // const steps = [0,1,2,3];
   const [activeStep, setActiveStep] = useState(0);
   const handleNext = () => {
     // setFormValues({ ...formValues, ...newValues });
@@ -49,15 +48,18 @@ const EditCustomKaCollection = () => {
     dispatch(setFieldValue("description", event.target.value));
   }
 
+  // console.log("form values", formValues);
+  // console.log("collec values", collectionDetails);
+
   function handleSubmit(){
     if(activeStep===3){
     axios.post("https://erj3tyfntew3xum2dh6icphrye0ktrco.lambda-url.ap-south-1.on.aws/edit_collection", {
       "config": {
-        "collection_name": formValues.collectionName,
+        "collection_name": formValues.collection_name,
         "description": formValues.description,
         "llm": {
             // "llm_type": formValues.llmType,
-            "llm_type": "OpenAI",
+            "llm_type": formValues.llm.llm_type,
             "llm_config": {
                  "api_key": formValues.llmApiKey,
                  "temperature": 0.3,
@@ -73,7 +75,7 @@ const EditCustomKaCollection = () => {
             }
         },
         "vector_db": {
-            "db_type": "ChromaDB",
+            "db_type": formValues.vector_db.db_type,
             "db_config": {
               "api_key": "",
               "environment":"",
@@ -81,10 +83,10 @@ const EditCustomKaCollection = () => {
             }
         },
         "embedding": {
-             "embedding_type": formValues.embeddingType,
+             "embedding_type": formValues.embedding.embedding_type,
             "embedding_config": {
-                 "model_name": formValues.embeddingModel,
-                 "api_key": formValues.embeddingApiKey,
+                 "model_name": formValues.embedding.embedding_config.model_name,
+                 "api_key": formValues.embedding.embedding_config.api_key,
                  "openai_api_version":"",
                  "openai_api_base":"",
                  "credentials":""
@@ -114,6 +116,8 @@ const EditCustomKaCollection = () => {
 
   }
   function handlePrevious() {
+    console.log("form values", formValues);
+  console.log("collec values", collectionDetails);
     setActiveStep(activeStep-1);
   }
   return (

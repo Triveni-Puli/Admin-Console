@@ -67,7 +67,7 @@ const AddCustomKaCollection = () => {
 
   function handleCollectionNameChange(event){
     setCollectionName(event.target.value);
-    dispatch(setFieldValue("collectionName", event.target.value));
+    dispatch(setFieldValue("collection_name", event.target.value));
   }
 
   function handleSave(){
@@ -75,7 +75,7 @@ const AddCustomKaCollection = () => {
     if(activeStep===3){
     axios.post("https://erj3tyfntew3xum2dh6icphrye0ktrco.lambda-url.ap-south-1.on.aws/create_collection", {
       "config": {
-        "collection_name": formValues.collectionName,
+        "collection_name": formValues.collection_name,
         "description": formValues.description,
         "llm": {
             // "llm_type": formValues.llmType,
@@ -137,6 +137,37 @@ const AddCustomKaCollection = () => {
   function handlePrevious() {
     setActiveStep(activeStep-1);
   }
+
+  function handleDefault(){
+    const defaultBtn = document.getElementById("default");
+    const customBtn = document.getElementById("custom");
+    defaultBtn.classList.remove("switcherWhiteBtn");
+    customBtn.classList.remove("switcherBlueBtn");
+    defaultBtn.classList.add("switcherBlueBtn");
+    customBtn.classList.add("switcherWhiteBtn");
+    axios.get("https://5yguhudqn325lpvt6g2ekm22gy0qnfrj.lambda-url.ap-south-1.on.aws/default_config", {
+      }, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then(response => {
+        console.log("response", response.data);
+        // setCollectionNameErr('');
+      }).catch(err => {
+        // console.log("err", err);
+        // setCollectionNameErr(err.response.data.message);
+      })
+  }
+
+  function handleCustom(){
+    const defaultBtn = document.getElementById("default");
+    const customBtn = document.getElementById("custom");
+    customBtn.classList.remove("switcherWhiteBtn");
+    defaultBtn.classList.remove("switcherBlueBtn");
+    defaultBtn.classList.add("switcherWhiteBtn");
+    customBtn.classList.add("switcherBlueBtn");
+  }
+
   return (
     <>
       <div className="configContainer" >
@@ -154,19 +185,10 @@ const AddCustomKaCollection = () => {
           <InputBox className="inputBorder" value={description} width={728} onChange={handleDescChange}/>
         </div>
         <div className="switcher">
-        <Button className="defaultBtn"  sx={{ marginRight: 5 }}>Create Default </Button>
-        <Button className="customBtn" >Create Custom</Button>
+        <Button className="switcherWhiteBtn" id="default"  sx={{ marginRight: 5 }} onClick={handleDefault}>Create Default </Button>
+        <Button className="switcherBlueBtn" id="custom" onClick={handleCustom} >Create Custom</Button>
         </div>
         <StepperComponent activeStep={activeStep}/>
-        {/* <Stepper  activeStep={activeStep} sx={{ marginTop: 4, marginBottom: 4 }} alternativeLabel>
-          {steps.map((label) => (
-            <Step key={label} sx={{ '& .MuiStepLabel-root .Mui-completed': {
-              color: '#8291A0', // circle color (COMPLETED)
-            }}}  >
-              <StepLabel></StepLabel>
-            </Step>
-          ))}
-        </Stepper> */}
         <div className="kaBottom">
           {activeStep == 0 && <LLMConfigComponent handleLlmChange = {handleLlmChange} />}
           {activeStep == 1 && <EmbeddingConfigComponent/>}

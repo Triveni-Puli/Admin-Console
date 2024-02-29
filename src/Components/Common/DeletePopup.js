@@ -1,5 +1,5 @@
 import React from "react";
-import "../AddIntentStyles.css";
+// import "../AddIntentStyles.css";
 
 import Button from "@mui/joy/Button";
 import Divider from "@mui/joy/Divider";
@@ -13,13 +13,13 @@ import ModalClose from "@mui/joy/ModalClose";
 
 export default function DeletePopup({
   onClose,
-  onPopupOpen,
+  delPopupOpen,
   onDelete,
-  message,
+  popupMsg,
 }) {
   return (
     <React.Fragment>
-      <Modal open={onPopupOpen} onClose={onClose}>
+      <Modal open={delPopupOpen} onClose={onClose}>
         <ModalDialog
           variant="outlined"
           role="alertdialog"
@@ -65,7 +65,7 @@ export default function DeletePopup({
               color: "#373737",
               marginTop: "20px",
             }}>
-            {message}
+            {popupMsg}
           </DialogContent>
           <DialogActions
             style={{

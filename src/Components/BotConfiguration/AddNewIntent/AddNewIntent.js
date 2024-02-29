@@ -19,7 +19,7 @@ import {
   clearList,
 } from "../AddNewIntent/IntentExample/actions";
 import Popup from "./IntentExample/AddPopup";
-import DeletePopup from "./IntentExample/DeletePopup";
+import DeletePopup from "../../Common/DeletePopup";
 import TextField from "@mui/material/TextField";
 
 const AddNewIntent = () => {
@@ -38,6 +38,8 @@ const AddNewIntent = () => {
   const [intentDescription, setIntentDescription] = useState("");
   const [intentExample, setIntentExample] = useState("");
   const [entityId, setEntityId] = useState(0);
+
+  const delPopupMsg = "Are you sure you want to delete the intent example?";
 
   //const [data, setData] = useState(null);
   const history = useNavigate();
@@ -364,12 +366,12 @@ const AddNewIntent = () => {
                             {/*    Using Modal in Material UI */}
                             {delPopupOpen && (
                               <DeletePopup
-                                message="Are you sure you want to delete the Intent?"
-                                onPopupOpen={delPopupOpen}
+                                delPopupOpen={delPopupOpen}
                                 onClose={() => setDelPopupOpen(false)}
                                 onDelete={() =>
                                   handleRemoveEntity(intentEntities[i].id)
                                 }
+                                popupMsg="Are you sure you want to delete the Intent Entity?"
                               />
                             )}
                           </div>
@@ -435,8 +437,9 @@ const AddNewIntent = () => {
                               {/*    Using Modal in Material UI */}
                               {delPopupOpen && (
                                 <DeletePopup
-                                  message="Are you sure you want to delete the intent example?"
-                                  onPopupOpen={delPopupOpen}
+                                  popupMsg={delPopupMsg}
+                                  //message="Are you sure you want to delete the intent example?"
+                                  delPopupOpen={delPopupOpen}
                                   onClose={() => setDelPopupOpen(false)}
                                   onDelete={() => handleDeleteItem(index)}
                                 />

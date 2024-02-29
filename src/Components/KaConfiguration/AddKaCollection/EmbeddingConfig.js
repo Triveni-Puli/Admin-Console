@@ -46,6 +46,8 @@ const EmbeddingConfigComponent = (props) => {
   useEffect(() => {
     getEmbeddingListAPI();
     getEmbeddingModelAPI("OpenAI");
+    getEmbeddingConfigList("OpenAI");
+
   }, [])
 
   function getEmbeddingConfigList(embeddingType) {
