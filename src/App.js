@@ -3,9 +3,10 @@ import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import UserMgmtData from "./Components/UserManagement/UserMgmtData";
-import BotConfigData from "./Components/BotConfiguration/BotConfigData";
-import AddNewIntent from "./Components/BotConfiguration/AddNewIntent/AddNewIntent";
+//import BotConfigData from "./Components/BotConfiguration/BotConfigData";
+//import AddNewIntent from "./Components/BotConfiguration/AddNewIntent/AddNewIntent";
 import DashboardData from "./Components/Dashboard/DashboardData";
+import BotConfig from "./Components/BotConfig/BotConfig";
 import KaConfiguration from "./Components/KaConfiguration/KaConfiguration";
 import AnalyticsConfig from "./Components/AnalyticsConfig/AnalyticsConfig";
 import Reinforcement from "./Components/Reinforcement/Reinforcement";
@@ -56,9 +57,12 @@ function App() {
                       <Route
                         path="/usermanagement"
                         element={<UserMgmtData />}></Route>
+                      {/*   <Route
+                        path="/botconfiguration"
+                        element={<BotConfigData />}></Route> */}
                       <Route
                         path="/botconfiguration"
-                        element={<BotConfigData />}></Route>
+                        element={<BotConfig />}></Route>
                       <Route
                         path="/knowledgeagentconfiguration"
                         element={<KaConfiguration />}></Route>
@@ -69,9 +73,9 @@ function App() {
                         path="/reinforcementlearning"
                         element={<Reinforcement />}></Route>
                       <Route path="/reports" element={<Reports />}></Route>
-                      <Route
+                      {/*   <Route
                         path="/addNewintent"
-                        element={<AddNewIntent />}></Route>
+                        element={<AddNewIntent />}></Route> */}
                       <Route
                         path="/viewIntent"
                         element={<ViewBotIntent />}></Route>

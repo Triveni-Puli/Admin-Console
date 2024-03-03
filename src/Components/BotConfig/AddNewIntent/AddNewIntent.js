@@ -9,17 +9,14 @@ import cancelImg from "../../../assets/Cancel.png";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
-  showPopup,
   deleteItem,
-  showDelPopup,
-  hideDelPopup,
   removeIntentEntity,
   addIntentEntity,
-  clearList,
-} from "../AddNewIntent/IntentExample/actions";
+  showAddIntentPageUI,
+} from "../BotConfigActions";
 import Popup from "./IntentExample/AddPopup";
 import DeletePopup from "../../Common/DeletePopup";
-import TextField from "@mui/material/TextField";
+//import TextField from "@mui/material/TextField";
 
 const AddNewIntent = () => {
   const [name, setName] = useState("");
@@ -44,20 +41,9 @@ const AddNewIntent = () => {
   const [entityId, setEntityId] = useState(0);
 
   const delPopupMsg = "Are you sure you want to delete the intent example?";
-
-  //const [data, setData] = useState(null);
-  const history = useNavigate();
-
-  // const [items, setItems] = useState(state.items);
-
-  const [submitted, setSubmitted] = useState(false);
   const dispatch = useDispatch();
-  // const isPopupVisible = useSelector((state) => state.isPopupVisible);
-  // const isDelPopupVisible = useSelector((state) => state.isDelPopupVisible);
-  const items = useSelector((state) => state.reducer.items);
-  const intentEntities = useSelector((state) => state.reducer.intentEntities);
-  console.log(intentEntities);
-  //console.log(useSelector((state) => console.log(state)));
+  const items = useSelector((state) => state.BotConfig.items);
+  const intentEntities = useSelector((state) => state.BotConfig.intentEntities);
 
   const handleName = (e) => {
     setName(e.target.value);
@@ -108,12 +94,10 @@ const AddNewIntent = () => {
     setIntentType(e.target.value);
     console.log(intentType);
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    e.preventDefault();
     try {
-      /*    const duplicateCheckResponse = await axios.get(
+      /*     const duplicateCheckResponse = await axios.get(
         "https://hi954elm6a.execute-api.ap-south-1.amazonaws.com/dev/check_intent",
         { params: { intent: name } },
         {
@@ -143,7 +127,8 @@ const AddNewIntent = () => {
         }
       );
       console.log(response);
-      /*    history(
+      dispatch(showAddIntentPageUI(false));
+      /*  history(
         "/botconfiguration"
         // { state: { responseData: response.data } }
       ); */
@@ -174,18 +159,23 @@ const AddNewIntent = () => {
     }
   };
 
+  function handleBotIntentLink() {
+    dispatch(showAddIntentPageUI(false));
+  }
+
   return (
     <div>
-      <div className="d-flex">
+      <div className="d-flex" style={{ fontSize: "16px", fontWeight: "400" }}>
         <Link
-          to="/botconfiguration"
+          to=""
           style={{
             textDecoration: "none",
             color: "#0049B2",
             fontSize: "16px",
             fontWeight: 400,
-          }}>
-          <p>Bot Intents</p>
+          }}
+          onClick={handleBotIntentLink}>
+          Bot Intents
         </Link>
         <p className="pt-0" style={{ fontSize: "16px", fontWeight: "400" }}>
           &nbsp; {">"}&nbsp;Add New Intent
@@ -427,7 +417,6 @@ const AddNewIntent = () => {
                                 setDelExPopupOpen(true);
                                 setIntentItemIndexToBeDeleted(i);
                               }}>
-                              {/*  onClick={() => dispatch(showDelPopup())} */}
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="24"
@@ -443,7 +432,6 @@ const AddNewIntent = () => {
                             {delExPopupOpen && (
                               <DeletePopup
                                 popupMsg={delPopupMsg}
-                                //message="Are you sure you want to delete the intent example?"
                                 delPopupOpen={delExPopupOpen}
                                 onClose={() => setDelExPopupOpen(false)}
                                 onDelete={() => handleDeleteItem()}
