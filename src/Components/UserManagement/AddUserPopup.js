@@ -14,7 +14,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 
 //import { FormControl, FormLabel, Select } from "@mui/material";
 
-const AddUserPopup = ({ open, onClose }) => {
+const AddUserPopup = ({ open, onClose, updateGrid }) => {
   //const [name, setName] = useState("");
   const [verificationError, setVerificationError] = useState("");
   const [formData, setFormData] = useState({
@@ -27,7 +27,7 @@ const AddUserPopup = ({ open, onClose }) => {
   });
   const [userIdError, setUserIdError] = useState("");
   const [emailIdError, setEmailIdError] = useState("");
-  const history = useNavigate();
+  const [pwdError, setPwdError] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,7 +36,6 @@ const AddUserPopup = ({ open, onClose }) => {
 
   const handleAddUser = async (e) => {
     e.preventDefault();
-    // Add logic to handle adding
     console.log(formData);
 
     try {
@@ -69,13 +68,21 @@ const AddUserPopup = ({ open, onClose }) => {
       }
 
       const response = await axios.post(
-        "https://wffa8je7n1.execute-api.ap-south-1.amazonaws.com/default/Create_new_user",
-        dataToSend
+        "https://wffa8je7n1.execute-api.ap-south-1.amazonaws.com/dev/Create_new_user",
+        dataToSend,
+        {
+          headers: {
+            "Content-Type": "text/plain",
+          },
+        }
       );
 
       // If the response is successful
       if (response.status === 200) {
         // Reset form data
+        updateGrid();
+        onClose();
+        setVerificationError("");
         setFormData({
           username: "",
           useremail: "",
@@ -84,12 +91,6 @@ const AddUserPopup = ({ open, onClose }) => {
           password: "",
           confirmPassword: "",
         });
-        onClose();
-        setVerificationError("");
-        history(
-          "/usermanagement"
-          // { state: { responseData: response.data } }
-        );
       }
     } catch (error) {
       console.error("Error adding user:", error);
@@ -99,38 +100,69 @@ const AddUserPopup = ({ open, onClose }) => {
 
   const handleUserIdBlur = async () => {
     try {
-      const duplicateCheckResponse = await axios.post(
-        "https://wffa8je7n1.execute-api.ap-south-1.amazonaws.com/default/user_id_creation_rule",
+      const response = await axios.post(
+        "https://wffa8je7n1.execute-api.ap-south-1.amazonaws.com/dev/user_id_creation_rule",
         { User_Id: formData.userID },
         {
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "text/plain",
           },
         }
       );
+      if (response.status === 200) {
+        setUserIdError("");
+      }
     } catch (err) {
       console.log(err);
       if (err.response?.status === 400) {
-        setEmailIdError(err.response.data);
+        setUserIdError(err.response.data.message);
       }
     }
   };
 
   const handleEmailIdBlur = async () => {
     try {
-      const duplicateCheckResponse = await axios.post(
-        "https://wffa8je7n1.execute-api.ap-south-1.amazonaws.com/default/email_id_creation_rule",
+      const response = await axios.post(
+        "https://wffa8je7n1.execute-api.ap-south-1.amazonaws.com/dev/email_id_creation_rule",
         { Email_id: formData.useremail },
         {
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "text/plain",
           },
         }
       );
+      if (response.status === 200) {
+        setEmailIdError("");
+      }
     } catch (err) {
       console.log(err);
       if (err.response?.status === 400) {
-        setUserIdError(err.response.data);
+        setEmailIdError(err.response.data.message);
+      }
+    }
+  };
+
+  const handlePwdBlur = async () => {
+    try {
+      /* if (!formData.password) {
+        throw new Error("Password cannot be empty");
+      } */
+      const response = await axios.post(
+        "https://wffa8je7n1.execute-api.ap-south-1.amazonaws.com/dev/password_rule",
+        { Password: formData.password },
+        {
+          headers: {
+            "Content-Type": "text/plain",
+          },
+        }
+      );
+      if (response.status === 200) {
+        setPwdError("");
+      }
+    } catch (err) {
+      //setPwdError(err);
+      if (err.response?.status === 400) {
+        setPwdError(err.response.data.message);
       }
     }
   };
@@ -255,7 +287,7 @@ const AddUserPopup = ({ open, onClose }) => {
                 name="userID"
                 value={formData.userID}
                 onChange={handleChange}
-                // onBlur={handleUserIdBlur}
+                onBlur={handleUserIdBlur}
               />
               {userIdError && <p style={{ color: "red" }}>{userIdError}</p>}
             </div>
@@ -275,7 +307,9 @@ const AddUserPopup = ({ open, onClose }) => {
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
+                onBlur={handlePwdBlur}
               />
+              {pwdError && <p style={{ color: "red" }}>{pwdError}</p>}
             </div>
             <div className="field-container">
               <label

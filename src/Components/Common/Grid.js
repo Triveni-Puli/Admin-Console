@@ -178,14 +178,14 @@ export default function CustomGrid(props) {
         getActions: ({ id }) => {
           const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
           return [
-            <GridActionsCellItem
+            ,
+            /*  <GridActionsCellItem
               icon={<EditIcon />}
               label="Edit"
               className="textPrimary"
               onClick={""}
               color="inherit"
-            />,
-            <GridActionsCellItem
+            /> */ <GridActionsCellItem
               icon={<DeleteIcon />}
               label="Delete"
               onClick={""}

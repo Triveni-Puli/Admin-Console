@@ -180,7 +180,7 @@ label {
 }
 
 #reason-description {
-  width: 680px;
+  width: 900px;
   height: 47px;
   margin: 5px 1px;
   font-size: 14px;
@@ -201,7 +201,7 @@ label {
 .intent-example-text {
   border: 1px solid #c8d2dd;
   border-radius: 5px;
-  width: 612px;
+  width: 832px;
   font-weight: 400;
   font-size: 14px;
   height: 47px;
