@@ -178,17 +178,23 @@ export default function CustomGrid(props) {
         getActions: ({ id }) => {
           const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
           return [
-            ,
-            /*  <GridActionsCellItem
+            <GridActionsCellItem
+              icon={<VisibilityIcon />}
+              label="View"
+              onClick={() => handleViewClick({ id })}
+              // color="inherit"
+            />,
+            <GridActionsCellItem
               icon={<EditIcon />}
               label="Edit"
               className="textPrimary"
               onClick={""}
               color="inherit"
-            /> */ <GridActionsCellItem
+            />,
+            <GridActionsCellItem
               icon={<DeleteIcon />}
               label="Delete"
-              onClick={""}
+              onClick={() => handleDeleteClick({ id })}
               color="inherit"
             />,
           ];
@@ -229,34 +235,58 @@ export default function CustomGrid(props) {
         cellClassName: "actions",
         getActions: ({ id, field }) => {
           // const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
-          return [
-            <GridActionsCellItem
-              icon={<VisibilityIcon />}
-              label="View"
-              onClick={() => handleViewClick({ id })}
-              // color="inherit"
-            />,
-            <GridActionsCellItem
-              icon={<EditIcon />}
-              label="Edit"
-              className="textPrimary"
-              onClick={() => handleEditClick({ id })}
-              color="inherit"
-            />,
-            <GridActionsCellItem
-              icon={<FolderSearchIcon />}
-              label="Folder Search"
-              className="textPrimary"
-              onClick={() => {}}
-              color="inherit"
-            />,
-            <GridActionsCellItem
-              icon={<DeleteIcon />}
-              label="Delete"
-              onClick={() => handleDeleteClick({ id })}
-              color="inherit"
-            />,
-          ];
+          if (dataIdentifier === "KAConfig") {
+            return [
+              <GridActionsCellItem
+                icon={<VisibilityIcon />}
+                label="View"
+                onClick={() => handleViewClick({ id })}
+                // color="inherit"
+              />,
+              <GridActionsCellItem
+                icon={<EditIcon />}
+                label="Edit"
+                className="textPrimary"
+                onClick={() => handleEditClick({ id })}
+                color="inherit"
+              />,
+              <GridActionsCellItem
+                icon={<FolderSearchIcon />}
+                label="Folder Search"
+                className="textPrimary"
+                onClick={() => {}}
+                color="inherit"
+              />,
+              <GridActionsCellItem
+                icon={<DeleteIcon />}
+                label="Delete"
+                onClick={() => handleDeleteClick({ id })}
+                color="inherit"
+              />,
+            ];
+          } else {
+            return [
+              <GridActionsCellItem
+                icon={<VisibilityIcon />}
+                label="View"
+                onClick={() => handleViewClick({ id })}
+                // color="inherit"
+              />,
+              <GridActionsCellItem
+                icon={<EditIcon />}
+                label="Edit"
+                className="textPrimary"
+                onClick={() => handleEditClick({ id })}
+                color="inherit"
+              />,
+              <GridActionsCellItem
+                icon={<DeleteIcon />}
+                label="Delete"
+                onClick={() => handleDeleteClick({ id })}
+                color="inherit"
+              />,
+            ];
+          }
         },
       },
     ];

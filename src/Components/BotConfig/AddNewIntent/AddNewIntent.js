@@ -110,7 +110,8 @@ const AddNewIntent = () => {
 
       /*       call POST API on Form Submit if no duplicate intent present */
       const response = await axios.post(
-        "https://hi954elm6a.execute-api.ap-south-1.amazonaws.com/dev/put_intent",
+        "https://zb64ezs7owjxvexvevkhmtbmv40liioq.lambda-url.ap-south-1.on.aws/put_intent",
+        /* "https://hi954elm6a.execute-api.ap-south-1.amazonaws.com/dev/put_intent", */
         {
           intent: name,
           description: description,
@@ -122,7 +123,7 @@ const AddNewIntent = () => {
         },
         {
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "text/plain",
           },
         }
       );
@@ -143,7 +144,8 @@ const AddNewIntent = () => {
   const handleNameBlur = async () => {
     try {
       const response = await axios.get(
-        "https://hi954elm6a.execute-api.ap-south-1.amazonaws.com/dev/check_intent",
+        "https://zb64ezs7owjxvexvevkhmtbmv40liioq.lambda-url.ap-south-1.on.aws/check_intent",
+        /*    "https://hi954elm6a.execute-api.ap-south-1.amazonaws.com/dev/check_intent", */
         { params: { intent: name } },
         {
           headers: {
@@ -164,7 +166,7 @@ const AddNewIntent = () => {
   }
 
   return (
-    <div>
+    <div style={{ padding: "10px" }}>
       <div className="d-flex" style={{ fontSize: "16px", fontWeight: "400" }}>
         <Link
           to=""

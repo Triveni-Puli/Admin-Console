@@ -50,12 +50,34 @@ const UserMgmtData = () => {
     setDelPopupOpen(true);
   };
 
-  const handleDeleteItem = (item) => {
-    const updatedUserData = userManagementdata.filter(
+  const handleDeleteItem = async (item) => {
+    try {
+      const response = await axios.delete(
+        "https://26khq3puy1.execute-api.ap-south-1.amazonaws.com/default/GenAi_Delete_User_Info",
+        { params: { User_Id: item.id } },
+        {
+          headers: {
+            "Content-Type": "text/plain",
+          },
+        }
+      );
+      if (response.status === 200) {
+        console.log("Item deleted", response.data);
+        const updatedUserData = userManagementdata.filter(
+          (row) => row.User_Id !== item.id
+        );
+        setUserManagementdata(updatedUserData);
+        setDelPopupOpen(false);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+
+    /*   const updatedUserData = userManagementdata.filter(
       (row) => row.User_Id !== item.id
-    );
+    ); 
     setUserManagementdata(updatedUserData);
-    setDelPopupOpen(false);
+    setDelPopupOpen(false);*/
   };
 
   return (
@@ -93,7 +115,7 @@ const UserMgmtData = () => {
                 rows={userManagementdata}
                 getRowId={(row) => row.User_Id}
                 dataIdentifier="userManagement"
-                // onDelete={handleDeleteClick}
+                onDelete={handleDeleteClick}
               />
             )}
             {delPopupOpen && (

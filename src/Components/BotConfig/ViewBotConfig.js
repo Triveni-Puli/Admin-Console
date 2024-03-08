@@ -9,6 +9,7 @@ import {
   showAddIntentPageUI,
   showViewIntentPageUI,
   showIntentDetails,
+  showEditIntentPageUI,
 } from "../BotConfig/BotConfigActions";
 import { useDispatch, useSelector } from "react-redux";
 import DeletePopup from "../Common/DeletePopup";
@@ -23,7 +24,8 @@ const ViewBotConfig = () => {
   function getBotIntentList() {
     axios
       .get(
-        "https://hi954elm6a.execute-api.ap-south-1.amazonaws.com/dev/list_intents",
+        "https://zb64ezs7owjxvexvevkhmtbmv40liioq.lambda-url.ap-south-1.on.aws/list_intents",
+        /* "https://hi954elm6a.execute-api.ap-south-1.amazonaws.com/dev/list_intents", */
         {},
         {
           headers: {
@@ -46,10 +48,32 @@ const ViewBotConfig = () => {
     dispatch(clearList());
   };
 
+  function handleEdit(item) {
+    console.log("in edit", item.id);
+    axios
+      .post(
+        "https://zb64ezs7owjxvexvevkhmtbmv40liioq.lambda-url.ap-south-1.on.aws/view_intent",
+        {
+          intent: item.id,
+        },
+        {
+          headers: {
+            "Content-Type": "text/plain",
+          },
+        }
+      )
+      .then((response) => {
+        dispatch(setBotIntentList(response.data));
+        dispatch(showEditIntentPageUI(true));
+      })
+      .catch((err) => {});
+  }
+
   const handleDeleteItem = async (item) => {
     try {
       const response = await axios.delete(
-        "https://hi954elm6a.execute-api.ap-south-1.amazonaws.com/dev/delete_intent",
+        "https://zb64ezs7owjxvexvevkhmtbmv40liioq.lambda-url.ap-south-1.on.aws/delete_intent",
+        /*        "https://hi954elm6a.execute-api.ap-south-1.amazonaws.com/dev/delete_intent", */
         { params: { intent: item.id } },
         {
           headers: {
@@ -122,6 +146,7 @@ const ViewBotConfig = () => {
                 rows={botIntentList}
                 getRowId={(row) => row.intent}
                 dataIdentifier="botConfig"
+                onEdit={handleEdit}
                 onDelete={handleDeleteClick}
                 onView={handleViewClick}
               />
