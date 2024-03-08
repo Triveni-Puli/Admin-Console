@@ -6,15 +6,18 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 import { Provider } from "react-redux";
-import reducer from "./Components/BotConfiguration/AddNewIntent/IntentExample/reducer"; // Import the reducer
-import kareducer from './Components/KaConfiguration/KaReducer';
+//import reducer from "./Components/BotConfiguration/AddNewIntent/IntentExample/reducer"; // Import the reducer
+import kareducer from "./Components/KaConfiguration/KaReducer";
+import botConfigreducer from "./Components/BotConfig/BotConfigReducer";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 // const rootRe
-const store = createStore(combineReducers({
-  reducer,
-  KnowlegdeAgent: kareducer
-}));
+const store = createStore(
+  combineReducers({
+    KnowlegdeAgent: kareducer,
+    BotConfig: botConfigreducer,
+  })
+);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

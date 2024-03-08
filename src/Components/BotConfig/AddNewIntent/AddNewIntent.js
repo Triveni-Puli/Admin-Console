@@ -6,21 +6,17 @@ import axios from "axios";
 import addExImg from "../../../assets/addImg.svg";
 import addEntImg from "../../../assets/addentiImg.svg";
 import cancelImg from "../../../assets/Cancel.png";
-import { v4 as uuidv4 } from "uuid";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
-  showPopup,
   deleteItem,
-  showDelPopup,
-  hideDelPopup,
   removeIntentEntity,
   addIntentEntity,
-  clearList,
-} from "../AddNewIntent/IntentExample/actions";
+  showAddIntentPageUI,
+} from "../BotConfigActions";
 import Popup from "./IntentExample/AddPopup";
 import DeletePopup from "../../Common/DeletePopup";
-import TextField from "@mui/material/TextField";
+//import TextField from "@mui/material/TextField";
 
 const AddNewIntent = () => {
   const [name, setName] = useState("");
@@ -30,8 +26,13 @@ const AddNewIntent = () => {
   const [apiUrl, setApiUrl] = useState("");
   const [apiParameter, setApiParameter] = useState("");
   const [apiDescription, setApiDescription] = useState("");
-  const [delPopupOpen, setDelPopupOpen] = useState(false);
+  const [delExPopupOpen, setDelExPopupOpen] = useState(false);
+  const [delEntityPopupOpen, setDelEntityPopupOpen] = useState(false);
   const [addPopupOpen, setAddpopupOpen] = useState(false);
+  const [intentItemIndexToBeDeleted, setIntentItemIndexToBeDeleted] =
+    useState(false);
+  const [intentEntityIndexToBeDeleted, setIntentEntityIndexToBeDeleted] =
+    useState(false);
 
   const [intentName, setIntentName] = useState("");
   const [intentType, setIntentType] = useState("Select Type");
@@ -40,20 +41,9 @@ const AddNewIntent = () => {
   const [entityId, setEntityId] = useState(0);
 
   const delPopupMsg = "Are you sure you want to delete the intent example?";
-
-  //const [data, setData] = useState(null);
-  const history = useNavigate();
-
-  // const [items, setItems] = useState(state.items);
-
-  const [submitted, setSubmitted] = useState(false);
   const dispatch = useDispatch();
-  // const isPopupVisible = useSelector((state) => state.isPopupVisible);
-  // const isDelPopupVisible = useSelector((state) => state.isDelPopupVisible);
-  const items = useSelector((state) => state.reducer.items);
-  const intentEntities = useSelector((state) => state.reducer.intentEntities);
-  console.log(intentEntities);
-  //console.log(useSelector((state) => console.log(state)));
+  const items = useSelector((state) => state.BotConfig.items);
+  const intentEntities = useSelector((state) => state.BotConfig.intentEntities);
 
   const handleName = (e) => {
     setName(e.target.value);
@@ -64,11 +54,15 @@ const AddNewIntent = () => {
     setDescription(e.target.value);
   };
 
-  const handleDeleteItem = (index, itemType) => {
-    console.log(index);
-    dispatch(deleteItem(index, itemType));
+  const handleDeleteItem = (index) => {
+    dispatch(deleteItem(intentItemIndexToBeDeleted));
     /*  dispatch(hideDelPopup()); */
-    setDelPopupOpen(false);
+    setDelExPopupOpen(false);
+  };
+
+  const handleRemoveEntity = (index) => {
+    dispatch(removeIntentEntity(intentEntityIndexToBeDeleted));
+    setDelEntityPopupOpen(false);
   };
 
   const handleAddEntity = () => {
@@ -100,18 +94,10 @@ const AddNewIntent = () => {
     setIntentType(e.target.value);
     console.log(intentType);
   };
-
-  const handleRemoveEntity = (id) => {
-    // console.log(intentEntity);
-    dispatch(removeIntentEntity(id));
-    setDelPopupOpen(false);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    e.preventDefault();
     try {
-      /*    const duplicateCheckResponse = await axios.get(
+      /*     const duplicateCheckResponse = await axios.get(
         "https://hi954elm6a.execute-api.ap-south-1.amazonaws.com/dev/check_intent",
         { params: { intent: name } },
         {
@@ -124,7 +110,8 @@ const AddNewIntent = () => {
 
       /*       call POST API on Form Submit if no duplicate intent present */
       const response = await axios.post(
-        "https://hi954elm6a.execute-api.ap-south-1.amazonaws.com/dev/put_intent",
+        "https://zb64ezs7owjxvexvevkhmtbmv40liioq.lambda-url.ap-south-1.on.aws/put_intent",
+        /* "https://hi954elm6a.execute-api.ap-south-1.amazonaws.com/dev/put_intent", */
         {
           intent: name,
           description: description,
@@ -136,15 +123,16 @@ const AddNewIntent = () => {
         },
         {
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "text/plain",
           },
         }
       );
       console.log(response);
-      history(
+      dispatch(showAddIntentPageUI(false));
+      /*  history(
         "/botconfiguration"
         // { state: { responseData: response.data } }
-      );
+      ); */
     } catch (err) {
       if (err.response?.status === 400) {
         setIntentError(err.response.data);
@@ -155,8 +143,9 @@ const AddNewIntent = () => {
 
   const handleNameBlur = async () => {
     try {
-      const duplicateCheckResponse = await axios.get(
-        "https://hi954elm6a.execute-api.ap-south-1.amazonaws.com/dev/check_intent",
+      const response = await axios.get(
+        "https://zb64ezs7owjxvexvevkhmtbmv40liioq.lambda-url.ap-south-1.on.aws/check_intent",
+        /*    "https://hi954elm6a.execute-api.ap-south-1.amazonaws.com/dev/check_intent", */
         { params: { intent: name } },
         {
           headers: {
@@ -172,18 +161,23 @@ const AddNewIntent = () => {
     }
   };
 
+  function handleBotIntentLink() {
+    dispatch(showAddIntentPageUI(false));
+  }
+
   return (
-    <div>
-      <div className="d-flex">
+    <div style={{ padding: "10px" }}>
+      <div className="d-flex" style={{ fontSize: "16px", fontWeight: "400" }}>
         <Link
-          to="/botconfiguration"
+          to=""
           style={{
             textDecoration: "none",
             color: "#0049B2",
             fontSize: "16px",
             fontWeight: 400,
-          }}>
-          <p>Bot Intents</p>
+          }}
+          onClick={handleBotIntentLink}>
+          Bot Intents
         </Link>
         <p className="pt-0" style={{ fontSize: "16px", fontWeight: "400" }}>
           &nbsp; {">"}&nbsp;Add New Intent
@@ -350,7 +344,10 @@ const AddNewIntent = () => {
                               className="trash-btn"
                               style={{ marginBottom: "12px" }}
                               type="button"
-                              onClick={() => setDelPopupOpen(true)}>
+                              onClick={() => {
+                                setDelEntityPopupOpen(true);
+                                setIntentEntityIndexToBeDeleted(i);
+                              }}>
                               {/*  onClick={() => dispatch(showDelPopup())} */}
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -364,13 +361,11 @@ const AddNewIntent = () => {
                               </svg>
                             </button>
                             {/*    Using Modal in Material UI */}
-                            {delPopupOpen && (
+                            {delEntityPopupOpen && (
                               <DeletePopup
-                                delPopupOpen={delPopupOpen}
-                                onClose={() => setDelPopupOpen(false)}
-                                onDelete={() =>
-                                  handleRemoveEntity(intentEntities[i].id)
-                                }
+                                delPopupOpen={delEntityPopupOpen}
+                                onClose={() => setDelEntityPopupOpen(false)}
+                                onDelete={() => handleRemoveEntity()}
                                 popupMsg="Are you sure you want to delete the Intent Entity?"
                               />
                             )}
@@ -411,44 +406,44 @@ const AddNewIntent = () => {
               {/*  {isPopupVisible && <Popup />} */}
               <div>
                 <ul className="intent-list">
-                  {items &&
-                    items.map((item, index) => {
-                      return (
-                        <div className="ex-list-items">
-                          <li key={index}>
-                            <span className="intent-example-text">{item}</span>
-                            <span className="icons">
-                              <button
-                                className="trash-btn"
-                                type="button"
-                                onClick={() => setDelPopupOpen(true)}>
-                                {/*  onClick={() => dispatch(showDelPopup())} */}
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  width="24"
-                                  height="24"
-                                  fill="currentColor"
-                                  class="bi bi-trash"
-                                  viewBox="0 0 16 16">
-                                  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
-                                  <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
-                                </svg>
-                              </button>
-                              {/*    Using Modal in Material UI */}
-                              {delPopupOpen && (
-                                <DeletePopup
-                                  popupMsg={delPopupMsg}
-                                  //message="Are you sure you want to delete the intent example?"
-                                  delPopupOpen={delPopupOpen}
-                                  onClose={() => setDelPopupOpen(false)}
-                                  onDelete={() => handleDeleteItem(index)}
-                                />
-                              )}
-                            </span>
-                          </li>
-                        </div>
-                      );
-                    })}
+                  {items?.map((item, i) => {
+                    return (
+                      <div className="ex-list-items">
+                        <li key={i}>
+                          <span className="intent-example-text">{item}</span>
+                          <span className="icons">
+                            <button
+                              className="trash-btn"
+                              type="button"
+                              onClick={() => {
+                                setDelExPopupOpen(true);
+                                setIntentItemIndexToBeDeleted(i);
+                              }}>
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                fill="currentColor"
+                                class="bi bi-trash"
+                                viewBox="0 0 16 16">
+                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+                              </svg>
+                            </button>
+                            {/*    Using Modal in Material UI */}
+                            {delExPopupOpen && (
+                              <DeletePopup
+                                popupMsg={delPopupMsg}
+                                delPopupOpen={delExPopupOpen}
+                                onClose={() => setDelExPopupOpen(false)}
+                                onDelete={() => handleDeleteItem()}
+                              />
+                            )}
+                          </span>
+                        </li>
+                      </div>
+                    );
+                  })}
                 </ul>
               </div>
             </div>

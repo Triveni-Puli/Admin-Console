@@ -8,16 +8,29 @@ import {
   ADD_INTENT_ENTITY,
   REMOVE_INTENT_ENTITY,
   CLEAR_LIST,
-} from "./actions";
+  SHOW_ADD_INTENT_PAGE_UI,
+  SHOW_EDIT_INTENT_PAGE_UI,
+  SHOW_VIEW_INTENT_PAGE_UI,
+  SHOW_VIEW_INTENT_DETAILS,
+} from "./BotConfigActions";
 
 const initialState = {
+  showAddIntentUI: false,
+  showEditIntentUI: false,
   isPopupVisible: false,
   items: [],
   intentEntities: [],
+  intentDetails: {},
 };
 
-const reducer = (state = initialState, action) => {
+const botConfigreducer = (state = initialState, action) => {
   switch (action.type) {
+    case SHOW_ADD_INTENT_PAGE_UI:
+      return { ...state, showAddIntentUI: action.payload };
+    case SHOW_EDIT_INTENT_PAGE_UI:
+      return { ...state, showEditIntentUI: action.payload };
+    case SHOW_VIEW_INTENT_PAGE_UI:
+      return { ...state, showViewIntentUI: action.payload };
     case SHOW_POPUP:
       return { ...state, isPopupVisible: true };
     case SHOW_DEL_POPUP:
@@ -33,19 +46,9 @@ const reducer = (state = initialState, action) => {
         isPopupVisible: false,
       };
     case DELETE_ITEM:
-      /*    const { index, itemType } = action.payload;
-      if (itemType === "entity") {
-        const newEntities = [...state.intentEntities];
-        newEntities.splice(index, 1);
-        return { ...state, intentEntities: newEntities };
-      } else if (itemType === "example") {
-        const newExamples = [...state.items];
-        newExamples.splice(index, 1);
-        return { ...state, items: newExamples };
-      } */
       return {
         ...state,
-        items: state.items.filter((_, index) => index !== action.payload),
+        items: state.items.filter((index, i) => i !== action.payload),
       };
     case ADD_INTENT_ENTITY:
       return {
@@ -53,13 +56,10 @@ const reducer = (state = initialState, action) => {
         intentEntities: [...state.intentEntities, action.payload],
       };
     case REMOVE_INTENT_ENTITY:
-      /*   const newIntentEntites = state.intentEntities.filter(
-        (item, index) => item !== action.payload
-      ); */
       return {
         ...state,
         intentEntities: state.intentEntities.filter(
-          (intentEntity) => intentEntity.id != action.payload
+          (index, i) => i !== action.payload
         ),
       };
     case CLEAR_LIST:
@@ -68,9 +68,14 @@ const reducer = (state = initialState, action) => {
         items: [],
         intentEntities: [],
       };
+    case SHOW_VIEW_INTENT_DETAILS:
+      return {
+        ...state,
+        intentDetails: Object.assign(state.intentDetails, action.payload),
+      };
     default:
       return state;
   }
 };
 
-export default reducer;
+export default botConfigreducer;

@@ -1,4 +1,3 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
 import "../KaConfiguration/KaConfiguration.css";
 import plusImg from "../../assets/plusIcon.svg";
 import CustomGrid from "../Common/Grid";
@@ -7,42 +6,26 @@ import delSmallImg from "../../assets/deleteSmall.svg";
 import axios from "axios";
 import {
   clearList,
-  deleteItem,
-} from "../BotConfiguration/AddNewIntent/IntentExample/actions";
+  showAddIntentPageUI,
+  showViewIntentPageUI,
+  showIntentDetails,
+  showEditIntentPageUI,
+} from "../BotConfig/BotConfigActions";
 import { useDispatch, useSelector } from "react-redux";
-
 import DeletePopup from "../Common/DeletePopup";
-import ViewBotIntent from "./ViewIntent/ViewBotIntent";
 
-const BotConfigData = () => {
-  // const [responseData, setResponseData] = useState({});
-
-  // const handleNewIntentAdded = (data) => {
-  //   setResponseData(data);
-  // };
-  // const location = useLocation();
-  // const { state } = location;
-
-  // useEffect(() => {
-  //   if (state && state.responseData) {
-  //     setResponseData(state.responseData);
-  //   }
-  // }, [state]);
-
-  // console.log(responseData);
+const ViewBotConfig = () => {
   const dispatch = useDispatch();
   const [botIntentList, setBotIntentList] = useState([]);
-  const [gridSelectionModel, setGridSelectionModel] = useState([]);
   const [delPopupOpen, setDelPopupOpen] = useState(false);
   const [selectedRow, setSelectedRow] = useState(null);
+  const delPopupMsg = "Are you sure you want to delete the Intent?";
 
-  const [viewIntentForm, setViewIntentForm] = useState(false);
-  const delPopupMsg = "Are you sure you want to delete the intent?";
-
-  useEffect(() => {
+  function getBotIntentList() {
     axios
       .get(
-        "https://hi954elm6a.execute-api.ap-south-1.amazonaws.com/dev/list_intents",
+        "https://zb64ezs7owjxvexvevkhmtbmv40liioq.lambda-url.ap-south-1.on.aws/list_intents",
+        /* "https://hi954elm6a.execute-api.ap-south-1.amazonaws.com/dev/list_intents", */
         {},
         {
           headers: {
@@ -54,23 +37,43 @@ const BotConfigData = () => {
         setBotIntentList(response.data);
       })
       .catch((err) => {});
+  }
+
+  useEffect(() => {
+    getBotIntentList();
   }, []);
 
   const handleAddNewIntent = () => {
+    dispatch(showAddIntentPageUI(true));
     dispatch(clearList());
   };
 
-  const handleDeleteMultiple = () => {
-    const updatedRows = botIntentList.filter(
-      (row) => !gridSelectionModel.includes(row.intent)
-    );
-    setBotIntentList(updatedRows);
-  };
+  function handleEdit(item) {
+    console.log("in edit", item.id);
+    axios
+      .post(
+        "https://zb64ezs7owjxvexvevkhmtbmv40liioq.lambda-url.ap-south-1.on.aws/view_intent",
+        {
+          intent: item.id,
+        },
+        {
+          headers: {
+            "Content-Type": "text/plain",
+          },
+        }
+      )
+      .then((response) => {
+        dispatch(setBotIntentList(response.data));
+        dispatch(showEditIntentPageUI(true));
+      })
+      .catch((err) => {});
+  }
 
   const handleDeleteItem = async (item) => {
     try {
       const response = await axios.delete(
-        "https://hi954elm6a.execute-api.ap-south-1.amazonaws.com/dev/delete_intent",
+        "https://zb64ezs7owjxvexvevkhmtbmv40liioq.lambda-url.ap-south-1.on.aws/delete_intent",
+        /*        "https://hi954elm6a.execute-api.ap-south-1.amazonaws.com/dev/delete_intent", */
         { params: { intent: item.id } },
         {
           headers: {
@@ -97,9 +100,15 @@ const BotConfigData = () => {
   };
 
   const handleViewClick = (row) => {
-    console.log(row);
     setSelectedRow(row);
-    setViewIntentForm(true);
+    dispatch(showViewIntentPageUI(true));
+    /*   dispatch(showIntentDetails()); */
+
+    const selectedRecord = botIntentList.find(
+      (record) => record.intent === row.id
+    );
+    // setSelectedRow(selectedRecord);
+    dispatch(showIntentDetails(selectedRecord));
   };
 
   return (
@@ -111,29 +120,20 @@ const BotConfigData = () => {
               Bot Intents
             </span>
             <span className="topRight">
-              <Link
-                to={{
-                  pathname: "/addNewintent",
-                  // state: {
-                  //   onNewIntentAdded: handleNewIntentAdded,
-                  //  }
+              <button
+                className="topBtn addBtn"
+                onClick={handleAddNewIntent}
+                style={{
+                  width: "146px",
+                  fontSize: "14px",
+                  fontWeight: 600,
                 }}>
-                {/*               <Link to="/addNewintent"> */}
-                <button
-                  className="topBtn addBtn"
-                  onClick={handleAddNewIntent}
-                  style={{
-                    width: "146px",
-                    fontSize: "14px",
-                    fontWeight: 600,
-                  }}>
-                  Add New Intent
-                  <img style={{ marginLeft: "6px" }} src={plusImg}></img>
-                </button>
-              </Link>
+                Add New Intent
+                <img style={{ marginLeft: "6px" }} src={plusImg}></img>
+              </button>
               <button
                 className="topBtn delBtn"
-                onClick={handleDeleteMultiple}
+                // onClick={handleDeleteMultiple}
                 style={{ width: "140px", fontSize: "14px", fontWeight: 600 }}>
                 Delete Intent{" "}
                 <img style={{ marginLeft: "6px" }} src={delSmallImg}></img>
@@ -146,22 +146,19 @@ const BotConfigData = () => {
                 rows={botIntentList}
                 getRowId={(row) => row.intent}
                 dataIdentifier="botConfig"
-                onSelectionModelChange={setGridSelectionModel}
-                //onDelete={handleDeleteAPI}
+                onEdit={handleEdit}
                 onDelete={handleDeleteClick}
                 onView={handleViewClick}
               />
             )}
             {delPopupOpen && (
               <DeletePopup
-                message="Are you sure you want to delete the Intent?"
-                onPopupOpen={delPopupOpen}
+                delPopupOpen={delPopupOpen}
                 onClose={() => setDelPopupOpen(false)}
                 onDelete={() => handleDeleteItem(selectedRow)}
                 popupMsg={delPopupMsg}
               />
             )}
-            {viewIntentForm && <ViewBotIntent data={botIntentList} />}
           </div>
         </div>
       </div>
@@ -169,4 +166,4 @@ const BotConfigData = () => {
   );
 };
 
-export default BotConfigData;
+export default ViewBotConfig;

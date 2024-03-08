@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addNewItem } from "./actions";
+import { addNewItem } from "../../BotConfigActions";
 import "../AddIntentStyles.css";
 import Button from "@mui/material/Button";
 import Modal from "@mui/joy/Modal";

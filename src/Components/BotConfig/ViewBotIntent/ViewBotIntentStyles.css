@@ -1,0 +1,56 @@
+.main-content {
+  width: 1004px;
+  /*  height: 627px; */
+  border: 1px solid #c8d2dd;
+  border-radius: 5px;
+  margin-top: 1.5rem;
+  background-color: #ffffff;
+  padding: 20px;
+}
+.bot-intent-name {
+  font-size: 18px;
+  font-weight: 500;
+}
+.bot-intent-desc {
+  font-size: 14px;
+  font-weight: 400;
+  color: #a5afbe;
+  margin-bottom: 20px;
+}
+.intent-entity-label {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 8px 35px;
+}
+.bot-intent-entity-container {
+  width: 954px;
+  border-radius: 5px;
+  border: 1px solid #c8d2dd;
+}
+
+.bot-intent-entity-list {
+  display: flex;
+  align-items: center;
+}
+.bot-intent-entity-list p {
+  margin-right: 10px;
+  margin-top: 5px;
+}
+.bot-intent-entity ul {
+  list-style-type: none;
+}
+.bot-intent-example-container {
+  width: 954px;
+  border-radius: 5px;
+  border: 1px solid #c8d2dd;
+  margin-top: 25px;
+}
+.example-label {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+.intent-ex-list {
+  list-style-type: none;
+  margin: 20px 0px;
+}
