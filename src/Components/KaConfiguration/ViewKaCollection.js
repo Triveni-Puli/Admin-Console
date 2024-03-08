@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import delSmallImg from "../../assets/deleteSmall.svg";
 import plusImg from "../../assets/plusIcon.svg";
 import CustomGrid from '../Common/Grid';
-import { showCreatePageUI, showEditPageUI, setCollectionDetails, setFormValues } from "./KaActions";
+import { showCreatePageUI, showEditPageUI, setCollectionDetails, 
+  setFormValues, showFileExplorerPageUI , setCollectionNameforFile} from "./KaActions";
 import "./KaConfiguration.css"
 import DeletePopup from "../Common/DeletePopup";
 
@@ -48,6 +49,11 @@ const ViewKaCollection = (props) => {
     }).catch(err => {
     });
   }
+  
+  const handleFileSearch = (item) => {
+    dispatch(showFileExplorerPageUI(true));
+    dispatch(setCollectionNameforFile(item.id));
+  }
 
   const handleDeleteClick = (row) => {
     setSelectedRow(row);
@@ -87,7 +93,7 @@ const ViewKaCollection = (props) => {
           </div>
           <div className="gridDetailsSection">
             {KACollections.length > 0 && 
-            <CustomGrid rows={KACollections} onEdit={handleEdit} onDelete={handleDeleteClick} />
+            <CustomGrid rows={KACollections} onEdit={handleEdit} onDelete={handleDeleteClick} onFileSearch={handleFileSearch} />
             }
             {delPopupOpen && (
               <DeletePopup

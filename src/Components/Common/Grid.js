@@ -9,6 +9,7 @@ import {
   GridRowEditStopReasons,
 } from "@mui/x-data-grid";
 import { createSvgIcon } from "@mui/material/utils";
+// import edit from "../../assets/edit.svg";
 
 function EditToolbar(props) {
   const { setRows, setRowModesModel } = props;
@@ -47,6 +48,10 @@ export default function CustomGrid(props) {
   const handleEditClick = (id) => {
     props.onEdit(id);
   };
+
+  const handleFolderSearch =(id) =>{
+    props.onFileSearch(id);
+  }
 
   /*   const handleDeleteClick = (id) => () => {
     setRows(rows.filter((row) => row.id !== id));
@@ -98,7 +103,7 @@ export default function CustomGrid(props) {
         fill="#323232"
       />
     </svg>,
-    "Plus"
+    "Edit"
   );
 
   const FolderSearchIcon = createSvgIcon(
@@ -138,7 +143,7 @@ export default function CustomGrid(props) {
         stroke-linejoin="round"
       />
     </svg>,
-    "Plus"
+    "Delete"
   );
 
   let defaultColumns;
@@ -247,7 +252,7 @@ export default function CustomGrid(props) {
               icon={<FolderSearchIcon />}
               label="Folder Search"
               className="textPrimary"
-              onClick={() => {}}
+              onClick={() => handleFolderSearch({ id })}
               color="inherit"
             />,
             <GridActionsCellItem
@@ -311,4 +316,11 @@ export default function CustomGrid(props) {
       />
     </Box>
   );
+}
+
+CustomGrid.defaultProps = {
+  onEdit: ()=>{},
+  onDelete:()=>{},
+  onFileSearch:()=>{},
+  onView: () =>{}
 }

@@ -199,6 +199,42 @@
     border-radius: 5px;
 }
 
+.searchInput {
+    display: inline;
+    height: 47px;
+    width: 822px;
+    /* border: none; */
+    border-radius: 5px;
+    border: 1px solid #D4D4D4;
+    padding-left: 34px ;
+    background: #FFFFFF url("../../assets/magnifier.svg") no-repeat 2px;
+    flex-basis: 90%;
+  }
+
+  .searchDiv {
+    display: flex;
+  }
+
+  .addUrlInput {
+    display: inline;
+    height: 47px;
+    width: 822px;
+    /* border: none; */
+    border-radius: 5px;
+    border: 1px solid #D4D4D4;
+    padding-left: 10px ;
+    /* margin-bottom: 10px; */
+    /* flex-basis: 90%; */
+  }
+
+  .urlImgs {
+    width:47px;
+    height: 47px;
+    vertical-align: bottom;
+    padding-left: 4px;
+    flex-basis: 5%;
+    cursor: pointer;
+  }
 
 
 
