@@ -49,7 +49,7 @@ const AddUserPopup = ({ open, onClose, updateGrid }) => {
           "Email, UserID, Password, and Role are required fields"
         );
       } else if (!formData.confirmPassword) {
-        throw new Error("Please Confirm Password");
+        throw new Error("Please Enter Confirm Password");
       } else if (formData.password !== formData.confirmPassword) {
         throw new Error("Password and Confirm Password do not match");
       }
