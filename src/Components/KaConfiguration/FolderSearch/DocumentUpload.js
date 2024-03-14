@@ -34,6 +34,23 @@ const DocumentUpload = () => {
     dispatch(showFileExplorerPageUI(false));
   }
 
+  function handleDeleteFile(item) {
+    axios.post("https://le73rkx5apfix2323bbw3gd5te0dcvkb.lambda-url.ap-south-1.on.aws/delete_file", {
+      "collection_name": collectionName,
+      "file_name": item.id
+    }, {
+      headers: {
+        "Content-Type": "text/plain",
+      },
+    }).then(response => {
+      setDocList(docList.filter((row) => row.file_name !== item.id));
+      console.log("response", response.data);
+      // setUrlList(response.data);
+    }).catch(err => {
+      console.log("err", err);
+    });
+  }
+
   function handleAddFile() {
     inputRef.current.click();
     console.log("inside add");
@@ -87,7 +104,7 @@ const DocumentUpload = () => {
         </div>
         {/* <InputBox className="inputBorder" /> */}
       </div>
-      <FilesGrid rows={docList} isDocument={true} />
+      <FilesGrid rows={docList} isDocument={true} onDelete={handleDeleteFile} />
       <input
         style={{ display: 'none' }}
         ref={inputRef}
