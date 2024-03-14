@@ -146,7 +146,7 @@ const EditCustomKaCollection = () => {
           {activeStep == 3 && <ChunkConfigComponent/>}
         </div>
         <div className="bottomBtn">
-          {activeStep !== 0 && activeStep !== 3 && <button className="btn btnPrev" disabled= {activeStep === 0} variant="outlined" sx={{ marginRight: 2 }} onClick={handlePrevious}> Previous </button>}
+          {activeStep !== 0 && <button className="btn btnPrev" disabled= {activeStep === 0} variant="outlined" sx={{ marginRight: 2 }} onClick={handlePrevious}> Previous </button>}
           <button className="btn btnSave" variant="contained" onClick={handleSubmit}>{activeStep === 3 ? "SUBMIT AND EDIT COLLECTION": "Save & Continue"}</button>
         </div>
       </div>
