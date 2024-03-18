@@ -63,8 +63,8 @@ const ViewBotConfig = () => {
         }
       )
       .then((response) => {
-        dispatch(setBotIntentList(response.data));
         dispatch(showEditIntentPageUI(true));
+        dispatch(showIntentDetails(response.data));
       })
       .catch((err) => {});
   }
@@ -73,7 +73,6 @@ const ViewBotConfig = () => {
     try {
       const response = await axios.delete(
         "https://zb64ezs7owjxvexvevkhmtbmv40liioq.lambda-url.ap-south-1.on.aws/delete_intent",
-        /*        "https://hi954elm6a.execute-api.ap-south-1.amazonaws.com/dev/delete_intent", */
         { params: { intent: item.id } },
         {
           headers: {

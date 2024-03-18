@@ -28,6 +28,7 @@ export default function DeletePopup({
             height: "250px",
             borderRadius: "16px",
             border: " 1px solid #F9FAFB",
+            backgroundColor: "#FFFFFF",
           }}>
           <DialogTitle
             style={{

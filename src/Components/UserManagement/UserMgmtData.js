@@ -90,15 +90,26 @@ const UserMgmtData = () => {
             </span>
             <span className="topRight">
               <button
-                className="topBtn addBtn"
-                style={{ width: "100px", fontSize: "14px", fontWeight: 600 }}
+                className="topBtn addBtn addUserBtn"
+                style={{
+                  width: "100px",
+                  fontSize: "14px",
+                  fontWeight: 600,
+                  backgroundColor: "white",
+                }}
                 onClick={handleOpenPopup}>
-                Add User<img src={plusImg}></img>
+                Add User
+                <img src={plusImg} style={{ marginBottom: "3px" }}></img>
               </button>
               <button
-                className="topBtn delBtn"
+                className="topBtn delBtn delUserBtn"
                 // onClick={handleDeleteMultiple}
-                style={{ width: "120px", fontSize: "14px", fontWeight: 600 }}>
+                style={{
+                  width: "120px",
+                  fontSize: "14px",
+                  fontWeight: 600,
+                  backgroundColor: "white",
+                }}>
                 Delete User{" "}
                 <img style={{ marginLeft: "6px" }} src={delSmallImg}></img>
               </button>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addNewItem } from "../../BotConfigActions";
+import { addNewItem, addNewExampleEdit } from "../../BotConfigActions";
 import "../AddIntentStyles.css";
 import Button from "@mui/material/Button";
 import Modal from "@mui/joy/Modal";
@@ -14,13 +14,17 @@ import Input from "@mui/joy/Input";
 
 //const ariaLabel = { "aria-label": "description" };
 
-export default function Popup({ addPopupOpen, onClose }) {
+export default function Popup({ addPopupOpen, onClose, mode }) {
   const [text, setText] = useState("");
   const dispatch = useDispatch();
 
   const handleAdd = () => {
     if (text.trim() !== "") {
-      dispatch(addNewItem(text));
+      if (mode === "EDIT") {
+        dispatch(addNewExampleEdit(text));
+      } else {
+        dispatch(addNewItem(text));
+      }
       onClose();
       setText("");
     }

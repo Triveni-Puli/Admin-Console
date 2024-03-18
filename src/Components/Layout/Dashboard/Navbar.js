@@ -20,18 +20,6 @@ const Navbar = () => {
       <div className="sidebar">
         <div className="dashboard-genaibot">
           <img src={GenAIBotLogo} alt="GenAi-bot-logo" />
-          {/*  <img
-            src={BotLogo}
-            alt="Bot-Logo"
-            style={{
-              width: "45.87px",
-              height: "44.73px",
-              marginRight: "5px",
-              marginBottom: "12px",
-            }}
-          />
-          <span className="genai">GenAI</span>
-          <span className="bot">Bot</span> */}
         </div>
 
         <Nav className="flex-column sidebar">
