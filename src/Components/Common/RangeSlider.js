@@ -6,20 +6,24 @@ const RangeSliderComponent = (props) => {
   const min = props.min;
   const max= props.max;
   const step = props.step;
-  const [value, setValue] = React.useState([min,max]);
+  // const [value, setValue] = React.useState([min,max]);
+  const [value, setValue] = React.useState();
 
   const handleChange = (event, newValue) => {
     console.log("slider", newValue);
     setValue(newValue);
+    props.handleChange(newValue);
   };
     const list = props.list;
     return(
       <>
         <Slider sx={{ width: 250 }}
         getAriaLabel={() => 'Temperature range'}
+        defaultValue={(min+max)/2}
         value={value}
         onChange={handleChange}
-        valueLabelDisplay="auto"
+        // valueLabelDisplay="auto"
+        valueLabelDisplay="on"
         min= {min}
         max= {max}
         step = {step}
@@ -40,7 +44,8 @@ const RangeSliderComponent = (props) => {
 RangeSliderComponent.defaultProps = {
   min: '',
   max: '',
-  step:''
+  step:'',
+  handleChange : ()=>{}
 }
 
 export default RangeSliderComponent;

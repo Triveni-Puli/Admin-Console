@@ -95,7 +95,7 @@ const EmbeddingConfigComponent = (props) => {
 
         {showField(embeddingConfigList, 'api_key') && <div className="configCol">
           <label className="inputLabel">API Key</label>
-          <InputBox disabled type="password" onChange={handleApiKeyChange} value={embeddingDetails.api_key} />
+          <InputBox type="password" onChange={handleApiKeyChange} value={embeddingDetails.api_key} />
         </div>}
         {showField(embeddingConfigList, 'openai_api_version') && <div className="configCol">
           <label className="inputLabel">API Version</label>

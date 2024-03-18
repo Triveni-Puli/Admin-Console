@@ -11,24 +11,26 @@ const LLMConfigComponent = (props) => {
   const isDefault = props.isDefault;
   const dispatch = useDispatch();
   const collectionDetails = useSelector((state) => state.KnowlegdeAgent.collectionDetails);
-  const llmDetails = collectionDetails&&collectionDetails.llm&&collectionDetails.llm.llm_config;
+  const llmDetails = collectionDetails && collectionDetails.llm && collectionDetails.llm.llm_config;
   const [llmTypeList, setLlmTypeList] = useState([]);
   const [llmConfigList, setLlmConfigList] = useState([]);
   const [modelList, setModelList] = useState([]);
-  // const [selectedLlmType, setselectedLlmType] = useState('');
+  const [selectedLlmType, setselectedLlmType] = useState('');
   const [selectedModel, setselectedModel] = useState('');
   const [apikey, setApiKey] = useState('');
   const [maxToken, setMaxToken] = useState('');
   const formValues = useSelector((state) => state.KnowlegdeAgent.formValues);
-
+  const tempMin = 0;
+  const tempMax = 1;
   function getLlmListAPI() {
     axios.get("https://5yguhudqn325lpvt6g2ekm22gy0qnfrj.lambda-url.ap-south-1.on.aws/llm_type", {}, {
       headers: {
         "Content-Type": "application/json",
       },
     }).then(response => {
-      //  console.log("response", response);
       setLlmTypeList(response.data);
+      dispatch(setFieldValue("llmType", response.data[0]));
+      setselectedLlmType(response.data[0]);
     }).catch(err => {
     });
   }
@@ -43,6 +45,7 @@ const LLMConfigComponent = (props) => {
     }).then(response => {
       // console.log("response", response);
       setModelList(response.data);
+      dispatch(setFieldValue("llmModel", response.data[0]));
     }).catch(err => {
     });
   }
@@ -63,15 +66,17 @@ const LLMConfigComponent = (props) => {
 
   useEffect(() => {
     getLlmListAPI();
-    getLlmModelAPI("OpenAI");
-    getLlmConfigList("OpenAI");
-  }, [])
+    getLlmModelAPI(selectedLlmType);
+    getLlmConfigList(selectedLlmType);
+    dispatch(setFieldValue("llmTemp", (tempMin + tempMax) / 2));
+  }, [selectedLlmType])
 
   function handleLlmChange(selectedLLM) {
-    // setselectedLlmType(selectedLLM);
-    props.handleLlmChange(selectedLLM);
+    setselectedLlmType(selectedLLM);
+    // props.handleLlmChange(selectedLLM);
     getLlmConfigList(selectedLLM);
     getLlmModelAPI(selectedLLM);
+    dispatch(setFieldValue("llmType", selectedLLM));
   }
 
   function handleModelChange(val) {
@@ -89,8 +94,9 @@ const LLMConfigComponent = (props) => {
     setMaxToken(event.target.value);
   }
 
-  console.log("values2", formValues);
-    console.log("collect2",collectionDetails);
+  function handleTempChange(val) {
+    dispatch(setFieldValue("llmTemp", val));
+  }
 
   return (
     <>
@@ -131,7 +137,7 @@ const LLMConfigComponent = (props) => {
         </div>
         <div>
           <label className="inputLabel">Temperature</label>
-          <div><RangeSliderComponent min={0} max={1} step={0.1} /></div>
+          <div><RangeSliderComponent min={0} max={1} step={0.1} handleChange={handleTempChange} /></div>
         </div>
       </div>
     </>

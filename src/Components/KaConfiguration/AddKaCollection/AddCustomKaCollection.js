@@ -8,14 +8,15 @@ import LLMConfigComponent from "./LLMConfig";
 import EmbeddingConfigComponent from "./EmbeddingConfig";
 import VectorDBConfigComponent from "./VectorDBConfig";
 import ChunkConfigComponent from "./ChunkConfig";
-import {showCreatePageUI, setFieldValue, setCollectionDetails, setFormValues} from "../KaActions";
+import { showCreatePageUI, setFieldValue, setCollectionDetails, setFormValues } from "../KaActions";
 import "../KaConfiguration.css"
 
 
 const AddCustomKaCollection = () => {
   const dispatch = useDispatch();
   const collectionDetails = useSelector((state) => state.KnowlegdeAgent.collectionDetails);
-  const llmDetails = collectionDetails&&collectionDetails.llm&&collectionDetails.llm.llm_config;
+  const llmDetails = collectionDetails && collectionDetails.llm && collectionDetails.llm.llm_config;
+  const chunkDetails = collectionDetails && collectionDetails.splitter_config;
   const [collectionName, setCollectionName] = useState('');
   const [description, setDescription] = useState('');
   const [collectionNameErr, setCollectionNameErr] = useState('');
@@ -26,32 +27,32 @@ const AddCustomKaCollection = () => {
   const formValues = useSelector((state) => state.KnowlegdeAgent.formValues);
   useEffect(() => {
     // if(isDefault){
-      axios.get("https://5yguhudqn325lpvt6g2ekm22gy0qnfrj.lambda-url.ap-south-1.on.aws/default_config", {
-      }, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }).then(response => {
-        console.log("response", response.data);
-        dispatch(setCollectionDetails(response.data));
-      }).catch(err => {
-        
-      }) 
-  // }else{
-  //   dispatch(setCollectionDetails({}));
-  // }
+    axios.get("https://5yguhudqn325lpvt6g2ekm22gy0qnfrj.lambda-url.ap-south-1.on.aws/default_config", {
+    }, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then(response => {
+      console.log("response", response.data);
+      dispatch(setCollectionDetails(response.data));
+    }).catch(err => {
+
+    })
+    // }else{
+    //   dispatch(setCollectionDetails({}));
+    // }
   }, [isDefault])
-  
+
   const [activeStep, setActiveStep] = useState(0);
 
   function handleKALink() {
     dispatch(showCreatePageUI(false));
   }
 
-  function checkCollectionName(event){
+  function checkCollectionName(event) {
     const collection = event.target.value;
     setCollectionName(collection);
-    if(collection){
+    if (collection) {
       axios.post("https://5yguhudqn325lpvt6g2ekm22gy0qnfrj.lambda-url.ap-south-1.on.aws/verify_collection", {
         "collection_name": collection
       }, {
@@ -68,67 +69,69 @@ const AddCustomKaCollection = () => {
     }
   }
 
-  function handleLlmChange(val){
-    setselectedLlmType(val);
-    dispatch(setFieldValue("llmType", val));
-  }
+  // function handleLlmChange(val) {
+  //   setselectedLlmType(val);
+  //   dispatch(setFieldValue("llmType", val));
+  // }
 
-  function handleDescChange(event){
+  function handleDescChange(event) {
     setDescription(event.target.value);
     dispatch(setFieldValue("description", event.target.value));
   }
 
-  function handleCollectionNameChange(event){
+  function handleCollectionNameChange(event) {
     setCollectionName(event.target.value);
     dispatch(setFieldValue("collection_name", event.target.value));
   }
-  function handleSave(){
+  function handleSave() {
     // dispatch(showCreatePageUI(false));
-    if(activeStep===3){
-    axios.post("https://erj3tyfntew3xum2dh6icphrye0ktrco.lambda-url.ap-south-1.on.aws/create_collection", {
-      "config": {
-        "collection_name": formValues.collection_name,
-        "description": formValues.description,
-        "llm": {
-            // "llm_type": formValues.llmType,
-            "llm_type": "OpenAI",
+    if (activeStep === 3) {
+      axios.post("https://erj3tyfntew3xum2dh6icphrye0ktrco.lambda-url.ap-south-1.on.aws/create_collection", {
+        "config": {
+          "collection_name": formValues.collection_name,
+          "description": formValues.description,
+          "llm": {
+            "llm_type": formValues.llmType,
+            // "llm_type": "OpenAI",
             "llm_config": {
-                 "api_key": formValues.llmApiKey,
-                 "temperature": 0.3,
-                 "max_tokens": isDefault ? llmDetails.max_tokens :formValues.llmMaxToken,
-                 "deployment_name":"",
-                 "openai_api_version":"",
-                 "openai_api_base":"",
-                 "credentials":"",
-                 "model": "gpt-3.5-turbo",
-                  // "model": formValues.llmModel,
-                //  "top_p": 1
+              "model": formValues.llmModel,
+              "api_key": formValues.llmApiKey,
+              "temperature": formValues.llmTemp,
+              "max_tokens": isDefault ? llmDetails.max_tokens : formValues.llmMaxToken,
+              "deployment_name": "",
+              "openai_api_version": "",
+              "openai_api_base": "",
+              "credentials": "",
+              //  "model": "gpt-3.5-turbo",
+              //  "top_p": 1
             }
-        },
-        "vector_db": {
+          },
+          "vector_db": {
             "db_type": "ChromaDB",
             "db_config": {
               "api_key": "",
-              "environment":"",
-              "url":""
+              "environment": "",
+              "url": ""
             }
-        },
-        "embedding": {
+          },
+          "embedding": {
             //  "embedding_type": isDefault ? "OpenAI" :formValues.embeddingType,
-             "embedding_type": "OpenAI",
+            "embedding_type": "OpenAI",
             "embedding_config": {
-                 "model_name": "text-embedding-ada-002",
-                 "api_key": formValues.embeddingApiKey,
-                 "openai_api_version":"",
-                 "openai_api_base":"",
-                 "credentials":""
+              "model_name": "text-embedding-ada-002",
+              "api_key": formValues.embeddingApiKey,
+              "openai_api_version": "",
+              "openai_api_base": "",
+              "credentials": ""
             }
-        },
-        "splitter_config": {
-            "chunk_size": 2000,
-             "chunk_overlap": 100
+          },
+          "splitter_config": {
+            "chunk_size": isDefault ? '' : formValues.chunkSize,
+            "chunk_overlap": isDefault ? '' : formValues.chunkOverlap
+            // "chunk_size": 2000,
+            // "chunk_overlap": 100
+          }
         }
-    }
       }, {
         headers: {
           "Content-Type": "text/plain",
@@ -142,16 +145,16 @@ const AddCustomKaCollection = () => {
       });
 
     }
-    if(activeStep <3){
-    setActiveStep(activeStep + 1);
+    if (activeStep < 3) {
+      setActiveStep(activeStep + 1);
     }
 
   }
   function handlePrevious() {
-    setActiveStep(activeStep-1);
+    setActiveStep(activeStep - 1);
   }
-// console.log("default", defaultCollection);
-  function handleDefault(){
+  // console.log("default", defaultCollection);
+  function handleDefault() {
     setIsDefault(true);
     const defaultBtn = document.getElementById("default");
     const customBtn = document.getElementById("custom");
@@ -159,10 +162,10 @@ const AddCustomKaCollection = () => {
     customBtn.classList.remove("switcherBlueBtn");
     defaultBtn.classList.add("switcherBlueBtn");
     customBtn.classList.add("switcherWhiteBtn");
-   
+
   }
 
-  function handleCustom(){
+  function handleCustom() {
     setIsDefault(false);
     dispatch(setCollectionDetails({}));
 
@@ -179,33 +182,33 @@ const AddCustomKaCollection = () => {
   return (
     <>
       <div className="configContainer" >
-        <span className="kaTopText"><a href="" style={{textDecoration: "none"}} onClick={handleKALink}>K A Collections</a> {">"} Add new Collection </span>
+        <span className="kaTopText"><a href="" style={{ textDecoration: "none" }} onClick={handleKALink}>K A Collections</a> {">"} Add new Collection </span>
         <div className="heading">Add new Collection</div>
-        <hr className="line"/>
+        <hr className="line" />
         <div className="error">{apiErrorMsg}</div>
         <div className="items">
           <label className="inputLabel">Collection Name</label>
-          <InputBox width={370} value={collectionName} onBlur={checkCollectionName} onChange={handleCollectionNameChange}/>
-        <div className="error">{collectionNameErr}</div>
+          <InputBox width={370} value={collectionName} onBlur={checkCollectionName} onChange={handleCollectionNameChange} />
+          <div className="error">{collectionNameErr}</div>
         </div>
         <div className="items">
           <label className="inputLabel">Description</label>
-          <InputBox className="inputBorder" value={description} width={728} onChange={handleDescChange}/>
+          <InputBox className="inputBorder" value={description} width={728} onChange={handleDescChange} />
         </div>
         <div className="switcher">
-        <Button className="switcherWhiteBtn" id="default"  sx={{ marginRight: 5 }} onClick={handleDefault}>Create Default </Button>
-        <Button className="switcherBlueBtn" id="custom" onClick={handleCustom} >Create Custom</Button>
+          <Button className="switcherWhiteBtn" id="default" sx={{ marginRight: 5 }} onClick={handleDefault}>Create Default </Button>
+          <Button className="switcherBlueBtn" id="custom" onClick={handleCustom} >Create Custom</Button>
         </div>
-        <StepperComponent activeStep={activeStep}/>
+        <StepperComponent activeStep={activeStep} />
         <div className="kaBottom">
-          {activeStep == 0 && <LLMConfigComponent  isDefault={isDefault} handleLlmChange = {handleLlmChange} />}
-          {activeStep == 1 && <EmbeddingConfigComponent  isDefault={isDefault}/>}
+          {activeStep == 0 && <LLMConfigComponent isDefault={isDefault} />}
+          {activeStep == 1 && <EmbeddingConfigComponent isDefault={isDefault} />}
           {activeStep == 2 && <VectorDBConfigComponent isDefault={isDefault} />}
-          {activeStep == 3 && <ChunkConfigComponent/>}
+          {activeStep == 3 && <ChunkConfigComponent />}
         </div>
         <div className="bottomBtn">
-          {activeStep !== 0 && activeStep !== 3 && <button className="btn btnPrev" disabled= {activeStep === 0} variant="outlined" sx={{ marginRight: 2 }} onClick={handlePrevious}> Previous </button>}
-          <button className="btn btnSave" variant="contained" onClick={handleSave}>{activeStep === 3 ? "SUBMIT AND CREATE COLLECTION": "Save & Continue"}</button>
+          {activeStep !== 0 && <button className="btn btnPrev" disabled={activeStep === 0} variant="outlined" sx={{ marginRight: 2 }} onClick={handlePrevious}> Previous </button>}
+          <button className="btn btnSave" variant="contained" onClick={handleSave}>{activeStep === 3 ? "SUBMIT AND CREATE COLLECTION" : "Save & Continue"}</button>
         </div>
       </div>
     </>
