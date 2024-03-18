@@ -38,11 +38,11 @@ const AddNewIntent = () => {
   const [intentType, setIntentType] = useState("Select Type");
   const [intentDescription, setIntentDescription] = useState("");
   const [intentExample, setIntentExample] = useState("");
-  const [entityId, setEntityId] = useState(0);
+  //const [entityId, setEntityId] = useState(0);
 
   const delPopupMsg = "Are you sure you want to delete the intent example?";
   const dispatch = useDispatch();
-  const items = useSelector((state) => state.BotConfig.items);
+  const intentExamples = useSelector((state) => state.BotConfig.intentExamples);
   const intentEntities = useSelector((state) => state.BotConfig.intentEntities);
 
   const handleName = (e) => {
@@ -72,12 +72,12 @@ const AddNewIntent = () => {
       description: intentDescription,
       example: intentExample,
       //id: intentEntities.length
-      id: entityId,
+      // id: entityId,
     };
 
     dispatch(addIntentEntity(intentEntity));
     // entityId++;
-    setEntityId(entityId + 1);
+    //setEntityId(entityId + 1);
     setIntentName("");
     setIntentDescription("");
     setIntentExample("");
@@ -97,26 +97,13 @@ const AddNewIntent = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      /*     const duplicateCheckResponse = await axios.get(
-        "https://hi954elm6a.execute-api.ap-south-1.amazonaws.com/dev/check_intent",
-        { params: { intent: name } },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      console.log(duplicateCheckResponse); */
-
-      /*       call POST API on Form Submit if no duplicate intent present */
       const response = await axios.post(
         "https://zb64ezs7owjxvexvevkhmtbmv40liioq.lambda-url.ap-south-1.on.aws/put_intent",
-        /* "https://hi954elm6a.execute-api.ap-south-1.amazonaws.com/dev/put_intent", */
         {
           intent: name,
           description: description,
           entities: intentEntities,
-          examples: items,
+          examples: intentExamples,
           api_url: apiUrl,
           api_parameters: apiParameter,
           api_description: apiDescription,
@@ -145,7 +132,6 @@ const AddNewIntent = () => {
     try {
       const response = await axios.get(
         "https://zb64ezs7owjxvexvevkhmtbmv40liioq.lambda-url.ap-south-1.on.aws/check_intent",
-        /*    "https://hi954elm6a.execute-api.ap-south-1.amazonaws.com/dev/check_intent", */
         { params: { intent: name } },
         {
           headers: {
@@ -406,7 +392,7 @@ const AddNewIntent = () => {
               {/*  {isPopupVisible && <Popup />} */}
               <div>
                 <ul className="intent-list">
-                  {items?.map((item, i) => {
+                  {intentExamples?.map((item, i) => {
                     return (
                       <div className="ex-list-items">
                         <li key={i}>

@@ -177,6 +177,7 @@ const AddUserPopup = ({ open, onClose, updateGrid }) => {
           height: "769px",
           borderRadius: "10px",
           border: " 1px solid #F9FAFB",
+          backgroundColor: "#FFFFFF",
         }}>
         <DialogTitle
           style={{

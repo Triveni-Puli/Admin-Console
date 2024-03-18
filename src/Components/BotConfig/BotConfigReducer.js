@@ -12,13 +12,19 @@ import {
   SHOW_EDIT_INTENT_PAGE_UI,
   SHOW_VIEW_INTENT_PAGE_UI,
   SHOW_VIEW_INTENT_DETAILS,
+  UPDATE_INTENT_ENTITIES,
+  UPDATE_INTENT_EXAMPLES,
+  REMOVE_INTENT_ENTITY_EDIT,
+  DELETE_EXAMPLE_EDIT,
+  ADD_INTENT_ENTITY_EDIT,
+  ADD_INTENT_EXAMPLE_EDIT,
 } from "./BotConfigActions";
 
 const initialState = {
   showAddIntentUI: false,
   showEditIntentUI: false,
   isPopupVisible: false,
-  items: [],
+  intentExamples: [],
   intentEntities: [],
   intentDetails: {},
 };
@@ -42,19 +48,66 @@ const botConfigreducer = (state = initialState, action) => {
     case ADD_NEW_ITEM:
       return {
         ...state,
-        items: [...state.items, action.payload],
+        intentExamples: [...state.intentExamples, action.payload],
         isPopupVisible: false,
       };
     case DELETE_ITEM:
       return {
         ...state,
-        items: state.items.filter((index, i) => i !== action.payload),
+        intentExamples: state.intentExamples.filter(
+          (index, i) => i !== action.payload
+        ),
+      };
+    case DELETE_EXAMPLE_EDIT:
+      const updatedIntentExample = state.intentExamples.filter(
+        (index, i) => i !== action.payload
+      );
+      const updatedIntentData = {
+        ...state.intentDetails,
+        examples: state.intentDetails.examples.filter(
+          (index, i) => i !== action.payload
+        ),
+      };
+      return {
+        ...state,
+        intentEntities: updatedIntentExample,
+        intentDetails: updatedIntentData,
       };
     case ADD_INTENT_ENTITY:
       return {
-        ...state,
+        ...state.intentDetails,
         intentEntities: [...state.intentEntities, action.payload],
       };
+    case ADD_INTENT_ENTITY_EDIT:
+      const addedIntentEntity = action.payload;
+      const updatedEntities = [
+        ...state.intentDetails.entities,
+        addedIntentEntity,
+      ];
+      const intentDetailsAfterAddEntity = {
+        ...state.intentDetails,
+        entities: updatedEntities,
+      };
+      return {
+        ...state,
+        intentDetails: intentDetailsAfterAddEntity,
+      };
+
+    case ADD_INTENT_EXAMPLE_EDIT:
+      const addedIntentExample = action.payload;
+      const updatedExamples = [
+        ...state.intentDetails.examples,
+        addedIntentExample,
+      ];
+      const intentDetailsAfterAddExample = {
+        ...state.intentDetails,
+        examples: updatedExamples,
+      };
+      return {
+        ...state,
+        intentDetails: intentDetailsAfterAddExample,
+      };
+
     case REMOVE_INTENT_ENTITY:
       return {
         ...state,
@@ -62,16 +115,43 @@ const botConfigreducer = (state = initialState, action) => {
           (index, i) => i !== action.payload
         ),
       };
+    case REMOVE_INTENT_ENTITY_EDIT:
+      const updatedIntentEntites = state.intentEntities.filter(
+        (index, i) => i !== action.payload
+      );
+      const updatedIntentDetails = {
+        ...state.intentDetails,
+        entities: state.intentDetails.entities.filter(
+          (index, i) => i !== action.payload
+        ),
+      };
+      return {
+        ...state,
+        intentEntities: updatedIntentEntites,
+        intentDetails: updatedIntentDetails,
+      };
+
     case CLEAR_LIST:
       return {
         ...state,
-        items: [],
+        intentExamples: [],
         intentEntities: [],
       };
     case SHOW_VIEW_INTENT_DETAILS:
       return {
         ...state,
         intentDetails: Object.assign(state.intentDetails, action.payload),
+      };
+
+    case UPDATE_INTENT_ENTITIES:
+      return {
+        ...state,
+        intentEntities: [...state.intentDetails.entities],
+      };
+    case UPDATE_INTENT_EXAMPLES:
+      return {
+        ...state,
+        intentExamples: [...state.intentDetails.examples],
       };
     default:
       return state;

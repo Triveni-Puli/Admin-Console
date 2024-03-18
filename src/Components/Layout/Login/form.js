@@ -5,6 +5,7 @@ import { Navigate } from "react-router-dom";
 import "../Login/loginstyles.css";
 import Image4 from "../../../assets/image 8.png";
 import Image5 from "../../../assets/image 9.png";
+import GenAIBotLogo from "../../../assets/Union.png";
 
 const Form = ({ onLogin }) => {
   const userRef = useRef();
@@ -68,7 +69,7 @@ const Form = ({ onLogin }) => {
           <Navigate to="/dashboard" state={message} replace={true} />
         </div>
       ) : (
-        <div style={{ width: "100%" }}>
+        <div>
           <p
             ref={errRef}
             className={errMsg ? "errmsg" : "offscreen"}
@@ -77,61 +78,74 @@ const Form = ({ onLogin }) => {
           </p>
 
           <div className="genaibot">
-            <span className="genai">GenAI</span>
-            <span className="bot">Bot</span>
+            <img src={GenAIBotLogo} alt="GenAi-bot-logo" />
+            {/* <span className="genai">GenAI</span>
+            <span className="bot">Bot</span> */}
           </div>
           <div className="userLogin">USER LOGIN</div>
 
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} style={{ margin: "30px 65px" }}>
             <input
-              id="username"
+              id="login-username"
               ref={userRef}
               autoComplete="off"
               onChange={(e) => setUser(e.target.value)}
               value={user}
               required
-              style={{ backgroundColor: "#E9E7FF" }}
               type="text"
               className="form-control my-4 py-2 inputText1"
             />
 
             <input
               type="password"
-              id="password"
+              id="login-password"
               required
               onChange={(e) => setPwd(e.target.value)}
               value={pwd}
-              style={{ backgroundColor: "#E9E7FF" }}
               className="form-control my-4 py-2 inputText2"
             />
-            <div className="row otpContainer">
-              <div className="col col-lg-1">
-                <input type="checkbox" className="checkbox" />
-              </div>
-              <div className="col col-lg-6">
-                {/* <input type="checkbox" className="chec */}
-                <a style={{ color: "#9747FF" }} href="#" className="nav-link">
-                  Login with OTP
-                </a>
-              </div>
-              <div className="col col-lg-5">
-                <a style={{ color: "#9747FF" }} href="#" className="nav-link">
-                  Forgot Password?
-                </a>
+
+            <div className="container" style={{ width: "366px" }}>
+              <div className="row">
+                <div className="col-auto">
+                  <input
+                    type="checkbox"
+                    className="checkbox"
+                    style={{ marginTop: "4px" }}
+                  />
+                </div>
+                <div className="col">
+                  <a
+                    style={{ color: "#9747FF", fontSize: "14px" }}
+                    href="#"
+                    className="nav-link">
+                    Login with OTP
+                  </a>
+                </div>
+                <div className="col-auto ml-auto">
+                  <a
+                    style={{ color: "#9747FF", fontSize: "14px" }}
+                    href="#"
+                    className="nav-link">
+                    Forgot Password?
+                  </a>
+                </div>
               </div>
             </div>
+
             <div className="text-center mt-3">
               <button className="loginScreenChild2">LOGIN</button>
             </div>
           </form>
-          <div className="orLoginWith m-2">
-            <span>&nbsp;Or Login with&nbsp;</span>
+          <div className="orLoginWith">
+            <span style={{ marginLeft: "20px" }}>
+              &nbsp;&nbsp;Or Login with&nbsp;&nbsp;
+            </span>
           </div>
           <div className="loginContainer">
             <img className="image8Icon p-3" src={Image4} alt="" />
             <img className="image9Icon p-3" src={Image5} alt="" />
           </div>
-
           <div className="needAnAccountParent p-2">
             <div className="needAnAccount">Need an Account?</div>
             <a href="#" className="signupContainer">
