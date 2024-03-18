@@ -87,8 +87,8 @@ const UrlUpload = () => {
         {/* <InputBox className="inputBorder" /> */}
       </div>
       <FilesGrid rows={urlList} onDelete={handleDeleteUrl} />
-      <div className="bottomBtn">
-        <button className="btn btnPrev" variant="outlined" sx={{ marginRight: 2 }} onClick={handleCancel} > Cancel </button>
+      <div className="uploadBtn">
+        <button className="btn btnPrev btnFile" variant="outlined" sx={{ marginRight: 2 }} onClick={handleCancel} > Cancel </button>
       </div>
     </>
   )

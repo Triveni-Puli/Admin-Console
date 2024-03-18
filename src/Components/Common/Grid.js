@@ -223,7 +223,7 @@ export default function CustomGrid(props) {
         headerName: "Description",
         headerClassName: "mui-custom-header",
         type: "number",
-        width: 520,
+        width: 460,
         align: "left",
         headerAlign: "left",
         // editable: true,

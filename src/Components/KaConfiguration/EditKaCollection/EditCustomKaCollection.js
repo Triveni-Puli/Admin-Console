@@ -62,7 +62,7 @@ const EditCustomKaCollection = () => {
             "llm_type": formValues.llm.llm_type,
             "llm_config": {
                  "api_key": formValues.llmApiKey,
-                 "temperature": 0.3,
+                 "temperature": formValues.llm.llm_config.temperature,
                  "max_tokens": formValues.llmMaxToken,
                  "deployment_name":"",
                  "openai_api_version":"",
@@ -93,8 +93,8 @@ const EditCustomKaCollection = () => {
             }
         },
         "splitter_config": {
-            "chunk_size": 2000,
-             "chunk_overlap": 100
+            "chunk_size": formValues.splitter_config.chunk_size,
+             "chunk_overlap": formValues.splitter_config.chunk_overlap
         }
     }
       }, {

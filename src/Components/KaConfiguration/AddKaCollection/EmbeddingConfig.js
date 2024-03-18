@@ -12,7 +12,7 @@ import InputBox from "../../Common/InputBox";
 const EmbeddingConfigComponent = ({isDefault}) => {
   const dispatch = useDispatch();
   const collectionDetails = useSelector((state) => state.KnowlegdeAgent.collectionDetails);
-  const embeddingDetails = collectionDetails.embedding.embedding_config;
+  // const embeddingDetails = collectionDetails.embedding.embedding_config;
   const formValues = useSelector((state) => state.KnowlegdeAgent.formValues);
   const [embeddingTypeList, setEmbeddingTypeList] = useState(["OpenAI"]);
   const [modelList, setModelList] = useState(["text-embedding-ada-002"]);

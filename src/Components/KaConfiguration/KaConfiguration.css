@@ -154,7 +154,7 @@
   background-color: #ffffff;
   border: 1px solid #c8d2dd;
   border-radius: 16px;
-  margin: 20px;
+  /* margin: 20px; */
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -167,7 +167,7 @@
 
 .configCol {
   display: flex;
-  flex-basis: 30%;
+  flex-basis: 31%;
   flex-direction: column;
 }
 
@@ -247,6 +247,12 @@
   padding-top: 37px;
 }
 
+.uploadBtn {
+  text-align: center;
+  font-family: Roboto;
+  margin-top: 20px;
+}
+
 .switcher {
   width: 370px;
   height: 56px;
@@ -273,6 +279,7 @@
 .bottomBtn {
   text-align: center;
   font-family: Roboto;
+  margin-top:20px;
 }
 
 .btn {
@@ -298,4 +305,8 @@
 .btnSave {
   background-color: #9747ff !important;
   color: #ffffff !important;
+}
+
+.btnFile {
+  min-width: 131px;
 }

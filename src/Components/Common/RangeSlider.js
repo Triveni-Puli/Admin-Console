@@ -19,7 +19,7 @@ const RangeSliderComponent = (props) => {
       <>
         <Slider sx={{ width: 250 }}
         getAriaLabel={() => 'Temperature range'}
-        defaultValue={(min+max)/2}
+        defaultValue={props.isEdit ? props.defaultValue :(min+max)/2}
         value={value}
         onChange={handleChange}
         // valueLabelDisplay="auto"
@@ -28,9 +28,9 @@ const RangeSliderComponent = (props) => {
         max= {max}
         step = {step}
         marks={true}
+        disabled = {props.isEdit ? true : false}
         // getAriaValueText={value}
         // aria-labelledby="discrete-slider"
-        // valueLabelDisplay="on"
         // getAriaValueText={22}
       />
       <div className="sliderDiv"><input value={min} disabled className="sliderInput"></input>
@@ -45,6 +45,8 @@ RangeSliderComponent.defaultProps = {
   min: '',
   max: '',
   step:'',
+  isEdit: false,
+  defaultValue:'',
   handleChange : ()=>{}
 }
 

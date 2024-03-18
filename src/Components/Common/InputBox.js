@@ -11,7 +11,7 @@ const InputBox = (props) => {
         props.onBlur(event);
     }
     return(
-        <TextField disabled={props.disabled} type={props.type} className="inputBorder" id="outlined-basic" label="" variant="outlined" size="small" value= {props.value} sx={{ width: width ? width : 280 }}
+        <TextField disabled={props.disabled} type={props.type} className="inputBorder" id="outlined-basic" label="" variant="outlined" size="small" value= {props.value} sx={{ width: width ? width : 260 }}
         onBlur={handleOnBlur} onChange={handleOnChange} />
   )
 }
