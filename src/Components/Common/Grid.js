@@ -147,7 +147,7 @@ export default function CustomGrid(props) {
       {
         field: "User_Name",
         headerName: "Name",
-        width: 200,
+        width: 220,
         renderCell: (params) => (
           <div style={{ display: "flex", flexDirection: "column" }}>
             <span style={{ fontWeight: 500 }}>{params.row.User_Name}</span>
@@ -161,11 +161,11 @@ export default function CustomGrid(props) {
         field: "Role Type",
         headerName: "Role",
         type: "dropdown",
-        width: 160,
+        width: 180,
         editable: true,
       },
-      { field: "Creation_Date", headerName: "Date Added", width: 140 },
-      { field: "last_active", headerName: "Last Active", width: 140 },
+      { field: "Creation_Date", headerName: "Date Added", width: 150 },
+      { field: "last_active", headerName: "Last Active", width: 150 },
 
       {
         field: "actions",
@@ -322,8 +322,14 @@ export default function CustomGrid(props) {
         getRowId={gridGetRowId}
         rows={dataRows}
         columns={columns}
-        rowsPerPageOptions={[]}
-        hideFooterPagination
+        initialState={{
+          pagination: {
+            paginationModel: {
+              pageSize: 8,
+            },
+          },
+        }}
+        pageSizeOptions={[8]}
         // editMode="row"
         // rowModesModel={rowModesModel}
         // onRowModesModelChange={handleRowModesModelChange}
