@@ -23,7 +23,7 @@ const LLMConfigComponent = (props) => {
   const [selectedModel, setselectedModel] = useState('');
   const [apikey, setApiKey] = useState(llmDetails.api_key);
   const [maxToken, setMaxToken] = useState(llmDetails.max_tokens);
-  
+  const [temp, setTemp] = useState(llmDetails.temperature)
 
   // const llmTypeList = ["OpenAI", "AzureOpenAI", "VertexAI", "Anthropic", "Cohere"];
 
@@ -137,7 +137,7 @@ const LLMConfigComponent = (props) => {
         </div>
         <div>
           <label className="inputLabel">Temperature</label>
-          <div><RangeSliderComponent min={0} max={1} step={0.1} /></div>
+          <div><RangeSliderComponent min={0} max={1} step={0.1} isEdit={true} defaultValue={temp} /></div>
         </div>
       </div>
     </>

@@ -87,7 +87,7 @@ export default function KAReportGrid(props) {
     },
     {
         field: "timestamp",
-        headerName: "Creation Date & Time",
+        headerName: "Timestamp",
         headerClassName: "mui-custom-header",
         type: "number",
         width: 250,

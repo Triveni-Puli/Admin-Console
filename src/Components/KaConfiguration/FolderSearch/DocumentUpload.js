@@ -111,9 +111,9 @@ const DocumentUpload = () => {
         type="file"
         onChange={handleFileChange}
       />
-      <div className="bottomBtn">
-        <button className="btn btnPrev" variant="outlined" sx={{ marginRight: 2 }} onClick={handleCancel} > Cancel </button>
-        <button className="btn btnSave" variant="contained" onClick={handleAddFile} >Add file</button>
+      <div className="uploadBtn">
+        <button className="btn btnPrev btnFile" variant="outlined" sx={{ marginRight: 2 }} onClick={handleCancel} > Cancel </button>
+        <button className="btn btnSave btnFile" variant="contained" onClick={handleAddFile} >Add file</button>
       </div>
     </>
   )
