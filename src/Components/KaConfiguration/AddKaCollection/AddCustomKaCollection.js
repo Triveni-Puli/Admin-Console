@@ -10,7 +10,7 @@ import VectorDBConfigComponent from "./VectorDBConfig";
 import ChunkConfigComponent from "./ChunkConfig";
 import { showCreatePageUI, setFieldValue, setCollectionDetails, setFormValues } from "../KaActions";
 import "../KaConfiguration.css"
-
+import { setLoader } from "../../Loader/LoaderActions";
 
 const AddCustomKaCollection = () => {
   const dispatch = useDispatch();
@@ -86,6 +86,8 @@ const AddCustomKaCollection = () => {
   function handleSave() {
     // dispatch(showCreatePageUI(false));
     if (activeStep === 3) {
+    dispatch(setLoader(true));
+
       axios.post("https://erj3tyfntew3xum2dh6icphrye0ktrco.lambda-url.ap-south-1.on.aws/create_collection", {
         "config": {
           "collection_name": formValues.collection_name,
@@ -139,11 +141,13 @@ const AddCustomKaCollection = () => {
       }).then(response => {
         dispatch(showCreatePageUI(false));
         setApiErrMsg('');
+        dispatch(setLoader(false));
+
       }).catch(err => {
+      dispatch(setLoader(false));
         console.log(err);
         setApiErrMsg(err.response.data);
       });
-
     }
     if (activeStep < 3) {
       setActiveStep(activeStep + 1);
