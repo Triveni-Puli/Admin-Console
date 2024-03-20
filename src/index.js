@@ -9,6 +9,7 @@ import { Provider } from "react-redux";
 //import reducer from "./Components/BotConfiguration/AddNewIntent/IntentExample/reducer"; // Import the reducer
 import kareducer from "./Components/KaConfiguration/KaReducer";
 import botConfigreducer from "./Components/BotConfig/BotConfigReducer";
+import loaderReducer from "./Components/Loader/LoaderReducer";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 // const rootRe
@@ -16,6 +17,7 @@ const store = createStore(
   combineReducers({
     KnowlegdeAgent: kareducer,
     BotConfig: botConfigreducer,
+    Loader: loaderReducer
   })
 );
 
