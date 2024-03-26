@@ -6,6 +6,7 @@ import plusImg from "../../assets/plusIcon.svg";
 import CustomGrid from '../Common/Grid';
 import { showCreatePageUI, showEditPageUI, setCollectionDetails, 
   setFormValues, showFileExplorerPageUI , setCollectionNameforFile} from "./KaActions";
+import { setLoader } from "../Loader/LoaderActions";
 import "./KaConfiguration.css"
 import DeletePopup from "../Common/DeletePopup";
 
@@ -72,7 +73,7 @@ const ViewKaCollection = (props) => {
   };
 
   function handleEdit(collection) {
-    console.log("in edit", collection.id);
+    dispatch(setLoader(true));
     axios
       .post(
         "https://erj3tyfntew3xum2dh6icphrye0ktrco.lambda-url.ap-south-1.on.aws/get_collection_config",
@@ -90,6 +91,8 @@ const ViewKaCollection = (props) => {
       .then((response) => {
         dispatch(setCollectionDetails(response.data));
         // dispatch(setFormValues(response.data));
+    dispatch(setLoader(false));
+
         dispatch(showEditPageUI(true));
 
         // setKACollections(KACollections.filter((row) => row.collection_name !== collection.id));

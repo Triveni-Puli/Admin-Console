@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import UserMgmtData from "./Components/UserManagement/UserMgmtData";
 //import BotConfigData from "./Components/BotConfiguration/BotConfigData";
 //import AddNewIntent from "./Components/BotConfiguration/AddNewIntent/AddNewIntent";
+import { useSelector } from "react-redux";
 import DashboardData from "./Components/Dashboard/DashboardData";
 import BotConfig from "./Components/BotConfig/BotConfig";
 import KaConfiguration from "./Components/KaConfiguration/KaConfiguration";
@@ -13,11 +14,11 @@ import Reinforcement from "./Components/Reinforcement/Reinforcement";
 import Reports from "./Components/Reports/Reports";
 import Navbar from "./Components/Layout/Dashboard/Navbar";
 import Header from "./Components/Layout/Dashboard/Header";
-import footerLogo from "./assets/footer-hcl.png";
 //import ViewBotIntent from "./Components/BotConfiguration/ViewIntent/ViewBotIntent";
 /* import "../src/Components/Layout/Dashboard/dashboardStyles.css"; */
 
 function App() {
+  const showLoader = useSelector((state) => state.Loader.showLoader);
   const [isLoggedIn, setIsLoggedIn] = useState(
     window.sessionStorage.getItem("isLoggedIn")
   );
@@ -35,6 +36,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Login onLogin={handleLogin} />}></Route>
         </Routes>
+        {showLoader && <Loader />}
         {isLoggedIn && (
           <>
             <div className="row main">
