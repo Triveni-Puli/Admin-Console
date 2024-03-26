@@ -14,6 +14,8 @@ import Reinforcement from "./Components/Reinforcement/Reinforcement";
 import Reports from "./Components/Reports/Reports";
 import Navbar from "./Components/Layout/Dashboard/Navbar";
 import Header from "./Components/Layout/Dashboard/Header";
+import Loader from "./Components/Loader/Loader";
+import footerLogo from "./assets/footer-hcl.png";
 //import ViewBotIntent from "./Components/BotConfiguration/ViewIntent/ViewBotIntent";
 /* import "../src/Components/Layout/Dashboard/dashboardStyles.css"; */
 
