@@ -30,8 +30,8 @@ const Navbar = () => {
                   src={DashboardImage}
                   alt="dashboardsvg"
                   style={{
-                    width: "20px",
-                    height: "20px",
+                    width: "32px",
+                    height: "32px",
                   }}
                 />
                 <p>Dashboard</p>
@@ -43,7 +43,7 @@ const Navbar = () => {
                 <img
                   src={UserImage}
                   alt=""
-                  style={{ width: "20px", height: "20px" }}
+                  style={{ width: "32px", height: "32px" }}
                 />
                 <p>User Management</p>
               </NavLink>
@@ -53,19 +53,19 @@ const Navbar = () => {
                 <img
                   src={BotImage}
                   alt=""
-                  style={{ width: "20px", height: "20px" }}
+                  style={{ width: "32px", height: "32px" }}
                 />
                 <p>Bot Configuration</p>
               </NavLink>
             </li>
-            <li className="sidebar-items">
+            <li className="sidebar-items" style={{ width: "230px" }}>
               <NavLink to="/knowledgeagentconfiguration">
                 <img
                   src={KnowledgeImage}
                   alt=""
-                  style={{ width: "20px", height: "20px" }}
+                  style={{ width: "32px", height: "32px" }}
                 />
-                <p>Knowledge Agent Configuration</p>
+                <p>Knowledge agent Configuration</p>
               </NavLink>
             </li>
             <li className="sidebar-items">
@@ -73,7 +73,7 @@ const Navbar = () => {
                 <img
                   src={Chart}
                   alt=""
-                  style={{ width: "20px", height: "20px" }}
+                  style={{ width: "32px", height: "32px" }}
                 />
                 <p>Analytics Configuration</p>
               </NavLink>
@@ -83,7 +83,7 @@ const Navbar = () => {
                 <img
                   src={ReinforcementImg}
                   alt=""
-                  style={{ width: "20px", height: "20px" }}
+                  style={{ width: "32px", height: "32px" }}
                 />
                 <p>Reinforcement Learning</p>
               </NavLink>
@@ -93,7 +93,7 @@ const Navbar = () => {
                 <img
                   src={ReportImg}
                   alt=""
-                  style={{ width: "20px", height: "20px" }}
+                  style={{ width: "32px", height: "32px" }}
                 />
                 <p>Reports</p>
               </NavLink>

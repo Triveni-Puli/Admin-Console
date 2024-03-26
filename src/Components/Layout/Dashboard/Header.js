@@ -3,35 +3,63 @@ import "../Dashboard/dashboardStyles.css";
 import United from "../../../assets/United.svg";
 import Notification from "../../../assets/Notifications.png";
 import profileIcon from "../../../assets/Mask group.png";
+import SearchBar from "../../../assets/Search Bar.png";
+import selectlanguage from "../../../assets/languange.png";
+import notificationMenu from "../../../assets/menu.png";
+import magnifier from "../../../assets/magnifier.svg";
 
 const Header = () => {
   return (
     <div className="form-section">
-      <p>DashBoard</p>
-      <input
-        className="input-search"
-        type="search"
-        placeholder="search here..."
-      />
+      <p
+        style={{
+          fontSize: "26px",
+          fontWeight: 600,
+          color: "#373737",
+          marginTop: "20px",
+        }}>
+        Dashboard
+      </p>
 
-      <div>
+      <div className="search-container">
+        <input
+          className="input-search"
+          type="search"
+          placeholder="Search here..."
+        />
+      </div>
+
+      <div className="d-flex select-lang">
         <img src={United} alt="flag" />
-        <select>
-          <option>ENG(US)</option>
-          <option>IND(IND)</option>
+        <select style={{ height: "21px" }}>
+          <option>ENG &nbsp;(US) &nbsp;</option>
+          <option>IND &nbsp;(IND) &nbsp;</option>
         </select>
       </div>
 
       <div
         style={{
           display: "flex",
-          justifyContent: "space-between",
           alignItems: "center",
+          width: "298px",
         }}>
-        <img src={Notification} alt="Notification" />
-        <img src={profileIcon} alt="GenAIBot-logo" width={30} />
-        <select style={{ border: "none" }}>
-          <option>Jathin</option>
+        <div>
+          <img
+            style={{ width: "48px", height: "48px", marginRight: "20px" }}
+            src={Notification}
+            alt="Notification"
+          />
+        </div>
+        <div>
+          <img
+            style={{ width: "55px", height: "55px", marginRight: "20px" }}
+            src={profileIcon}
+            alt="GenAIBot-logo"
+            width={30}
+          />
+        </div>
+        <select style={{ border: "none", height: "48px" }}>
+          <option>Jatin</option>
           <option>Triveni</option>
         </select>
       </div>
