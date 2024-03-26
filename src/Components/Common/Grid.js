@@ -49,9 +49,9 @@ export default function CustomGrid(props) {
     props.onEdit(id);
   };
 
-  const handleFolderSearch =(id) =>{
+  const handleFolderSearch = (id) => {
     props.onFileSearch(id);
-  }
+  };
 
   /*   const handleDeleteClick = (id) => () => {
     setRows(rows.filter((row) => row.id !== id));
@@ -320,7 +320,11 @@ export default function CustomGrid(props) {
       }}>
       <DataGrid
         sx={{
-          borderRadius: "20px",
+          "& .MuiDataGrid-withBorderColor": {
+            borderTopLeftRadius: "18px",
+            borderTopRightRadius: "18px",
+          },
+          // borderRadius: 2,
         }}
         // getRowId={(row) => row.collection_name}
         getRowId={gridGetRowId}
@@ -354,8 +358,8 @@ export default function CustomGrid(props) {
 }
 
 CustomGrid.defaultProps = {
-  onEdit: ()=>{},
-  onDelete:()=>{},
-  onFileSearch:()=>{},
-  onView: () =>{}
-}
+  onEdit: () => {},
+  onDelete: () => {},
+  onFileSearch: () => {},
+  onView: () => {},
+};

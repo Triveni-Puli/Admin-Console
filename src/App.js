@@ -15,6 +15,9 @@ import Reports from "./Components/Reports/Reports";
 import Navbar from "./Components/Layout/Dashboard/Navbar";
 import Header from "./Components/Layout/Dashboard/Header";
 import Loader from "./Components/Loader/Loader";
+import footerLogo from "./assets/footer-hcl.png";
+//import ViewBotIntent from "./Components/BotConfiguration/ViewIntent/ViewBotIntent";
+/* import "../src/Components/Layout/Dashboard/dashboardStyles.css"; */
 
 function App() {
   const showLoader = useSelector((state) => state.Loader.showLoader);
@@ -35,7 +38,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Login onLogin={handleLogin} />}></Route>
         </Routes>
-        {showLoader && <Loader/>}
+        {showLoader && <Loader />}
         {isLoggedIn && (
           <>
             <div className="row main">
@@ -85,49 +88,36 @@ function App() {
                       </Routes>
                     </div>
                   </div>
+                  <div
+                    className="text-center"
+                    style={{
+                      width: "1440px",
+                      position: "fixed",
+                      bottom: 0,
+                    }}>
+                    <div
+                      className="d-flex justify-content-space-between "
+                      style={{
+                        backgroundColor: "#E6EBF5",
+                        height: "47px",
+                        padding: "12px 15px",
+                      }}>
+                      <div
+                        style={{
+                          fontSize: "16px",
+                          fontWeight: 500,
+                          color: "#8291A0",
+                        }}>
+                        2024 © HCL Technologies
+                      </div>
+                      <div style={{ marginLeft: "auto" }}>
+                        <img src={footerLogo} alt="hcltech-logo" />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-            {/*  <div className="container-fluid d-flex flex-column flex-grow-1">
-            <div className="row flex-grow-1">
-              <div className="col-lg-3 bg-dark sidebar-col">
-                <Navbar />
-              </div>
-              <div className="col-lg-9 main-content">
-                <header className="bg-secondary text-light p-3">
-                  <Header />
-                </header>
-                <main className="p-3">
-                  <Routes>
-                    <Route
-                      path="/dashboard"
-                      element={<DashboardData />}></Route>
-                    <Route
-                      path="/usermanagement"
-                      element={<UserMgmtData />}></Route>
-                    <Route
-                      path="/botconfiguration"
-                      element={<BotConfig />}></Route>
-                    <Route
-                      path="/knowledgeagentconfiguration"
-                      element={<KaConfiguration />}></Route>
-                    <Route
-                      path="/analyticsconfiguration"
-                      element={<AnalyticsConfig />}></Route>
-                    <Route
-                      path="/reinforcementlearning"
-                      element={<Reinforcement />}></Route>
-                    <Route path="/reports" element={<Reports />}></Route>
-                  </Routes>
-                </main>
-                <footer className="text-center">
-                  <div style={{ backgroundColor: "yellow" }}>
-                    <p>Footer</p>
-                  </div>
-                </footer>
-              </div>
-            </div>
-          </div> */}{" "}
           </>
         )}
       </BrowserRouter>
