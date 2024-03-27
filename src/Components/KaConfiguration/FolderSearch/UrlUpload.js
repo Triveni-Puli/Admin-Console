@@ -7,6 +7,7 @@ import delIcon from "../../../assets/delWhite.svg";
 import plusIcon from "../../../assets/greenPlus.svg";
 import refreshIcon from "../../../assets/refresh.svg";
 import { showFileExplorerPageUI} from "../KaActions";
+import { setLoader } from "../../Loader/LoaderActions";
 
 const UrlUpload = () => {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ const UrlUpload = () => {
     setNewUrl(event.target.value);
   }
   function getUrlList() {
+    dispatch(setLoader(true));
     axios.post("https://fioizgbxnpfd3gz4y4vjvw3vj40xesbf.lambda-url.ap-south-1.on.aws/get_urls", {
       "collection_name": collectionName
     }, {
@@ -26,12 +28,16 @@ const UrlUpload = () => {
     }).then(response => {
       console.log("response", response);
       setUrlList(response.data);
+      dispatch(setLoader(false));
     }).catch(err => {
+      dispatch(setLoader(false));
       console.log("err", err);
     });
   }
 
   function handleAddUrl() {
+    dispatch(setLoader(true));
+
     axios.post("https://5rz4yqs5bs3jk22l7jzvkvvst40clzvx.lambda-url.ap-south-1.on.aws/add_url", {
       "collection_name": collectionName,
       "url": newUrl
@@ -40,11 +46,13 @@ const UrlUpload = () => {
         "Content-Type": "text/plain",
       },
     }).then(response => {
+      dispatch(setLoader(false));
       setNewUrl('');
       getUrlList();
       console.log("response", response.data);
       // setUrlList(response.data);
     }).catch(err => {
+      dispatch(setLoader(false));
       console.log("err", err);
     });
   }

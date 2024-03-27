@@ -3,9 +3,9 @@ import "./Loader.css";
 
 const Loader = () => {
   return <>
-  {/* <div className="loaderDiv"> */}
+  <div className="loaderDiv">
     <div className= "loader"></div>
-    {/* </div> */}
+  </div>
   </>
 };
 

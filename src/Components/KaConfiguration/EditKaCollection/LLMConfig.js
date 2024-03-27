@@ -137,7 +137,7 @@ const LLMConfigComponent = (props) => {
         </div>
         <div>
           <label className="inputLabel">Temperature</label>
-          <div><RangeSliderComponent min={0} max={1} step={0.1} isEdit={true} defaultValue={temp} /></div>
+          <div><RangeSliderComponent min={0} max={1} step={0.1} defaultValue={temp} /></div>
         </div>
       </div>
     </>

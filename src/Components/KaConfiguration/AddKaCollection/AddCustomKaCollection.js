@@ -69,10 +69,10 @@ const AddCustomKaCollection = () => {
     }
   }
 
-  // function handleLlmChange(val) {
-  //   setselectedLlmType(val);
-  //   dispatch(setFieldValue("llmType", val));
-  // }
+  function handleLlmChange(val) {
+    setselectedLlmType(val);
+    dispatch(setFieldValue("llmType", val));
+  }
 
   function handleDescChange(event) {
     setDescription(event.target.value);
@@ -205,7 +205,7 @@ const AddCustomKaCollection = () => {
         </div>
         <StepperComponent activeStep={activeStep} />
         <div className="kaBottom">
-          {activeStep == 0 && <LLMConfigComponent isDefault={isDefault} />}
+          {activeStep == 0 && <LLMConfigComponent isDefault={isDefault} handleLlmChange = {handleLlmChange} />}
           {activeStep == 1 && <EmbeddingConfigComponent isDefault={isDefault} />}
           {activeStep == 2 && <VectorDBConfigComponent isDefault={isDefault} />}
           {activeStep == 3 && <ChunkConfigComponent />}

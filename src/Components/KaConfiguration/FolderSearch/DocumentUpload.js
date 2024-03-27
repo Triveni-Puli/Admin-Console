@@ -6,6 +6,7 @@ import InputBox from "../../Common/InputBox";
 import delIcon from "../../../assets/delWhite.svg"
 // import "./KaConfiguration.css"
 import { showFileExplorerPageUI } from "../KaActions";
+import { setLoader } from "../../Loader/LoaderActions";
 
 const DocumentUpload = () => {
   const dispatch = useDispatch();
@@ -52,8 +53,11 @@ const DocumentUpload = () => {
   }
 
   function handleAddFile() {
+    dispatch(setLoader(true));
     inputRef.current.click();
     console.log("inside add");
+    // dispatch(setLoader(false));
+
   }
 
   const handleFileChange = async (event) => {
@@ -62,6 +66,8 @@ const DocumentUpload = () => {
       return;
     }
     event.target.value = null;
+    dispatch(setLoader(true));
+
     await axios.post("https://z7ub7ykp2fuotyeg2ke2ggjdli0oqxfq.lambda-url.ap-south-1.on.aws/", {
       "collection_name": collectionName,
       "file_name": fileObj.name
@@ -88,6 +94,8 @@ const DocumentUpload = () => {
         }
       })
     }).then(res => {
+    dispatch(setLoader(false));
+
       console.log("inside chaining", res);
     }).catch(err => {
       console.log("err", err);
