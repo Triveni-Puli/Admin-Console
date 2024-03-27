@@ -72,11 +72,11 @@ const LLMConfigComponent = (props) => {
   }, [selectedLlmType])
 
   function handleLlmChange(selectedLLM) {
-    setselectedLlmType(selectedLLM);
-    // props.handleLlmChange(selectedLLM);
+    // setselectedLlmType(selectedLLM);
+    props.handleLlmChange(selectedLLM);
     getLlmConfigList(selectedLLM);
     getLlmModelAPI(selectedLLM);
-    dispatch(setFieldValue("llmType", selectedLLM));
+    // dispatch(setFieldValue("llmType", selectedLLM));
   }
 
   function handleModelChange(val) {
@@ -113,11 +113,11 @@ const LLMConfigComponent = (props) => {
         </div>
         {showField(llmConfigList, 'credentials') && <div className="configCol">
           <label className="inputLabel">Credentials</label>
-          <InputBox className="inputBorder" disabled={isDefault} onChange="" />
+          <InputBox className="inputBorder" disabled={isDefault} />
         </div>}
         {showField(llmConfigList, 'deployment_name') && <div className="configCol">
           <label className="inputLabel">Deployment Name</label>
-          <InputBox disabled={isDefault} onChange="" />
+          <InputBox disabled={isDefault} />
         </div>}
         {showField(llmConfigList, 'api_key') && <div className="configCol">
           <label className="inputLabel">API Key</label>
@@ -125,11 +125,11 @@ const LLMConfigComponent = (props) => {
         </div>}
         {showField(llmConfigList, 'openai_api_version') && <div className="configCol">
           <label className="inputLabel">API Version</label>
-          <InputBox disabled={isDefault} onChange={handleAPIKeyChange} />
+          <InputBox disabled={isDefault}  />
         </div>}
         {showField(llmConfigList, 'openai_api_base') && <div className="rightSpace configCol">
           <label className="inputLabel">API Base</label>
-          <InputBox disabled={isDefault} onChange={handleAPIKeyChange} />
+          <InputBox disabled={isDefault}  />
         </div>}
         <div className="rightSpace configCol">
           <label className="inputLabel">Max Tokens</label>
