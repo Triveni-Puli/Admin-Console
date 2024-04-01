@@ -11,6 +11,7 @@ import { setLoader } from "../../Loader/LoaderActions";
 
 const UrlUpload = () => {
   const dispatch = useDispatch();
+  const [selectedRows, setSelectedRows] = useState([]);
   const [newUrl, setNewUrl] = useState();
   const [urlList, setUrlList] = useState([]);
   const collectionName = useSelector((state) => state.KnowlegdeAgent.collectionNameForFile);
@@ -62,19 +63,29 @@ const UrlUpload = () => {
   function handleDeleteUrl(item) {
     axios.post("https://5rz4yqs5bs3jk22l7jzvkvvst40clzvx.lambda-url.ap-south-1.on.aws/delete_url", {
       "collection_name": collectionName,
-      "url": item.id
+      "url": item
     }, {
       headers: {
         "Content-Type": "text/plain",
       },
     }).then(response => {
-      setUrlList(urlList.filter((row) => row.url !== item.id));
+      setUrlList(urlList.filter((row) => row.url !== item));
+      // getUrlList();
 
-      console.log("response", response.data);
       // setUrlList(response.data);
     }).catch(err => {
       console.log("err", err);
     });
+  }
+
+  function handleGroupSelection(items){
+    setSelectedRows([...items]);
+  }
+
+  function deleteMultiple(){
+    for(var i=0; i < selectedRows.length; i++){
+      handleDeleteUrl(selectedRows[i]);
+    }
   }
 
   useEffect(() => {
@@ -84,17 +95,17 @@ const UrlUpload = () => {
   return (
     <>
       <div className="items">
-        <div><input className="addUrlInput" placeholder="Add URL" onChange={handleChange} />
+        <div><input className="addUrlInput" placeholder="Add URL" onChange={handleChange} value={newUrl}/>
           <img className="urlImgs" src={plusIcon} onClick={handleAddUrl}></img></div>
         <label className="inputLabel">Uploaded Queue</label>
         <div className="searchDiv">
           <input className="searchInput" type="search" placeholder="Search here..." />
           <img className="urlImgs" src={refreshIcon}></img>
-          <img className="urlImgs" src={delIcon} ></img>
+          <img className="urlImgs" src={delIcon} onClick={deleteMultiple} ></img>
         </div>
         {/* <InputBox className="inputBorder" /> */}
       </div>
-      <FilesGrid rows={urlList} onDelete={handleDeleteUrl} />
+      <FilesGrid rows={urlList} onDelete={handleDeleteUrl} onGroupSelection = {handleGroupSelection} />
       <div className="uploadBtn">
         <button className="btn btnPrev btnFile" variant="outlined" sx={{ marginRight: 2 }} onClick={handleCancel} > Cancel </button>
       </div>
