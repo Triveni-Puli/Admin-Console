@@ -38,13 +38,13 @@ const DocumentUpload = () => {
   function handleDeleteFile(item) {
     axios.post("https://le73rkx5apfix2323bbw3gd5te0dcvkb.lambda-url.ap-south-1.on.aws/delete_file", {
       "collection_name": collectionName,
-      "file_name": item.id
+      "file_name": item
     }, {
       headers: {
         "Content-Type": "text/plain",
       },
     }).then(response => {
-      setDocList(docList.filter((row) => row.file_name !== item.id));
+      setDocList(docList.filter((row) => row.file_name !== item));
       console.log("response", response.data);
       // setUrlList(response.data);
     }).catch(err => {

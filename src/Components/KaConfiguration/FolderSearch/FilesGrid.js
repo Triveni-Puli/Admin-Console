@@ -12,7 +12,7 @@ import { createSvgIcon } from "@mui/material/utils";
 import documentIcon from "../../../assets/documentIcon.svg"
 
 function EditToolbar(props) {
-    const { setRows, setRowModesModel } = props;
+    // const { setRows, setRowModesModel } = props;
     return <GridToolbarContainer></GridToolbarContainer>;
 }
 
@@ -20,15 +20,11 @@ export default function FilesGrid(props) {
     const dataRows = props.rows;
     // const gridGetRowId = (row) => row.file_name;
     // const gridGetRowId = props.getRowId || defaultGetRowId;
-    const [rows, setRows] = useState(dataRows);
+    // const [rows, setRows] = useState(dataRows);
     const [rowModesModel, setRowModesModel] = useState({});
-
+    const [rowSelectionModel, setRowSelectionModel] = React.useState([]);
     /* Checkbox Selection  to delete the records */
-    /* const [selectedRowIds,setSelectedRowIds]=useState([]);*/
-
-    // const handleSelectionChange = (selection) => {
-    //   props.onSelectionModelChange(selection);
-    // };
+     const [selectedRowIds,setSelectedRowIds]=useState([]);
 
     const handleRowEditStop = (params, event) => {
         if (params.reason === GridRowEditStopReasons.rowFocusOut) {
@@ -36,16 +32,12 @@ export default function FilesGrid(props) {
         }
     };
 
-    // const handleEditClick = (id) => () => {
-    //   setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
-    // };
-
-    /*   const handleDeleteClick = (id) => () => {
-      setRows(rows.filter((row) => row.id !== id));
-    }; */
-
     const handleDeleteClick = async (item) => {
-        props.onDelete(item);
+        props.onDelete(item.id);
+    };
+
+    const handleGroupSelection = async (items) => {
+        props.onGroupSelection(items);
     };
 
     const processRowUpdate = (newRow) => {
@@ -55,7 +47,6 @@ export default function FilesGrid(props) {
     };
 
     const handleRowModesModelChange = (newRowModesModel) => {
-        console.log(newRowModesModel);
         setRowModesModel(newRowModesModel);
     };
 
@@ -181,26 +172,17 @@ export default function FilesGrid(props) {
                 sx={{
                     borderRadius: "20px",
                 }}
-                // getRowId={(row) => row.collection_name}
                 getRowId={(row) => row.file_name ? row.file_name : row.url}
                 rows={dataRows}
                 columns={columns}
                 rowsPerPageOptions={[]}
                 hideFooterPagination
-                // editMode="row"
-                // rowModesModel={rowModesModel}
-                // onRowModesModelChange={handleRowModesModelChange}
-                // onRowEditStop={handleRowEditStop}
-                // processRowUpdate={processRowUpdate}
-                // slots={{
-                //   toolbar: EditToolbar,
-                // }}
-                // slotProps={{
-                // //   toolbar: { setRows, setRowModesModel },
-                // // }}
+                onRowSelectionModelChange={(newRowSelectionModel) => {
+                    handleGroupSelection(newRowSelectionModel);
+                    setRowSelectionModel(newRowSelectionModel);
+                  }}
+                  rowSelectionModel={rowSelectionModel}
                 checkboxSelection
-            // selectionModel={selectedRowIds}
-            //onSelectionModelChange={(itm) => console.log(itm)}
             />
         </Box>
     );
